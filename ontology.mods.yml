@@ -1,0 +1,89 @@
+---
+version: "0.0.3"
+namespace: "mods"
+author: "CMCL Innovations"
+
+ontology:
+
+  ################ RELATIONSHIPS  ################
+  hasPart:
+    default_rel: true
+    description: "default relationship"
+    inverse: mods.isPartOf
+    subclass_of:
+      - cuba.activeRelationship
+
+  isPartOf:
+    description: "inverse of the default relationship"
+    inverse: mods.hasPart
+    subclass_of:
+      - cuba.passiveRelationship
+
+################ MAIN ENTITIES ################
+#================================================#
+  Simulation:
+    subclass_of:
+    - cuba.entity
+    - mods.hasPart:
+        cardinality: 1
+        range: mods.Settings
+    - mods.hasPart:
+        cardinality: 1
+        range: mods.InputData
+
+  MultiObjectiveSimulation:
+    subclass_of:
+    - mods.Simulation
+    - mods.hasPart:
+        cardinality: 1
+        range: mods.ParetoFront
+
+  Settings:
+    subclass_of:
+    - cuba.entity
+    - mods.hasPart:
+        range: mods.SettingItem
+
+  InputData:
+    subclass_of:
+    - mods.DataSet
+
+  DataSet:
+    subclass_of:
+    - cuba.entity
+    - mods.hasPart:
+        cardinality: some
+        range: mods.DataPoint
+
+  ParetoFront:
+    subclass_of:
+    - mods.DataSet
+
+  DataPoint:
+    subclass_of:
+    - cuba.entity
+    - mods.hasPart:
+        cardinality: some
+        range: mods.DataPointItem
+
+  DataPointItem:
+    subclass_of:
+    - cuba.entity
+    attributes:
+      mods.name:
+      mods.value:
+
+  SettingItem:
+    subclass_of:
+    - cuba.entity
+    attributes:
+      mods.name:
+      mods.value:
+
+  value:
+    subclass_of:
+    - cuba.attribute
+
+  name:
+    subclass_of:
+    - cuba.attribute

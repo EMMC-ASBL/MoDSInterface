@@ -1,0 +1,66 @@
+version: "3.7"
+
+services:
+  wrapper_agent:
+    build:
+      context: .
+      args:
+        MODS_AGENT_BASE_URL: $MODS_AGENT_BASE_URL
+    profiles: ["development", "production"]
+    image: cmcl/sim_cmcl_mods_wrapper:$SIM_CMCL_MODS_WRAPPER_VERSION
+    cap_drop:
+      - ALL
+    container_name: sim_cmcl_mods_wrapper
+    ports:
+      - 5001:5000
+
+  mods_mock_agent_analyze:
+    build:
+      context: ./mods_mock_agent
+      target: analyze
+    profiles: ["analyze"]
+    image: cmcl/mods_mock_agent_analyze:$MODS_MOCK_AGENT_VERSION
+    cap_drop:
+      - ALL
+    container_name: mods_mock_agent_analyze
+
+  mods_mock_agent_debug:
+    build:
+      context: ./mods_mock_agent
+      target: debug
+    profiles: ["debug"]
+    image: cmcl/mods_mock_agent_debug:$MODS_MOCK_AGENT_VERSION
+    cap_drop:
+      - ALL
+    container_name: mods_mock_agent_debug
+    ports:
+      - 5000:5000
+      - 5678:5678
+    volumes:
+      - ./mods_mock_agent/api:/app
+
+  mods_mock_agent_development:
+    build:
+      context: ./mods_mock_agent
+      target: development
+    profiles: ["development"]
+    image: cmcl/mods_mock_agent_development:$MODS_MOCK_AGENT_VERSION
+    cap_drop:
+      - ALL
+    container_name: mods_mock_agent_development
+    ports:
+      - 5000:5000
+    volumes:
+      - ./mods_mock_agent/api:/app
+
+  mods_mock_agent_production:
+    build:
+      context: ./mods_mock_agent
+      target: production
+    profiles: ["production"]
+    image: cmcl/mods_mock_agent_production:$MODS_MOCK_AGENT_VERSION
+    cap_drop:
+      - ALL
+    container_name: mods_mock_agent_production
+    ports:
+      - 5000:5000
