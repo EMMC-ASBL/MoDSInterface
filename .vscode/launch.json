@@ -14,6 +14,15 @@
             "envFile": "${workspaceFolder}/.env",
         },
         {
+            "name": "MoDS-MOO-Analytic example",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/examples/moo_analytic.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+        },
+        {
             "name": "Python: Remote Attach",
             "type": "python",
             "request": "attach",
