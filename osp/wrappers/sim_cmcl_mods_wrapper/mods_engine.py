@@ -1,23 +1,25 @@
 from osp.core.cuds import Cuds
 from osp.core.namespaces import mods
 import osp.core.utils.simple_search as search
-import osp.wrappers.sim_cmcl_mods_wrapper.agent_cases as ac
 from osp.wrappers.sim_cmcl_mods_wrapper.cuds_adaptor import CUDS_Adaptor
 import osp.wrappers.sim_cmcl_mods_wrapper.engine_exceptions as enexc
+import osp.wrappers.sim_cmcl_mods_wrapper.engine_sim_templates as engtempl
 import logging
 from typing import Dict
+from enum import Enum
 
 logger = logging.getLogger(__name__)
 
-
 class MoDS_Engine:
     """Engine handling data objects for the MoDS use cases."""
+
+    # current template
+    simulation_template = engtempl.Engine_Template.MOO
 
     name = "MoDS Engine"
 
     def __init__(self):
         """Initialise a new SimulationEngine instance."""
-        self.simulation_template = ac.MOO
         logger.info(f"New '{self.__class__.__name__ }' instantiated!")
 
     def __str__(self):
@@ -36,12 +38,12 @@ class MoDS_Engine:
         )  # type: ignore
 
         if moo_class:
-            self.simulation_template = ac.MOO
+            self.simulation_template = engtempl.Engine_Template.MOO
         else:
             raise enexc.UnsupportedSimulationType
 
         logger.info(
-            f"Detected simulation template as {self.simulation_template.template}"
+            f"Detected simulation template as {self.simulation_template.name}"
         )
 
     def generateJSON(self, root_cuds_object: Cuds) -> str:
