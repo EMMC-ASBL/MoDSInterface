@@ -4,9 +4,13 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as readme:
     README_TEXT = readme.read()
 
+ENV_VARS = {}
 with open(".env", "r") as fenv:
-    lines = fenv.readlines()
-    VERSION = lines[1].strip().split("=")[1]
+    for line in fenv:
+        key, val = line.strip().split("=")
+        ENV_VARS[key] = val
+
+VERSION = ENV_VARS["SIM_CMCL_MODS_WRAPPER_VERSION"]
 
 # main setup configuration class
 setup(
