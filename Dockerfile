@@ -21,10 +21,10 @@ RUN git clone https://github.com/simphony/osp-core.git temp && \
     cd .. && \
     rm -rf temp
 
-WORKDIR /simphony/app4-mods-wrapper
+WORKDIR /simphony/mods-wrapper
 COPY ./LICENSE.md .
 COPY ./cmcl_logo.png .
-COPY ./ontology.app4_simple.yml .
+COPY ./ontology.mods.yml .
 COPY ./osp ./osp
 COPY ./setup.py .
 COPY ./examples ./examples
@@ -37,4 +37,4 @@ ENV MODS_AGENT_BASE_URL $MODS_AGENT_BASE_URL
 
 RUN python -m pip install .
 RUN python -m pip install -r tests/test_requirements.txt
-RUN pico install ontology.app4_simple.yml
+RUN pico install ontology.mods.yml
