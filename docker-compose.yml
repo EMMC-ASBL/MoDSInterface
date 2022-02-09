@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        MODS_AGENT_BASE_URL: $MODS_AGENT_BASE_URL
+        MODS_AGENT_BASE_URL: $MODS_AGENT_BASE_URL_DOCKER
     profiles: ["development", "production"]
     image: cmcl/sim_cmcl_mods_wrapper:$SIM_CMCL_MODS_WRAPPER_VERSION
     cap_drop:
