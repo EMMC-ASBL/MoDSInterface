@@ -19,22 +19,16 @@ def runSimulation():
     query = json.loads(request.args["query"])
     inputs = query["Inputs"]
 
-    try:
-        inputs_num = len(inputs[0]["values"])
-    except LookupError:
-        logger.error("Incorrect simulation inputs.")
-        return "Incorrect simulation inputs.", 400
-
     outputs = {}
     outputs["Outputs"] = []
     outputs["Outputs"].extend(
         [
-            {"name": inputs[0]["name"], "values": [2]*inputs_num},
-            {"name": inputs[1]["name"], "values": [1]*inputs_num},
-            {"name": inputs[2]["name"], "values": [5]*inputs_num},
-            {"name": inputs[3]["name"], "values": [7]*inputs_num},
-            {"name": inputs[4]["name"], "values": [1]*inputs_num},
-            {"name": inputs[5]["name"], "values": [0.1]*inputs_num},
+            {"name": inputs[0]["name"], "values": [2]*10},
+            {"name": inputs[1]["name"], "values": [1]*10},
+            {"name": inputs[2]["name"], "values": [5]*10},
+            {"name": inputs[3]["name"], "values": [7]*10},
+            {"name": inputs[4]["name"], "values": [1]*10},
+            {"name": inputs[5]["name"], "values": [0.1]*10}
         ]
     )
     jobId = str(uuid.uuid4())
@@ -52,6 +46,6 @@ def getOutputs():
     try:
         outputs = JOB_INPUTS[jobId]
     except LookupError:
-        logger.error("Incorrect simulation inputs.")
+        logger.error("Incorrect jobId.")
         return outputs, 400
     return outputs, 200

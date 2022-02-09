@@ -63,7 +63,7 @@ def test_moo():
         )
 
         assert pareto_front is not None
-        assert len(pareto_front[0].get(oclass=mods.DataPoint)) == 5
+        assert len(pareto_front[0].get(oclass=mods.DataPoint)) == 10
 
 def test_moo_analytic():
     logger.info("################  Start: MoDS MOO Analytic Example ################")
@@ -140,4 +140,4 @@ def test_moo_analytic():
         )
 
         assert pareto_front is not None
-        assert len(pareto_front[0].get(oclass=mods.DataPoint)) == 7
+        assert len(pareto_front[0].get(oclass=mods.DataPoint)) == 10
