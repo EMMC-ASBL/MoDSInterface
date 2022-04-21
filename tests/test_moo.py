@@ -17,14 +17,17 @@ def test_moo():
     logger.info("Setting up the simulation inputs")
 
     moo_simulation = mods.MultiObjectiveSimulation()
-    moo_settings = mods.Settings()
-    moo_settings.add(
-        mods.SettingItem(name="algorithmType", value="algorithm1"),
-        mods.SettingItem(name="moo_maximize_var", value="var4"),
-        mods.SettingItem(name="moo_maximize_var", value="var6"),
-        mods.SettingItem(name="moo_minimize_var", value="var5"),
+    moo_algorithm = mods.Algorithm(name="MOO", type="algorithm1")
+    moo_algorithm.add(
+        mods.Variable(name="var1", type="input", objective="None"),
+        mods.Variable(name="var2", type="input", objective="None"),
+        mods.Variable(name="var3", type="input", objective="None"),
+        mods.Variable(name="var4", type="output", objective="maximise"),
+        mods.Variable(name="var5", type="output", objective="minimise"),
+        mods.Variable(name="var6", type="output", objective="maximise"),
     )
-    moo_simulation.add(moo_settings)
+
+    moo_simulation.add(moo_algorithm)
 
     example_data = [
         ["var1", "var2", "var3", "var4", "var5", "var6"],
@@ -70,14 +73,17 @@ def test_moo_analytic():
     logger.info("Setting up the simulation inputs")
 
     moo_simulation = mods.MultiObjectiveSimulation()
-    moo_settings = mods.Settings()
-    moo_settings.add(
-        mods.SettingItem(name="algorithmType", value="algorithm1"),
-        mods.SettingItem(name="moo_maximize_var", value="var4"),
-        mods.SettingItem(name="moo_maximize_var", value="var6"),
-        mods.SettingItem(name="moo_minimize_var", value="var5"),
+    moo_algorithm = mods.Algorithm(name="MOO", type="algorithm1")
+    moo_algorithm.add(
+        mods.Variable(name="var1", type="input", objective="None"),
+        mods.Variable(name="var2", type="input", objective="None"),
+        mods.Variable(name="var3", type="input", objective="None"),
+        mods.Variable(name="var4", type="output", objective="maximise"),
+        mods.Variable(name="var5", type="output", objective="minimise"),
+        mods.Variable(name="var6", type="output", objective="maximise"),
     )
-    moo_simulation.add(moo_settings)
+
+    moo_simulation.add(moo_algorithm)
 
 
     # Add numerical input data
