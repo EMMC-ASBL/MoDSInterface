@@ -33,25 +33,34 @@ class CUDS_Adaptor:
 
         jsonData = defaultdict(list)
 
-        CUDS_Adaptor.algorithmsCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+        # atm only MOO simulation template is supported, so the check
+        # below, together with the template concept is not really needed.
+        # However, once things get complicated, e.g. more MoDS backend
+        # features will be supported, the template variable might be useful
+        # for picking predefined CUDStoJSON and JSONtoCUDS translation
+        # functions.
+        if simulation_template == engtempl.Engine_Template.MOO:
+            logger.info("Registering inputs")
 
-        CUDS_Adaptor.inputDataCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+            CUDS_Adaptor.algorithmsCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
 
-        CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+            CUDS_Adaptor.inputDataCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
 
-        CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+            CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
+
+            CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
 
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
