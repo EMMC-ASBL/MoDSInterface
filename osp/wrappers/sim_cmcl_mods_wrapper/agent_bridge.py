@@ -19,9 +19,6 @@ class Agent_Bridge:
     # Maximum number of requests when waiting for jobs to finish
     MAX_ATTEMPTS: int = 60
 
-    # Base URL for HTTP requests
-    BASE_URL: str = f"{os.environ['MODS_AGENT_BASE_URL']}/"
-
     # Additional URL part for job submission
     SUBMISSION_URL_PART: str = "request?query="
 
@@ -30,6 +27,11 @@ class Agent_Bridge:
 
     # ID of generated job
     jobID: Optional[str] = None
+
+
+    @property
+    def base_url(self) -> str:
+        return f"{os.environ['MODS_AGENT_BASE_URL']}/"
 
     def runJob(self, jsonString: str)->Optional[Dict]:
         """Runs a complete MoDS simulation on a remote machine via use of HTTP requests.
@@ -143,7 +145,7 @@ class Agent_Bridge:
         Returns:
             Full job submission URL
         """
-        url = self.BASE_URL + self.SUBMISSION_URL_PART
+        url = self.base_url + self.SUBMISSION_URL_PART
         url += self.encodeURL(jsonString)
         return url
 
@@ -157,7 +159,7 @@ class Agent_Bridge:
         Returns:
             Full output request URL
         """
-        url = self.BASE_URL + self.OUTPUT_URL_PART
+        url = self.base_url + self.OUTPUT_URL_PART
 
         # Build JSON from job ID
         jsonString = "{\"jobId\":\"" + str(self.jobID) + "\"}"
