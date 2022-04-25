@@ -26,7 +26,7 @@ ontology:
     - cuba.entity
     - mods.hasPart:
         cardinality: 1
-        range: mods.Settings
+        range: mods.Algorithm
     - mods.hasPart:
         cardinality: 1
         range: mods.InputData
@@ -41,11 +41,15 @@ ontology:
         cardinality: 1
         range: mods.ParetoFront
 
-  Settings:
+  Algorithm:
     subclass_of:
     - cuba.entity
     - mods.hasPart:
-        range: mods.SettingItem
+        cardinality: some
+        range: mods.Variable
+    attributes:
+      mods.name:
+      mods.type:
 
   InputData:
     subclass_of:
@@ -83,19 +87,20 @@ ontology:
       mods.name:
       mods.value:
 
-  SettingItem:
-    subclass_of:
-    - cuba.entity
-    attributes:
-      mods.name:
-      mods.value:
-
   Function:
     subclass_of:
     - cuba.entity
     attributes:
       mods.name:
       mods.formula:
+
+  Variable:
+    subclass_of:
+    - cuba.entity
+    attributes:
+      mods.name:
+      mods.type:
+      mods.objective:
 
   formula:
     subclass_of:
@@ -107,6 +112,16 @@ ontology:
     - cuba.attribute
 
   name:
+    subclass_of:
+    - cuba.attribute
+    datatype: STRING
+
+  type:
+    subclass_of:
+    - cuba.attribute
+    datatype: STRING
+
+  objective:
     subclass_of:
     - cuba.attribute
     datatype: STRING

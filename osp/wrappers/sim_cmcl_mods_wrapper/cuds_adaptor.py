@@ -5,6 +5,7 @@ from osp.core.cuds import Cuds
 from osp.core.namespaces import mods, cuba
 import json
 import logging
+from collections import defaultdict
 from typing import Dict
 from enum import Enum
 
@@ -12,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 INPUTS_KEY = "Inputs"
 OUTPUTS_KEY = "Outputs"
-SETTINGS_KEY = "Settings"
+ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
 
 class CUDS_Adaptor:
@@ -28,99 +29,117 @@ class CUDS_Adaptor:
         # that this translation will need updating too. The translation is defined
         # in the agent_cases module.
 
-        jsonData = {}
-        jsonData[SIM_TYPE_KEY] = simulation_template.name
-        jsonData[SETTINGS_KEY] = []
-        jsonData[INPUTS_KEY] = []
+        jsonData = defaultdict(list)
 
+        CUDS_Adaptor.algorithmsCUDStoJSON(
+            root_cuds_object=root_cuds_object,
+            jsonData = jsonData,
+        )
 
-        settings: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.Settings, root_cuds_object, rel=None
-        )  # type: ignore
+        CUDS_Adaptor.inputDataCUDStoJSON(
+            root_cuds_object=root_cuds_object,
+            jsonData = jsonData,
+        )
 
-        dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.DataPoint, root_cuds_object, rel=None
-        )  # type: ignore
+        CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
+            root_cuds_object=root_cuds_object,
+            jsonData = jsonData,
+        )
 
-        analyticModels: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.AnalyticModel, root_cuds_object, rel=None
-        )  # type: ignore
-
-        logger.info("Registering simulation settings.")
-        if settings:
-            CUDS_Adaptor.inputCUDStoJSON(
-                jsonData = jsonData[SETTINGS_KEY],
-                semEntity = mods.SettingItem,
-                dataPoints = settings,
-                semIdentifier ='name',
-                semAttrToSynMap = [{'semName': 'name', 'synName': 'name', 'synType': str},
-                {'semName': 'value', 'synName': 'values', 'synType': list}])
-            logger.info("All settings successfully registered.")
-        else:
-            logger.info("Simulation settings not found.")
-
-        logger.info("Registering data inputs.")
-        if dataPoints:
-            # Find and register all input quantities (input)
-            CUDS_Adaptor.inputCUDStoJSON(
-                jsonData = jsonData[INPUTS_KEY],
-                semEntity = mods.DataPointItem,
-                dataPoints = dataPoints,
-                semIdentifier ='name',
-                semAttrToSynMap = [{'semName': 'name', 'synName': 'name', 'synType': str},
-                {'semName': 'value', 'synName': 'values', 'synType': list}])
-
-            logger.info("All inputs successfully registered.")
-        else:
-            logger.info("Simulation inputs not found.")
-
-        logger.info("Registering analytic model inputs.")
-        if analyticModels:
-            CUDS_Adaptor.inputCUDStoJSON(
-                jsonData = jsonData[INPUTS_KEY],
-                semEntity = mods.Function,
-                dataPoints = analyticModels,
-                semIdentifier ='name',
-                semAttrToSynMap = [{'semName': 'name', 'synName': 'name', 'synType': str},
-                {'semName': 'formula', 'synName': 'formula', 'synType': str}])
-            logger.info("All analytic models successfully registered.")
-        else:
-            logger.info("Simulation analytic model inputs not found.")
+        CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
+            root_cuds_object=root_cuds_object,
+            jsonData = jsonData,
+        )
 
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
 
     @staticmethod
-    def inputCUDStoJSON(jsonData, semEntity, dataPoints, semIdentifier, semAttrToSynMap):
-        inputs_ = {}
+    def algorithmsCUDStoJSON(root_cuds_object, jsonData):
+        algorithms: List[Cuds] = search.find_cuds_objects_by_oclass(
+         mods.Algorithm, root_cuds_object, rel=None
+        )  # type: ignore
+
+        logger.info("Registering simulation algorithms.")
+        if not algorithms:
+            raise ValueError(
+                (
+                    "Missing Algorithm specification. "
+                    "At least one Algorithm CUDS must be defined."
+                )
+            )
+
+        for algorithm in algorithms:
+            json_item = defaultdict(list)
+            json_item['name'] = algorithm.name
+            json_item['type'] = algorithm.type
+            json_item['variables'] = []
+
+            variables = algorithm.get(oclass=mods.Variable)
+            if not variables:
+                raise ValueError(
+                    (
+                        "Missing algorithm Variable specification. "
+                        "At least one Variable CUDS must be defined for each algorithm."
+                    )
+                )
+
+            for var_item in variables: # type:ignore
+                variables = {}
+                variables["name"] = var_item.name
+                variables["type"] = var_item.type
+                variables["objective"] = var_item.objective
+                json_item['variables'].append(variables)
+
+            jsonData[ALGORITHMS_KEY].append(json_item)
+
+
+    @staticmethod
+    def inputDataCUDStoJSON(root_cuds_object, jsonData):
+        dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
+         mods.DataPoint, root_cuds_object, rel=None
+        )  # type: ignore
+
+        logger.info("Registering simulation data points.")
+        if not dataPoints:
+            raise ValueError(
+                (
+                    "Missing DataPoint specification. "
+                    "At least one DataPoint CUDS must be defined."
+                )
+            )
+
+        json_items = defaultdict(list)
         for datum in dataPoints:
-            datum_items = datum.get(oclass=semEntity)
-            if not datum_items: return
+            datum_items = datum.get(oclass=mods.DataPointItem)
+            if not datum_items:
+                raise ValueError(
+                    (
+                        "Missing DataPointItem specification. "
+                        "At least one DataPointItem CUDS must be "
+                        "defined for each DataPoint."
+                    )
+                )
 
-            for item in datum_items:
-                item_id = getattr(item, semIdentifier)
-                if item_id not in inputs_:
-                    inputs_[item_id] = {}
-                    for sem_syn in semAttrToSynMap:
-                        semName = sem_syn['semName']
-                        synName = sem_syn['synName']
-                        synType = sem_syn['synType']
+            for dat_item in datum_items: # type: ignore
+                json_items[dat_item.name].append(dat_item.value)
 
-                        semValue = getattr(item, semName)
-                        inputs_[item_id][synName] = [semValue] if synType is list else semValue
-                else:
-                    for sem_syn in semAttrToSynMap:
-                        semName = sem_syn['semName']
-                        synName = sem_syn['synName']
-                        synType = sem_syn['synType']
+        for name, values in json_items.items():
+            jsonData[INPUTS_KEY].append({'name':name, 'values': values})
 
-                        semValue = getattr(item, semName)
-                        if synType is list:
-                            input_values_ = inputs_[item_id][synName]
-                            input_values_.append(semValue)
-                            inputs_[item_id][synName] = input_values_
+    @staticmethod
+    def inputAnalyticModelCUDStoJSON(root_cuds_object, jsonData):
+        analyticModels: List[Cuds] = search.find_cuds_objects_by_oclass(
+         mods.AnalyticModel, root_cuds_object, rel=None
+        )  # type: ignore
 
-        jsonData.extend(inputs_.values())
+        logger.info("Registering simulation analytic models.")
+        for model in analyticModels:
+            model_funcs = model.get(oclass=mods.Function)
+            if not model_funcs: return
+
+            for func_item in model_funcs: # type: ignore
+                jsonData[INPUTS_KEY].append({'name': func_item.name, 'formula': func_item.formula})
 
     @staticmethod
     def toCUDS(
