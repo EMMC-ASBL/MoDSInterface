@@ -50,6 +50,7 @@ ontology:
     attributes:
       mods.name:
       mods.type:
+      mods.maxNumberOfResults:
 
   InputData:
     subclass_of:
@@ -100,7 +101,10 @@ ontology:
     attributes:
       mods.name:
       mods.type:
-      mods.objective:
+      mods.objective: None
+      mods.minimum: None
+      mods.maximum: None
+      mods.weight: None
 
   formula:
     subclass_of:
@@ -125,3 +129,23 @@ ontology:
     subclass_of:
     - cuba.attribute
     datatype: STRING
+
+  minimum:
+    subclass_of:
+    - cuba.attribute
+    datatype: STRING
+
+  maximum:
+    subclass_of:
+    - cuba.attribute
+    datatype: STRING
+
+  weight:
+    subclass_of:
+    - cuba.attribute
+    datatype: STRING
+
+  maxNumberOfResults:
+    subclass_of:
+    - cuba.attribute
+    datatype: INT
