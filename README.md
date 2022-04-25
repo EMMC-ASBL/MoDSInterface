@@ -54,12 +54,6 @@ A convenience `run_container.sh` script has been provided to easily run the MoDS
    python examples/app4.py
 ```
 
-The wrapper tests can be run as follows:
-
-```bash
-   pytest
-```
-
 # Usage - local
 
 ## Enabling mock MoDS agent
@@ -107,11 +101,13 @@ Once everything is installed and the MoDS web agent is configured, run the follo
    python examples/moo.py
 ```
 
-Provided the optional wrapper test requirements were installed, the wrapper tests can be run as follows:
+# Testing
+
+Testing is done using python's `pytest` module. The following command would, spin a local mods mock agent and run all the tests:
 
 ```bash
-   pytest
+    pytest tests
 ```
 
-## Contact
+# Contact
 For questions, issues, or suggestions, please contact danieln@cmclinnovations.com and gbrownbridge@cmclinnovations.com
