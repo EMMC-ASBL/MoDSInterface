@@ -3,6 +3,7 @@ import subprocess
 import signal
 import os
 import pytest
+from osp.core.namespaces import mods
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENT_TEST_HOST="127.0.0.1"
@@ -77,3 +78,109 @@ def mods_mock_agent():
         subprocess.call(['taskkill', '/F', '/T', '/PID', str(agent_proc.pid)])
     else:
         os.killpg(os.getpgid(agent_proc.pid), signal.SIGTERM)
+
+@pytest.fixture()
+def moo_data():
+    moo_simulation = mods.MultiObjectiveSimulation()
+    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults= 10)
+    moo_algorithm.add(
+        mods.Variable(name="var1", type="input"),
+        mods.Variable(name="var2", type="input"),
+        mods.Variable(name="var3", type="input"),
+        mods.Variable(name="var4", type="output", objective="Maximise", minimum="0.5", weight="0.5"),
+        mods.Variable(name="var5", type="output", objective="Minimise", maximum="1.5", weight="0.1"),
+        mods.Variable(name="var6", type="output", objective="Maximise", minimum="2.5", weight="0.7"),
+    )
+
+    moo_simulation.add(moo_algorithm)
+
+    example_data = [
+        ["var1", "var2", "var3", "var4", "var5", "var6"],
+        [0.1, 0.4, 0.5, 0.1, 1.2, 2.5],
+        [0.3, 0.9, 0.1, 0.9, 2.0, 3.0],
+        [0.6, 0.0, 0.2, 0.1, 1.0, 1.2],
+        [0.1, 0.1, 0.3, 0.7, 1.6, 2.1],
+        [0.2, 0.8, 0.5, 0.1, 1.7, 4.0],
+    ]
+
+    example_data_header = example_data[0]
+    example_data_values = example_data[1:]
+
+    input_data = mods.InputData()
+
+    for row in example_data_values:
+        data_point = mods.DataPoint()
+        for header, value in zip(example_data_header, row):
+            data_point.add(
+                mods.DataPointItem(name=header, value=value),
+                rel=mods.hasPart,
+            )
+        input_data.add(data_point, rel=mods.hasPart)
+
+    moo_simulation.add(input_data)
+    return moo_simulation
+
+@pytest.fixture()
+def moo_analytic_data():
+    moo_simulation = mods.MultiObjectiveSimulation()
+    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults= 10)
+    moo_algorithm.add(
+        mods.Variable(name="var1", type="input"),
+        mods.Variable(name="var2", type="input"),
+        mods.Variable(name="var3", type="input"),
+        mods.Variable(name="var4", type="output", objective="Maximise", minimum="0.5", weight="0.5"),
+        mods.Variable(name="var5", type="output", objective="Minimise", maximum="1.5", weight="0.1"),
+        mods.Variable(name="var6", type="output", objective="Maximise", minimum="2.5", weight="0.7"),
+    )
+
+    moo_simulation.add(moo_algorithm)
+
+
+    # Add numerical input data
+    # -------------------------------
+    example_data = [
+        ["var1", "var2", "var3"],
+        [0.1, 0.4, 0.5],
+        [0.3, 0.9, 0.1],
+        [0.6, 0.0, 0.2],
+        [0.1, 0.1, 0.3],
+        [0.2, 0.8, 0.5],
+        [0.2, 0.8, 0.5],
+        [0.2, 0.8, 0.5],
+    ]
+
+    example_data_header = example_data[0]
+    example_data_values = example_data[1:]
+
+    input_data = mods.InputData()
+
+    for row in example_data_values:
+        data_point = mods.DataPoint()
+        for header, value in zip(example_data_header, row):
+            data_point.add(
+                mods.DataPointItem(name=header, value=value),
+                rel=mods.hasPart,
+            )
+        input_data.add(data_point, rel=mods.hasPart)
+
+    moo_simulation.add(input_data)
+    # -------------------------------
+
+    # Add analytical model
+    # -------------------------------
+    example_functions = {
+            "var4": "var1 * var2",
+            "var5": "var1 + var3",
+            "var6": "exp(var1)-var2/2.0",
+        }
+
+    analytic_model = mods.AnalyticModel()
+
+    for key, value in example_functions.items():
+        analytic_model.add(
+            mods.Function(name=key, formula=value),
+            rel=mods.hasPart
+        )
+
+    moo_simulation.add(analytic_model)
+    return moo_simulation
