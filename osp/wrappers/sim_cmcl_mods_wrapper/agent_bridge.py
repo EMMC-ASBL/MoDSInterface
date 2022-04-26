@@ -101,7 +101,7 @@ class Agent_Bridge:
         returnedJSON = json.loads(returnedRaw)
 
         # Get the generated job ID from the JSON
-        self.jobID = returnedJSON["jobId"]
+        self.jobID = returnedJSON["jobID"]
         logger.info(f"Job submitted successfully, resulting job ID is {self.jobID}")
         return True
 
@@ -162,7 +162,7 @@ class Agent_Bridge:
         url = self.base_url + self.OUTPUT_URL_PART
 
         # Build JSON from job ID
-        jsonString = "{\"jobId\":\"" + str(self.jobID) + "\"}"
+        jsonString = "{\"jobID\":\"" + str(self.jobID) + "\"}"
 
         url += self.encodeURL(jsonString)
         return url
