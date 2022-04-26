@@ -30,13 +30,6 @@ The created images contain the mock MoDS web agent and MoDS wrapper applications
 
 Please follow these steps to install the wrapper on your machine:
 
-1. Install `SimPhoNy` (for details, see [https://simphony.readthedocs.io/en/latest/installation.html](https://simphony.readthedocs.io/en/latest/installation.html))
-```bash
-    # install the osp-core v3.6.0
-    python -m pip install git+https://github.com/simphony/osp-core.git@v3.6.0
-```
-
-2. Install `sim_cmcl_mods_wrapper`
 ```bash
     # install the wrapper
     python -m pip install .
