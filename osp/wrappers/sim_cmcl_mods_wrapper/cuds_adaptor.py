@@ -42,6 +42,8 @@ class CUDS_Adaptor:
         if simulation_template == engtempl.Engine_Template.MOO:
             logger.info("Registering inputs")
 
+            jsonData[SIM_TYPE_KEY] = simulation_template.name
+
             CUDS_Adaptor.algorithmsCUDStoJSON(
                 root_cuds_object=root_cuds_object,
                 jsonData = jsonData,
