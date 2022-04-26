@@ -14,13 +14,6 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /simphony/osp-core
 
-RUN git clone https://github.com/simphony/osp-core.git temp && \
-    cd temp/ && \
-    git checkout v3.6.0 && \
-    python -m pip install . && \
-    cd .. && \
-    rm -rf temp
-
 WORKDIR /simphony/mods-wrapper
 COPY ./LICENSE.md .
 COPY ./cmcl_logo.png .
