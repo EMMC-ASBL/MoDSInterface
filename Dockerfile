@@ -1,8 +1,6 @@
 FROM python:3.8-slim-buster
 
-RUN apt-get update && \
-    apt-get upgrade && \
-    apt-get install -y git bash
+RUN apt-get install -y bash
 
 RUN python3.8 -m pip install --upgrade pip
 
