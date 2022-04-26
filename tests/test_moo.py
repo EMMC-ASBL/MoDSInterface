@@ -2,7 +2,6 @@ import logging
 from osp.core.namespaces import mods, cuba
 import osp.core.utils.simple_search as search
 import osp.wrappers.sim_cmcl_mods_wrapper.mods_session as ms
-import osp.wrappers.sim_cmcl_mods_wrapper.cuds_adaptor as cuds_adaptor
 
 # This examples aims to run the MOO MoDS case by hard-coding
 # the input CUDS objects and passing them to the MoDS_Session class

@@ -1,0 +1,107 @@
+{
+    "SimulationType": "MOO",
+    "Algorithms": [
+        {
+            "name": "algorithm1",
+            "type": "MOO",
+            "maxNumberOfResults": 10,
+            "variables": [
+                {
+                    "name": "var1",
+                    "type": "input"
+                },
+                {
+                    "name": "var2",
+                    "type": "input"
+                },
+                {
+                    "name": "var3",
+                    "type": "input"
+                },
+                {
+                    "name": "var4",
+                    "type": "output",
+                    "objective": "Maximise",
+                    "minimum": "0.5",
+                    "weight": "0.5"
+                },
+                {
+                    "name": "var5",
+                    "type": "output",
+                    "objective": "Minimise",
+                    "maximum": "1.5",
+                    "weight": "0.1"
+                },
+                {
+                    "name": "var6",
+                    "type": "output",
+                    "objective": "Maximise",
+                    "minimum": "2.5",
+                    "weight": "0.7"
+                }
+            ]
+        }
+    ],
+    "Inputs": [
+        {
+            "name": "var1",
+            "values": [
+                "0.1",
+                "0.3",
+                "0.6",
+                "0.1",
+                "0.2",
+                "0.2",
+                "0.2"
+            ]
+        },
+        {
+            "name": "var2",
+            "values": [
+                "0.4",
+                "0.9",
+                "0.0",
+                "0.1",
+                "0.8",
+                "0.8",
+                "0.8"
+            ]
+        },
+        {
+            "name": "var3",
+            "values": [
+                "0.5",
+                "0.1",
+                "0.2",
+                "0.3",
+                "0.5",
+                "0.5",
+                "0.5"
+            ]
+        },
+        {
+            "name": "var4",
+            "formula": "var1 * var2"
+        },
+        {
+            "name": "var5",
+            "formula": "var1 + var3"
+        },
+        {
+            "name": "var6",
+            "formula": "exp(var1)-var2/2.0"
+        },
+        {
+            "name": "var4",
+            "formula": "var1 * var2"
+        },
+        {
+            "name": "var5",
+            "formula": "var1 + var3"
+        },
+        {
+            "name": "var6",
+            "formula": "exp(var1)-var2/2.0"
+        }
+    ]
+}
