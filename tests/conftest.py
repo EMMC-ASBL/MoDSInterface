@@ -59,7 +59,7 @@ def mods_mock_agent():
         port])
 
     agent_proc_args = ' '.join(agent_proc_args)
-    cwd = os.path.abspath(os.path.join(THIS_DIR, "..", "mods_mock_agent", "api"))
+    cwd = os.path.abspath(os.path.join(THIS_DIR, "mods_mock_agent", "api"))
     agent_proc = subprocess.Popen(
         args = agent_proc_args,
         stdout=subprocess.PIPE,

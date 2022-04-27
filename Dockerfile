@@ -20,7 +20,6 @@ COPY ./osp ./osp
 COPY ./setup.py .
 COPY ./examples ./examples
 COPY ./tests ./tests
-COPY ./mods_mock_agent ./mods_mock_agent
 COPY ./README.md .
 COPY ./.env .
 
