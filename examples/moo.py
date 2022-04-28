@@ -19,14 +19,14 @@ def MOO_example():
     logger.info("Setting up the simulation inputs")
 
     moo_simulation = mods.MultiObjectiveSimulation()
-    moo_algorithm = mods.Algorithm(name="MOO", type="algorithm1")
+    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults=10)
     moo_algorithm.add(
-        mods.Variable(name="var1", type="input", objective="None"),
-        mods.Variable(name="var2", type="input", objective="None"),
-        mods.Variable(name="var3", type="input", objective="None"),
-        mods.Variable(name="var4", type="output", objective="maximise"),
-        mods.Variable(name="var5", type="output", objective="minimise"),
-        mods.Variable(name="var6", type="output", objective="maximise"),
+        mods.Variable(name="var1", type="input"),
+        mods.Variable(name="var2", type="input"),
+        mods.Variable(name="var3", type="input"),
+        mods.Variable(name="var4", type="output", objective="Maximise", minimum="0.5", weight="0.5"),
+        mods.Variable(name="var5", type="output", objective="Minimise", maximum="1.5", weight="0.1"),
+        mods.Variable(name="var6", type="output", objective="Maximise", minimum="2.5", weight="0.7"),
     )
 
     moo_simulation.add(moo_algorithm)

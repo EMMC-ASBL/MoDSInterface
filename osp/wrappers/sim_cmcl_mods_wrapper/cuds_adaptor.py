@@ -1,3 +1,4 @@
+from numpy import maximum
 import osp.core.utils.simple_search as search
 from typing import Any, List
 import osp.wrappers.sim_cmcl_mods_wrapper.engine_sim_templates as engtempl
@@ -15,6 +16,7 @@ INPUTS_KEY = "Inputs"
 OUTPUTS_KEY = "Outputs"
 ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
+OPTIONAL_ATTRS = ["objective", "maximum", "minimum", "weight"]
 
 class CUDS_Adaptor:
     """Class to handle translation between CUDS and JSON objects."""
@@ -31,25 +33,36 @@ class CUDS_Adaptor:
 
         jsonData = defaultdict(list)
 
-        CUDS_Adaptor.algorithmsCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+        # atm only MOO simulation template is supported, so the check
+        # below, together with the template concept is not really needed.
+        # However, once things get complicated, e.g. more MoDS backend
+        # features will be supported, the template variable might be useful
+        # for picking predefined CUDStoJSON and JSONtoCUDS translation
+        # functions.
+        if simulation_template == engtempl.Engine_Template.MOO:
+            logger.info("Registering inputs")
 
-        CUDS_Adaptor.inputDataCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+            jsonData[SIM_TYPE_KEY] = simulation_template.name
 
-        CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+            CUDS_Adaptor.algorithmsCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
 
-        CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
-            root_cuds_object=root_cuds_object,
-            jsonData = jsonData,
-        )
+            CUDS_Adaptor.inputDataCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
+
+            CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
+
+            CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
+                root_cuds_object=root_cuds_object,
+                jsonData = jsonData,
+            )
 
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
@@ -73,6 +86,7 @@ class CUDS_Adaptor:
             json_item = defaultdict(list)
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
+            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults
             json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
@@ -88,7 +102,10 @@ class CUDS_Adaptor:
                 variables = {}
                 variables["name"] = var_item.name
                 variables["type"] = var_item.type
-                variables["objective"] = var_item.objective
+                for opt_attr in OPTIONAL_ATTRS:
+                    opt_attr_value = getattr(var_item, opt_attr, "None")
+                    if opt_attr_value != "None":
+                        variables[opt_attr] = opt_attr_value
                 json_item['variables'].append(variables)
 
             jsonData[ALGORITHMS_KEY].append(json_item)

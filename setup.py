@@ -21,7 +21,7 @@ setup(
     keywords="CMCL, MoDS, SimPhoNy, cuds, sample",
     long_description=README_TEXT,
     install_requires=[
-        "osp-core==3.6.0",
+        "osp-core==3.8.0",
     ],
     packages=find_packages(exclude=["mods_mock_agent"]),
     test_suite="tests",
