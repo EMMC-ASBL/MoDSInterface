@@ -15,24 +15,22 @@ logger.handlers[0].setFormatter(
 # This examples aims to run the amiii forward use case by hard-coding
 # the input CUDS objects and passing them to the MoDS_Session class
 # for execution.
-def MOO_example():
-    logger.info("################  Start: MoDS MOO Example ################")
-    logger.info("Loading enviroment variables")
-    load_dotenv()
+def HDMR_example():
+    logger.info("################  Start: MoDS HDMR Example ################")
     logger.info("Setting up the simulation inputs")
 
-    moo_simulation = mods.MultiObjectiveSimulation()
-    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults=10, saveSurrogate=False, loadSurrogate=None)
-    moo_algorithm.add(
+    hdmr_simulation = mods.HighDimensionalModelRepresentationSimulation()
+    hdmr_algorithm = mods.Algorithm(name="algorithm1", type="GenSurrogateAlg", maxNumberOfResults=10, saveSurrogate=True, loadSurrogate=None)
+    hdmr_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
         mods.Variable(name="var3", type="input"),
-        mods.Variable(name="var4", type="output", objective="Maximise", minimum="0.5", weight="0.5"),
-        mods.Variable(name="var5", type="output", objective="Minimise", maximum="1.5", weight="0.1"),
-        mods.Variable(name="var6", type="output", objective="Maximise", minimum="2.5", weight="0.7"),
+        mods.Variable(name="var4", type="output"),
+        mods.Variable(name="var5", type="output"),
+        mods.Variable(name="var6", type="output"),
     )
 
-    moo_simulation.add(moo_algorithm)
+    hdmr_simulation.add(hdmr_algorithm)
 
     example_data = [
         ["var1", "var2", "var3", "var4", "var5", "var6"],
@@ -57,39 +55,42 @@ def MOO_example():
             )
         input_data.add(data_point, rel=mods.hasPart)
 
-    moo_simulation.add(input_data)
+    hdmr_simulation.add(input_data)
+    
+    pareto_front = None
 
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
     with ms.MoDS_Session() as session:
+        load_dotenv()
         wrapper = cuba.wrapper(session=session)
-        wrapper.add(moo_simulation, rel=cuba.relationship)
+        wrapper.add(hdmr_simulation, rel=cuba.relationship)
         wrapper.session.run()
-
+            
         pareto_front = search.find_cuds_objects_by_oclass(
             mods.ParetoFront, wrapper, rel=None
         )
         
-        logger.info("Printing the simulation results.")
+    logger.info("Printing the simulation results.")
+    
+    if pareto_front:
+        data_points = search.find_cuds_objects_by_oclass(
+            mods.DataPoint, pareto_front[0], rel=None
+        )
         
-        if pareto_front:
-            data_points = search.find_cuds_objects_by_oclass(
-                mods.DataPoint, pareto_front[0], rel=None
-            )
-            
-            job_id = search.find_cuds_objects_by_oclass(
-                mods.JobIDItem, pareto_front[0], rel=None
-            )
-            
-            if data_points:
-                pretty_print(data_points[0])
-            if job_id:
-                pretty_print(job_id[0])
-                
-    logger.info("################  End: MoDS MOO Example ################")
+        job_id = search.find_cuds_objects_by_oclass(
+            mods.JobIDItem, pareto_front[0], rel=None
+        )
+        
+        if data_points:
+            pretty_print(data_points[0])
+        if job_id:
+            pretty_print(job_id[0])
+
+    logger.info("################  End: MoDS HDMR Example ################")
     
     return pareto_front
 
 
 if __name__ == "__main__":
-    MOO_example()
+    HDMR_example()
