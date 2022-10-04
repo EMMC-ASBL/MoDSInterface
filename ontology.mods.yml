@@ -41,6 +41,20 @@ ontology:
         cardinality: 1
         range: mods.ParetoFront
 
+  HighDimensionalModelRepresentationSimulation:
+    subclass_of:
+    - mods.Simulation
+    - mods.hasPart:
+        cardinality: 1
+        range: mods.ParetoFront
+
+  MultiObjectiveSimulationOnly:
+    subclass_of:
+    - mods.Simulation
+    - mods.hasPart:
+        cardinality: 1
+        range: mods.ParetoFront
+
   Algorithm:
     subclass_of:
     - cuba.entity
@@ -51,6 +65,9 @@ ontology:
       mods.name:
       mods.type:
       mods.maxNumberOfResults:
+      mods.saveSurrogate:
+      mods.loadSurrogate:
+
 
   InputData:
     subclass_of:
@@ -88,6 +105,19 @@ ontology:
       mods.name:
       mods.value:
 
+  JobID:
+    subclass_of:
+    - cuba.entity
+    - mods.hasPart:
+        cardinality: some
+        range: mods.DataPointItem
+
+  JobIDItem:
+    subclass_of:
+    - cuba.entity
+    attributes:
+      mods.name:
+
   Function:
     subclass_of:
     - cuba.entity
@@ -121,6 +151,16 @@ ontology:
     datatype: STRING
 
   type:
+    subclass_of:
+    - cuba.attribute
+    datatype: STRING
+
+  saveSurrogate:
+    subclass_of:
+    - cuba.attribute
+    datatype: BOOL
+
+  loadSurrogate:
     subclass_of:
     - cuba.attribute
     datatype: STRING

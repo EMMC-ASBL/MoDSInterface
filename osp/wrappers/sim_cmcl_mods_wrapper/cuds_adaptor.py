@@ -39,9 +39,9 @@ class CUDS_Adaptor:
         # features will be supported, the template variable might be useful
         # for picking predefined CUDStoJSON and JSONtoCUDS translation
         # functions.
-        if simulation_template == engtempl.Engine_Template.MOO:
+        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR:
             logger.info("Registering inputs")
-
+            
             jsonData[SIM_TYPE_KEY] = simulation_template.name
 
             CUDS_Adaptor.algorithmsCUDStoJSON(
@@ -63,7 +63,7 @@ class CUDS_Adaptor:
                 root_cuds_object=root_cuds_object,
                 jsonData = jsonData,
             )
-
+        
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
 
@@ -87,6 +87,8 @@ class CUDS_Adaptor:
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
             json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults
+            json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate!="None" else None
+            json_item['loadSurrogate'] = algorithm.loadSurrogate if algorithm.loadSurrogate!="None" else None
             json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
@@ -116,13 +118,16 @@ class CUDS_Adaptor:
         dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
          mods.DataPoint, root_cuds_object, rel=None
         )  # type: ignore
+        loadSurrogate: List[Cuds] = search.find_cuds_objects_by_oclass(
+         mods.Algorithm, root_cuds_object, rel=None
+        )[0].loadSurrogate  # type: ignore
 
         logger.info("Registering simulation data points.")
-        if not dataPoints:
+        if not dataPoints and not loadSurrogate:
             raise ValueError(
                 (
                     "Missing DataPoint specification. "
-                    "At least one DataPoint CUDS must be defined."
+                    "At least one DataPoint CUDS must be defined or a surrogate must be loaded."
                 )
             )
 
@@ -169,11 +174,18 @@ class CUDS_Adaptor:
             logger.warning("Empty JSON output. Nothing to convert.")
             return
 
-        if simulation_template == engtempl.Engine_Template.MOO:
-            logger.info("Registering outputs")
+        ParetoFront = mods.ParetoFront()
+        
+        job_id = mods.JobID()
+        job_id.add(mods.JobIDItem(name=jsonResults["jobID"]), rel=mods.hasPart)
+        ParetoFront.add(job_id)
 
-            moo_simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
-            ParetoFront = mods.ParetoFront()
+        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly:
+            logger.info("Registering outputs")
+            if simulation_template == engtempl.Engine_Template.MOOonly:
+                moo_simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
+            else:
+                moo_simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
 
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
@@ -188,6 +200,10 @@ class CUDS_Adaptor:
                     )
 
                 ParetoFront.add(data_point)
-
+                
             moo_simulation.add(ParetoFront)
-            logger.info("All outputs successfully registered.")
+        elif simulation_template == engtempl.Engine_Template.HDMR:
+            hdmr_simulation = root_cuds_object.get(oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
+            hdmr_simulation.add(ParetoFront)
+
+        logger.info("All outputs successfully registered.")

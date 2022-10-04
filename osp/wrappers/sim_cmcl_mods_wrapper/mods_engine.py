@@ -37,8 +37,20 @@ class MoDS_Engine:
          mods.MultiObjectiveSimulation, root_cuds_object, rel=None
         )  # type: ignore
 
+        moo_only_class = search.find_cuds_objects_by_oclass(
+         mods.MultiObjectiveSimulationOnly, root_cuds_object, rel=None
+        )  # type: ignore
+
+        hdmr_class = search.find_cuds_objects_by_oclass(
+         mods.HighDimensionalModelRepresentationSimulation, root_cuds_object, rel=None
+        )  # type: ignore
+
         if moo_class:
             self.simulation_template = engtempl.Engine_Template.MOO
+        elif moo_only_class:
+            self.simulation_template = engtempl.Engine_Template.MOOonly
+        elif hdmr_class:
+            self.simulation_template = engtempl.Engine_Template.HDMR
         else:
             raise enexc.UnsupportedSimulationType
 
