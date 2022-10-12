@@ -22,7 +22,7 @@ def MOO_example():
     logger.info("Setting up the simulation inputs")
 
     moo_simulation = mods.MultiObjectiveSimulation()
-    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults=10, saveSurrogate=False, loadSurrogate=None)
+    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults=10)
     moo_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
