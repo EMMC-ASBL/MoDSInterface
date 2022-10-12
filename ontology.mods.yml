@@ -110,7 +110,7 @@ ontology:
     - cuba.entity
     - mods.hasPart:
         cardinality: some
-        range: mods.DataPointItem
+        range: mods.JobIDItem
 
   JobIDItem:
     subclass_of:
