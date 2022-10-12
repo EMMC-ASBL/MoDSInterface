@@ -23,7 +23,7 @@ ontology:
 #================================================#
   Simulation:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     - mods.hasPart:
         cardinality: 1
         range: mods.Algorithm
@@ -54,7 +54,7 @@ ontology:
 
   Algorithm:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     - mods.hasPart:
         cardinality: some
         range: mods.Variable
@@ -72,7 +72,7 @@ ontology:
 
   DataSet:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     - mods.hasPart:
         cardinality: some
         range: mods.DataPoint
@@ -83,48 +83,48 @@ ontology:
 
   AnalyticModel:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     - mods.hasPart:
         cardinality: some
         range: mods.Function
 
   DataPoint:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     - mods.hasPart:
         cardinality: some
         range: mods.DataPointItem
 
   DataPointItem:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     attributes:
       mods.name:
       mods.value:
 
   JobID:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     - mods.hasPart:
         cardinality: some
         range: mods.JobIDItem
 
   JobIDItem:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     attributes:
       mods.name:
 
   Function:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     attributes:
       mods.name:
       mods.formula:
 
   Variable:
     subclass_of:
-    - cuba.entity
+    - cuba.Entity
     attributes:
       mods.name:
       mods.type:
