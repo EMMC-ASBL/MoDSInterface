@@ -44,9 +44,6 @@ ontology:
   HighDimensionalModelRepresentationSimulation:
     subclass_of:
     - mods.Simulation
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.ParetoFront
 
   MultiObjectiveSimulationOnly:
     subclass_of:
