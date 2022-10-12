@@ -185,4 +185,4 @@ ontology:
   maxNumberOfResults:
     subclass_of:
     - cuba.attribute
-    datatype: INT
+    datatype: STRING

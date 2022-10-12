@@ -86,7 +86,7 @@ class CUDS_Adaptor:
             json_item = defaultdict(list)
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
-            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults
+            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults!="None" else None
             json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate!="None" else None
             json_item['loadSurrogate'] = algorithm.loadSurrogate if algorithm.loadSurrogate!="None" else None
             json_item['variables'] = []
