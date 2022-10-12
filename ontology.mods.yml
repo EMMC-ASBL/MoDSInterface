@@ -64,9 +64,9 @@ ontology:
     attributes:
       mods.name:
       mods.type:
-      mods.maxNumberOfResults:
-      mods.saveSurrogate:
-      mods.loadSurrogate:
+      mods.maxNumberOfResults: None
+      mods.saveSurrogate: None
+      mods.loadSurrogate: None
 
 
   InputData:
