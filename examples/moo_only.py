@@ -46,11 +46,16 @@ def MOOonly_example(loadSurrogate="mods-sim-7131916930778391183"):
         pareto_front = search.find_cuds_objects_by_oclass(
             mods.ParetoFront, wrapper, rel=None
         )
+        job_id = search.find_cuds_objects_by_oclass(
+            mods.JobID, wrapper, rel=None
+        )
         
         logger.info("Printing the simulation results.")
         
-    if pareto_front:
+        if pareto_front:
             pretty_print(pareto_front[0])
+        if job_id:
+            pretty_print(job_id[0])
                 
     logger.info("################  End: MoDS MOO only Example ################")
     

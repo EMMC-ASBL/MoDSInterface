@@ -33,6 +33,9 @@ ontology:
     - mods.hasPart:
         cardinality: 1
         range: mods.AnalyticModel
+    - mods.hasPart:
+        cardinality: 1
+        range: mods.JobID
 
   MultiObjectiveSimulation:
     subclass_of:

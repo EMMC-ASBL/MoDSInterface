@@ -56,8 +56,6 @@ def HDMR_example():
         input_data.add(data_point, rel=mods.hasPart)
 
     hdmr_simulation.add(input_data)
-    
-    pareto_front = None
 
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
@@ -67,18 +65,18 @@ def HDMR_example():
         wrapper.add(hdmr_simulation, rel=cuba.relationship)
         wrapper.session.run()
             
-        pareto_front = search.find_cuds_objects_by_oclass(
-            mods.ParetoFront, wrapper, rel=None
+        job_id = search.find_cuds_objects_by_oclass(
+            mods.JobID, wrapper, rel=None
         )
         
     logger.info("Printing the simulation results.")
     
-    if pareto_front:
-            pretty_print(pareto_front[0])
+    if job_id:
+            pretty_print(job_id[0])
 
     logger.info("################  End: MoDS HDMR Example ################")
     
-    return pareto_front
+    return job_id
 
 
 if __name__ == "__main__":

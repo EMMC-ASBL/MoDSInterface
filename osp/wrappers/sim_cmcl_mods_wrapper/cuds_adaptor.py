@@ -163,6 +163,7 @@ class CUDS_Adaptor:
             for func_item in model_funcs: # type: ignore
                 jsonData[INPUTS_KEY].append({'name': func_item.name, 'formula': func_item.formula})
 
+    simulation = None
     @staticmethod
     def toCUDS(
         root_cuds_object, jsonResults: Dict, simulation_template: Enum
@@ -175,17 +176,13 @@ class CUDS_Adaptor:
             return
 
         ParetoFront = mods.ParetoFront()
-        
-        job_id = mods.JobID()
-        job_id.add(mods.JobIDItem(name=jsonResults["jobID"]), rel=mods.hasPart)
-        ParetoFront.add(job_id)
 
         if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly:
             logger.info("Registering outputs")
             if simulation_template == engtempl.Engine_Template.MOOonly:
-                moo_simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
+                simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
             else:
-                moo_simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
+                simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
 
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
@@ -201,9 +198,12 @@ class CUDS_Adaptor:
 
                 ParetoFront.add(data_point)
                 
-            moo_simulation.add(ParetoFront)
+            simulation.add(ParetoFront)
         elif simulation_template == engtempl.Engine_Template.HDMR:
-            hdmr_simulation = root_cuds_object.get(oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
-            hdmr_simulation.add(ParetoFront)
+            simulation = root_cuds_object.get(oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
 
+        job_id = mods.JobID()
+        job_id.add(mods.JobIDItem(name=jsonResults["jobID"]), rel=mods.hasPart)
+        simulation.add(job_id)
+        
         logger.info("All outputs successfully registered.")
