@@ -199,6 +199,25 @@ class CUDS_Adaptor:
                 ParetoFront.add(data_point)
                 
             simulation.add(ParetoFront)
+        elif simulation_template == engtempl.Engine_Template.Evaluate:
+            pass #TODO add data points to output item as above
+            simulation = root_cuds_object.get(
+                oclass=mods.EvaluateSurrogate, rel=cuba.relationship)[0]
+            
+            num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
+            for i in range(num_values):
+                data_point = mods.DataPoint()
+                for output in jsonResults[OUTPUTS_KEY]:
+                    out_value = output["values"][i]
+                    out_name = output["name"]
+
+                    data_point.add(
+                        mods.DataPointItem(name=out_name, value=out_value),
+                        rel=mods.hasPart,
+                    )
+                    
+                
+            
         elif simulation_template == engtempl.Engine_Template.HDMR:
             simulation = root_cuds_object.get(oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
 
