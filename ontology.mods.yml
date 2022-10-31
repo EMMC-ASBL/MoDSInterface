@@ -1,5 +1,5 @@
 ---
-version: "0.0.5"
+version: "0.0.6"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -73,7 +73,7 @@ ontology:
       mods.type:
       mods.maxNumberOfResults: None
       mods.saveSurrogate: None
-      mods.loadSurrogate: None
+      mods.surrogateToLoad: None
 
 
   InputData:
@@ -171,7 +171,7 @@ ontology:
     - cuba.attribute
     datatype: BOOL
 
-  loadSurrogate:
+  surrogateToLoad:
     subclass_of:
     - cuba.attribute
     datatype: STRING
