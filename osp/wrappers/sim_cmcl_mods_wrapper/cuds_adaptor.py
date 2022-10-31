@@ -40,7 +40,7 @@ class CUDS_Adaptor:
         # features will be supported, the template variable might be useful
         # for picking predefined CUDStoJSON and JSONtoCUDS translation
         # functions.
-        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR:
+        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR or simulation_template == engtempl.Engine_Template.Evaluate:
             logger.info("Registering inputs")
 
             jsonData[SIM_TYPE_KEY] = simulation_template.name
