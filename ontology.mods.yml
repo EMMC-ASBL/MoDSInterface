@@ -1,5 +1,5 @@
 ---
-version: "0.0.6"
+version: "0.0.7"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -36,6 +36,9 @@ ontology:
     - mods.hasPart:
         cardinality: 1
         range: mods.JobID
+    attributes:
+      mods.SaveSurrogate: None
+      mods.SurrogateToLoad: None
 
   MultiObjectiveSimulation:
     subclass_of:
@@ -72,9 +75,6 @@ ontology:
       mods.name:
       mods.type:
       mods.maxNumberOfResults: None
-      mods.saveSurrogate: None
-      mods.surrogateToLoad: None
-
 
   InputData:
     subclass_of:
@@ -166,12 +166,12 @@ ontology:
     - cuba.attribute
     datatype: STRING
 
-  saveSurrogate:
+  SaveSurrogate:
     subclass_of:
     - cuba.attribute
     datatype: BOOL
 
-  surrogateToLoad:
+  SurrogateToLoad:
     subclass_of:
     - cuba.attribute
     datatype: STRING

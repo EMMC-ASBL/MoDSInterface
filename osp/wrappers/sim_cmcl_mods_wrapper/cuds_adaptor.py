@@ -16,6 +16,8 @@ INPUTS_KEY = "Inputs"
 OUTPUTS_KEY = "Outputs"
 ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
+SAVE_SURROGATE_KEY = "SaveSurrogate"
+SURROGATE_TO_LOAD_KEY = "SurrogateToLoad"
 OPTIONAL_ATTRS = ["objective", "maximum", "minimum", "weight"]
 
 
@@ -45,6 +47,11 @@ class CUDS_Adaptor:
 
             jsonData[SIM_TYPE_KEY] = simulation_template.name
 
+            CUDS_Adaptor.surrogate_loading_and_saving_cuds_to_json(
+                root_cuds_object=root_cuds_object,
+                jsonData=jsonData
+            )
+
             CUDS_Adaptor.algorithmsCUDStoJSON(
                 root_cuds_object=root_cuds_object,
                 jsonData=jsonData,
@@ -69,6 +76,15 @@ class CUDS_Adaptor:
         return jsonDataStr
 
     @staticmethod
+    def surrogate_loading_and_saving_cuds_to_json(root_cuds_object, jsonData):
+        simulation: Cuds = search.find_cuds_objects_by_oclass(
+            mods.Simulation, root_cuds_object, rel=None
+        )[0]  # type: ignore
+        
+        jsonData[SAVE_SURROGATE_KEY] = simulation.SaveSurrogate if simulation.SaveSurrogate != "None" else None
+        jsonData[SURROGATE_TO_LOAD_KEY] = simulation.SurrogateToLoad if simulation.SurrogateToLoad != "None" else None
+
+    @staticmethod
     def algorithmsCUDStoJSON(root_cuds_object, jsonData):
         algorithms: List[Cuds] = search.find_cuds_objects_by_oclass(
             mods.Algorithm, root_cuds_object, rel=None
@@ -88,8 +104,6 @@ class CUDS_Adaptor:
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
             json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults != "None" else None
-            json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate != "None" else None
-            json_item['surrogateToLoad'] = algorithm.surrogateToLoad if algorithm.surrogateToLoad != "None" else None
             json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
@@ -118,12 +132,12 @@ class CUDS_Adaptor:
         dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
             mods.DataPoint, root_cuds_object, rel=None
         )  # type: ignore
-        surrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
-            mods.Algorithm, root_cuds_object, rel=None
-        )[0].surrogateToLoad  # type: ignore
+        SurrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
+            mods.Simulation, root_cuds_object, rel=None
+        )[0].SurrogateToLoad  # type: ignore
 
         logger.info("Registering simulation data points.")
-        if not dataPoints and not surrogateToLoad:
+        if not dataPoints and not SurrogateToLoad:
             raise ValueError(
                 (
                     "Missing DataPoint specification. "
@@ -180,9 +194,9 @@ class CUDS_Adaptor:
 
         logger.info("Registering outputs")
         if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly:
-            
+
             ParetoFront = mods.ParetoFront()
-            
+
             if simulation_template == engtempl.Engine_Template.MOOonly:
                 simulation = root_cuds_object.get(
                     oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
@@ -206,10 +220,10 @@ class CUDS_Adaptor:
 
             simulation.add(ParetoFront)
         elif simulation_template == engtempl.Engine_Template.Evaluate:
-            pass #TODO add data points to output item as above
+            pass  # TODO add data points to output item as above
             simulation = root_cuds_object.get(
                 oclass=mods.EvaluateSurrogate, rel=cuba.relationship)[0]
-            
+
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
                 data_point = mods.DataPoint()
@@ -221,9 +235,7 @@ class CUDS_Adaptor:
                         mods.DataPointItem(name=out_name, value=out_value),
                         rel=mods.hasPart,
                     )
-                    
-                
-            
+
         elif simulation_template == engtempl.Engine_Template.HDMR:
             simulation = root_cuds_object.get(
                 oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]

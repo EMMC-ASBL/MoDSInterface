@@ -15,14 +15,14 @@ logger.handlers[0].setFormatter(
 # This examples aims to run the amiii forward use case by hard-coding
 # the input CUDS objects and passing them to the MoDS_Session class
 # for execution.
-def MOOonly_example(surrogateToLoad="mods-sim-7131916930778391183"):
+def MOOonly_example(SurrogateToLoad="mods-sim-6309672575118509368"):
     logger.info("################  Start: MoDS MOO only Example ################")
     logger.info("Loading enviroment variables")
     load_dotenv()
     logger.info("Setting up the simulation inputs")
 
-    moo_simulation = mods.MultiObjectiveSimulationOnly()
-    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults=10, surrogateToLoad=surrogateToLoad)
+    moo_simulation = mods.MultiObjectiveSimulationOnly(SurrogateToLoad=SurrogateToLoad)
+    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults=10)
     moo_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
