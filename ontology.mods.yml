@@ -1,5 +1,5 @@
 ---
-version: "0.0.7"
+version: "0.0.8"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -87,13 +87,13 @@ ontology:
         cardinality: some
         range: mods.DataPoint
 
-  ParetoFront:
-    subclass_of:
-    - mods.DataSet
-
   OutputData:
     subclass_of:
     - mods.DataSet
+
+  ParetoFront:
+    subclass_of:
+    - mods.OutputData
 
   AnalyticModel:
     subclass_of:
