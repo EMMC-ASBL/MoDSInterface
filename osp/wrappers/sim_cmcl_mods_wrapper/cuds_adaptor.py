@@ -80,7 +80,7 @@ class CUDS_Adaptor:
         simulation: Cuds = search.find_cuds_objects_by_oclass(
             mods.Simulation, root_cuds_object, rel=None
         )[0]  # type: ignore
-        
+
         jsonData[SAVE_SURROGATE_KEY] = simulation.SaveSurrogate if simulation.SaveSurrogate != "None" else None
         jsonData[SURROGATE_TO_LOAD_KEY] = simulation.SurrogateToLoad if simulation.SurrogateToLoad != "None" else None
 
@@ -219,8 +219,9 @@ class CUDS_Adaptor:
                 ParetoFront.add(data_point)
 
             simulation.add(ParetoFront)
+
         elif simulation_template == engtempl.Engine_Template.Evaluate:
-            pass  # TODO add data points to output item as above
+            output_data = mods.OutputData()
             simulation = root_cuds_object.get(
                 oclass=mods.EvaluateSurrogate, rel=cuba.relationship)[0]
 
@@ -235,6 +236,12 @@ class CUDS_Adaptor:
                         mods.DataPointItem(name=out_name, value=out_value),
                         rel=mods.hasPart,
                     )
+                output_data.add(
+                    data_point,
+                    rel=mods.hasPart,
+                )
+
+            simulation.add(output_data)
 
         elif simulation_template == engtempl.Engine_Template.HDMR:
             simulation = root_cuds_object.get(
