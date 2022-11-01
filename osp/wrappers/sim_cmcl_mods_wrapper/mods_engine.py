@@ -46,7 +46,7 @@ class MoDS_Engine:
         )  # type: ignore
         
         evaluate_class = search.find_cuds_objects_by_oclass(
-         mods.HighDimensionalModelRepresentationSimulation, root_cuds_object, rel=None
+         mods.EvaluateSurrogate, root_cuds_object, rel=None
         )  # type: ignore
 
         if moo_class:
