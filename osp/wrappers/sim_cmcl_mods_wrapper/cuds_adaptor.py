@@ -248,6 +248,26 @@ class CUDS_Adaptor:
             simulation = root_cuds_object.get(
                 oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
 
+        elif simulation_template == engtempl.Engine_Template.Sensitivity:
+            sensitivity_data_set = mods.SensitivityDataSet()
+            simulation = root_cuds_object.get(
+                oclass=mods.SensitivityAnalysis, rel=cuba.relationship)[0]
+
+            for sensitivity_dict in jsonResults[SENSITIVITIES_KEY]:
+                sensitivity = mods.Sensitivity(name=sensitivity_dict["name"])
+
+                for label_dict in sensitivity_dict["labels"]:
+                    order = label_dict["order"]
+                    for values_dict in sensitivity_dict["values"]:
+                        if order == values_dict["order"]:
+                            for name, value in zip(label_dict["values"], values_dict["values"]):
+                                sensitivity.add(mods.SensitivityItem(
+                                    name=name, value=value, order=order))
+
+                sensitivity_data_set.add(sensitivity)
+
+            simulation.add(sensitivity_data_set)
+
         job_id = mods.JobID()
         job_id.add(mods.JobIDItem(name=jsonResults["jobID"]), rel=mods.hasPart)
         simulation.add(job_id)
