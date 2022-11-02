@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 INPUTS_KEY = "Inputs"
 OUTPUTS_KEY = "Outputs"
+SENSITIVITIES_KEY = "Sensitivities"
 ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
 SAVE_SURROGATE_KEY = "SaveSurrogate"
@@ -42,7 +43,7 @@ class CUDS_Adaptor:
         # features will be supported, the template variable might be useful
         # for picking predefined CUDStoJSON and JSONtoCUDS translation
         # functions.
-        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR or simulation_template == engtempl.Engine_Template.Evaluate:
+        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR or simulation_template == engtempl.Engine_Template.Evaluate or simulation_template == engtempl.Engine_Template.Sensitivity:
             logger.info("Registering inputs")
 
             jsonData[SIM_TYPE_KEY] = simulation_template.name

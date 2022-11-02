@@ -48,6 +48,10 @@ class MoDS_Engine:
         evaluate_class = search.find_cuds_objects_by_oclass(
          mods.EvaluateSurrogate, root_cuds_object, rel=None
         )  # type: ignore
+        
+        sensitivity_class = search.find_cuds_objects_by_oclass(
+         mods.SensitivityAnalysis, root_cuds_object, rel=None
+        )  # type: ignore
 
         if moo_class:
             self.simulation_template = engtempl.Engine_Template.MOO
@@ -57,6 +61,8 @@ class MoDS_Engine:
             self.simulation_template = engtempl.Engine_Template.HDMR
         elif evaluate_class:
             self.simulation_template = engtempl.Engine_Template.Evaluate
+        elif sensitivity_class:
+            self.simulation_template = engtempl.Engine_Template.Sensitivity
         else:
             raise enexc.UnsupportedSimulationType
 
