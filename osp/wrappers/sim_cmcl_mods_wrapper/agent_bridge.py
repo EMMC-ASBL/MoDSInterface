@@ -48,16 +48,17 @@ class Agent_Bridge:
         logger.info(os.environ['MODS_AGENT_BASE_URL'])
         
         logger.info("Submitting job")
-        submitted = self.submitJob(jsonString)
-        
-        submitted = True
+        submit_message = self.submitJob(jsonString)
 
-        if submitted == False:
+        if submit_message is None:
             # TODO - How do we pass this error back to the calling SimPhoNY code?
             # TODO - Should there be a CUDS objects to hold error messages?
             logger.error("Job was not submitted successfully")
             return None
 
+        if self.is_final_result(submit_message):
+            return submit_message
+        
         logger.info("Job successfully submitted.")
 
         # Wait a little time for the request to process
@@ -74,7 +75,7 @@ class Agent_Bridge:
         return outputs
 
 
-    def submitJob(self, jsonString: str) -> bool:
+    def submitJob(self, jsonString: str) -> dict:
         """Submits a job using a HTTP request with the input JSON string, stores
         resulting job ID returned by MoDS Agent.
 
@@ -95,7 +96,7 @@ class Agent_Bridge:
         if(response.status_code != 200):
             logger.error(f"HTTP request returns unexpected status code {response.status_code}")
             logger.error(f"Reason: {response.reason}")
-            return False
+            return None
 
         # Get the returned RAW text
         returnedRaw = response.text
@@ -106,8 +107,14 @@ class Agent_Bridge:
         # Get the generated job ID from the JSON
         self.jobID = returnedJSON["jobID"]
         logger.info(f"Job submitted successfully, resulting job ID is {self.jobID}")
-        return True
+        return returnedJSON
 
+    def is_final_result(self, submit_message)-> bool:
+        if "jobID" in submit_message and "SimulationType" in submit_message and len(submit_message)>2:
+            logger.info("here!")
+            return True
+        else:
+            return False
 
     def requestOutputs(self)-> Optional[Dict]:
         """Sends a HTTP request asking for the results of the submitted job.
