@@ -1,6 +1,6 @@
 <img align="right" src="cmcl_logo.png" alt="CMCL Logo">
 
-# OntoTrans MoDS Wrappper
+# OntoTrans MoDS Wrapper
 
 [SimPhoNy](https://github.com/simphony)-based implementation of the OntoTrans MoDS wrapper.
 
