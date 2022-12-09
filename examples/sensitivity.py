@@ -15,7 +15,7 @@ logger.handlers[0].setFormatter(
 # This examples aims to run the amiii forward use case by hard-coding
 # the input CUDS objects and passing them to the MoDS_Session class
 # for execution.
-def sensitivit_example(SurrogateToLoad="mods-sim-6309672575118509368"):
+def sensitivity_example(SurrogateToLoad="mods-sim-6309672575118509368"):
     logger.info("################  Start: MoDS MOO only Example ################")
     logger.info("Loading enviroment variables")
     load_dotenv()
@@ -63,4 +63,4 @@ def sensitivit_example(SurrogateToLoad="mods-sim-6309672575118509368"):
 
 
 if __name__ == "__main__":
-    sensitivit_example()
+    sensitivity_example()
