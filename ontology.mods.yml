@@ -65,7 +65,7 @@ ontology:
       mods.type:
       mods.maxNumberOfResults: None
       mods.saveSurrogate: None
-      mods.loadSurrogate: None
+      mods.surrogateToLoad: None
 
   InputData:
     subclass_of:
@@ -158,7 +158,7 @@ ontology:
       - cuba.attribute
     datatype: BOOL
 
-  loadSurrogate:
+  surrogateToLoad:
     subclass_of:
       - cuba.attribute
     datatype: STRING

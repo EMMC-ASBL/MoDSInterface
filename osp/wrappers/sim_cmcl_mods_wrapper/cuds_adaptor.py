@@ -88,7 +88,7 @@ class CUDS_Adaptor:
             json_item['type'] = algorithm.type
             json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults!="None" else None
             json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate!="None" else None
-            json_item['loadSurrogate'] = algorithm.loadSurrogate if algorithm.loadSurrogate!="None" else None
+            json_item['surrogateToLoad'] = algorithm.surrogateToLoad if algorithm.surrogateToLoad!="None" else None
             json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
@@ -118,12 +118,12 @@ class CUDS_Adaptor:
         dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
          mods.DataPoint, root_cuds_object, rel=None
         )  # type: ignore
-        loadSurrogate: List[Cuds] = search.find_cuds_objects_by_oclass(
+        surrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
          mods.Algorithm, root_cuds_object, rel=None
-        )[0].loadSurrogate  # type: ignore
+        )[0].surrogateToLoad  # type: ignore
 
         logger.info("Registering simulation data points.")
-        if not dataPoints and not loadSurrogate:
+        if not dataPoints and not surrogateToLoad:
             raise ValueError(
                 (
                     "Missing DataPoint specification. "
