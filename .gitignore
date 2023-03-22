@@ -10,4 +10,4 @@ coverage.xml
 ## User defined
 *.egg-info
 *.mp4
-*venv
+*venv*
