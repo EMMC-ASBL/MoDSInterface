@@ -16,8 +16,8 @@ INPUTS_KEY = "Inputs"
 OUTPUTS_KEY = "Outputs"
 ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
-SAVE_SURROGATE_KEY = "SaveSurrogate"
-SURROGATE_TO_LOAD_KEY = "SurrogateToLoad"
+SAVE_SURROGATE_KEY = "saveSurrogate"
+SURROGATE_TO_LOAD_KEY = "surrogateToLoad"
 OPTIONAL_ATTRS = ["objective", "maximum", "minimum", "weight"]
 
 
@@ -47,11 +47,6 @@ class CUDS_Adaptor:
 
             jsonData[SIM_TYPE_KEY] = simulation_template.name
 
-            CUDS_Adaptor.surrogate_loading_and_saving_cuds_to_json(
-                root_cuds_object=root_cuds_object,
-                jsonData=jsonData
-            )
-
             CUDS_Adaptor.algorithmsCUDStoJSON(
                 root_cuds_object=root_cuds_object,
                 jsonData=jsonData,
@@ -76,15 +71,6 @@ class CUDS_Adaptor:
         return jsonDataStr
 
     @staticmethod
-    def surrogate_loading_and_saving_cuds_to_json(root_cuds_object, jsonData):
-        simulation: Cuds = search.find_cuds_objects_by_oclass(
-            mods.Simulation, root_cuds_object, rel=None
-        )[0]  # type: ignore
-
-        jsonData[SAVE_SURROGATE_KEY] = simulation.SaveSurrogate if simulation.SaveSurrogate != "None" else None
-        jsonData[SURROGATE_TO_LOAD_KEY] = simulation.SurrogateToLoad if simulation.SurrogateToLoad != "None" else None
-
-    @staticmethod
     def algorithmsCUDStoJSON(root_cuds_object, jsonData):
         algorithms: List[Cuds] = search.find_cuds_objects_by_oclass(
             mods.Algorithm, root_cuds_object, rel=None
@@ -103,35 +89,30 @@ class CUDS_Adaptor:
             json_item = defaultdict(list)
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
-
-
-<< << << < HEAD
-            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults != "None" else None
-== == == =
             json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults != "None" else None
             json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate != "None" else None
             json_item['surrogateToLoad'] = algorithm.surrogateToLoad if algorithm.surrogateToLoad != "None" else None
->>>>>> > saving-and -loading-surroagates
-            json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
-            if not variables and json_item['surrogateToLoad'] is None:
+
+            if variables:
+                json_item['variables'] = []
+                for var_item in variables:  # type:ignore
+                    variables = {}
+                    variables["name"] = var_item.name
+                    variables["type"] = var_item.type
+                    for opt_attr in OPTIONAL_ATTRS:
+                        opt_attr_value = getattr(var_item, opt_attr, "None")
+                        if opt_attr_value != "None":
+                            variables[opt_attr] = opt_attr_value
+                    json_item['variables'].append(variables)
+            elif json_item['surrogateToLoad'] is None:
                 raise ValueError(
                     (
                         "Missing algorithm Variable specification. "
                         "At least one Variable CUDS must be defined for each algorithm."
                     )
                 )
-
-            for var_item in variables:  # type:ignore
-                variables = {}
-                variables["name"] = var_item.name
-                variables["type"] = var_item.type
-                for opt_attr in OPTIONAL_ATTRS:
-                    opt_attr_value = getattr(var_item, opt_attr, "None")
-                    if opt_attr_value != "None":
-                        variables[opt_attr] = opt_attr_value
-                json_item['variables'].append(variables)
 
             jsonData[ALGORITHMS_KEY].append(json_item)
 
@@ -141,7 +122,7 @@ class CUDS_Adaptor:
             mods.DataPoint, root_cuds_object, rel=None
         )  # type: ignore
         surrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.Algorithm, root_cuds_object, rel=None
+            mods.Algorithm, root_cuds_object, rel=None
         )[0].surrogateToLoad  # type: ignore
 
         logger.info("Registering simulation data points.")
