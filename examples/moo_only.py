@@ -25,8 +25,11 @@ def MOOonly_example(surrogateToLoad="mods-sim-8606989784878733752"):
     logger.info("Setting up the simulation inputs")
 
     moo_simulation = mods.MultiObjectiveSimulationOnly()
+    hdmr_algorithm = mods.Algorithm(
+        name="algorithm1", type="GenSurrogateAlg", surrogateToLoad=surrogateToLoad)
+    moo_simulation.add(hdmr_algorithm)
     moo_algorithm = mods.Algorithm(
-        name="algorithm1", type="MOO", maxNumberOfResults=10, surrogateToLoad=surrogateToLoad)
+        name="algorithm2", type="MOO", maxNumberOfResults=10)
     moo_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
