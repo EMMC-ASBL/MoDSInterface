@@ -92,7 +92,7 @@ class CUDS_Adaptor:
             json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
-            if not variables:
+            if not variables and json_item['surrogateToLoad'] is None:
                 raise ValueError(
                     (
                         "Missing algorithm Variable specification. "
