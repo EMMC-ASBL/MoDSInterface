@@ -21,7 +21,7 @@ def MOO_example():
 
     moo_simulation = mods.MultiObjectiveSimulation()
     hdmr_algorithm = mods.Algorithm(
-        name="algorithm1", type="GenSurrogateAlg")
+        name="algorithm1", type="GenSurrogateAlg", saveSurrogate=False)
     hdmr_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
@@ -33,7 +33,7 @@ def MOO_example():
     moo_simulation.add(hdmr_algorithm)
 
     moo_algorithm = mods.Algorithm(
-        name="algorithm2", type="MOO", maxNumberOfResults=10)
+        name="algorithm2", type="MOO", maxNumberOfResults=10, saveSurrogate=False)
     moo_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),

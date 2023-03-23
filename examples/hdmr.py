@@ -17,8 +17,9 @@ def HDMR_example():
     logger.info("################  Start: MoDS HDMR Example ################")
     logger.info("Setting up the simulation inputs")
 
-    hdmr_simulation = mods.HighDimensionalModelRepresentationSimulation(SaveSurrogate=True)
-    hdmr_algorithm = mods.Algorithm(name="algorithm1", type="GenSurrogateAlg")
+    hdmr_simulation = mods.HighDimensionalModelRepresentationSimulation()
+    hdmr_algorithm = mods.Algorithm(
+        name="algorithm1", type="GenSurrogateAlg", saveSurrogate=True)
     hdmr_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
