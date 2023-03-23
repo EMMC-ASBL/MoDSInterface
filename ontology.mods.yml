@@ -4,7 +4,6 @@ namespace: "mods"
 author: "CMCL Innovations"
 
 ontology:
-
   ################ RELATIONSHIPS  ################
   hasPart:
     default_rel: true
@@ -19,51 +18,48 @@ ontology:
     subclass_of:
       - cuba.passiveRelationship
 
-################ MAIN ENTITIES ################
-#================================================#
+  ################ MAIN ENTITIES ################
+  #================================================#
   Simulation:
     subclass_of:
-    - cuba.Entity
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.Algorithm
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.InputData
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.AnalyticModel
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.JobID
-    attributes:
-      mods.SaveSurrogate: None
-      mods.SurrogateToLoad: None
+      - cuba.Entity
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.Algorithm
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.InputData
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.AnalyticModel
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.JobID
 
   MultiObjectiveSimulation:
     subclass_of:
-    - mods.Simulation
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.ParetoFront
+      - mods.Simulation
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.ParetoFront
 
   HighDimensionalModelRepresentationSimulation:
     subclass_of:
-    - mods.Simulation
+      - mods.Simulation
 
   MultiObjectiveSimulationOnly:
     subclass_of:
-    - mods.Simulation
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.ParetoFront
+      - mods.Simulation
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.ParetoFront
 
   EvaluateSurrogate:
     subclass_of:
-    - mods.Simulation
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.OutputData
+      - mods.Simulation
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.OutputData
 
   SensitivityAnalysis:
     subclass_of:
@@ -74,33 +70,35 @@ ontology:
 
   Algorithm:
     subclass_of:
-    - cuba.Entity
-    - mods.hasPart:
-        cardinality: some
-        range: mods.Variable
+      - cuba.Entity
+      - mods.hasPart:
+          cardinality: some
+          range: mods.Variable
     attributes:
       mods.name:
       mods.type:
       mods.maxNumberOfResults: None
+      mods.saveSurrogate: None
+      mods.surrogateToLoad: None
 
   InputData:
     subclass_of:
-    - mods.DataSet
+      - mods.DataSet
 
   DataSet:
     subclass_of:
-    - cuba.Entity
-    - mods.hasPart:
-        cardinality: some
-        range: mods.DataPoint
+      - cuba.Entity
+      - mods.hasPart:
+          cardinality: some
+          range: mods.DataPoint
 
   OutputData:
     subclass_of:
-    - mods.DataSet
+      - mods.DataSet
 
   ParetoFront:
     subclass_of:
-    - mods.OutputData
+      - mods.OutputData
 
   SensitivityDataSet:
     subclass_of:
@@ -120,21 +118,21 @@ ontology:
 
   AnalyticModel:
     subclass_of:
-    - cuba.Entity
-    - mods.hasPart:
-        cardinality: some
-        range: mods.Function
+      - cuba.Entity
+      - mods.hasPart:
+          cardinality: some
+          range: mods.Function
 
   DataPoint:
     subclass_of:
-    - cuba.Entity
-    - mods.hasPart:
-        cardinality: some
-        range: mods.DataPointItem
+      - cuba.Entity
+      - mods.hasPart:
+          cardinality: some
+          range: mods.DataPointItem
 
   DataPointItem:
     subclass_of:
-    - cuba.Entity
+      - cuba.Entity
     attributes:
       mods.name:
       mods.value:
@@ -147,27 +145,27 @@ ontology:
 
   JobID:
     subclass_of:
-    - cuba.Entity
-    - mods.hasPart:
-        cardinality: some
-        range: mods.JobIDItem
+      - cuba.Entity
+      - mods.hasPart:
+          cardinality: some
+          range: mods.JobIDItem
 
   JobIDItem:
     subclass_of:
-    - cuba.Entity
+      - cuba.Entity
     attributes:
       mods.name:
 
   Function:
     subclass_of:
-    - cuba.Entity
+      - cuba.Entity
     attributes:
       mods.name:
       mods.formula:
 
   Variable:
     subclass_of:
-    - cuba.Entity
+      - cuba.Entity
     attributes:
       mods.name:
       mods.type:
@@ -178,12 +176,12 @@ ontology:
 
   formula:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
   value:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
 
   order:
     subclass_of:
@@ -192,45 +190,45 @@ ontology:
 
   name:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
   type:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
-  SaveSurrogate:
+  saveSurrogate:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: BOOL
 
-  SurrogateToLoad:
+  surrogateToLoad:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
   objective:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
   minimum:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
   maximum:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
   weight:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING
 
   maxNumberOfResults:
     subclass_of:
-    - cuba.attribute
+      - cuba.attribute
     datatype: STRING

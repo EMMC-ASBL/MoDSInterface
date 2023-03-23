@@ -12,9 +12,7 @@ logger.handlers[0].setFormatter(
     logging.Formatter("%(levelname)s %(asctime)s [%(name)s]: %(message)s")
 )
 
-# This examples aims to run the amiii forward use case by hard-coding
-# the input CUDS objects and passing them to the MoDS_Session class
-# for execution.
+
 def MOO_example():
     logger.info("################  Start: MoDS MOO Example ################")
     logger.info("Loading enviroment variables")
@@ -22,14 +20,30 @@ def MOO_example():
     logger.info("Setting up the simulation inputs")
 
     moo_simulation = mods.MultiObjectiveSimulation()
-    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults=10)
+    hdmr_algorithm = mods.Algorithm(
+        name="algorithm1", type="GenSurrogateAlg", saveSurrogate=False)
+    hdmr_algorithm.add(
+        mods.Variable(name="var1", type="input"),
+        mods.Variable(name="var2", type="input"),
+        mods.Variable(name="var3", type="input"),
+        mods.Variable(name="var4", type="output"),
+        mods.Variable(name="var5", type="output"),
+        mods.Variable(name="var6", type="output"),
+    )
+    moo_simulation.add(hdmr_algorithm)
+
+    moo_algorithm = mods.Algorithm(
+        name="algorithm2", type="MOO", maxNumberOfResults=10, saveSurrogate=False)
     moo_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
         mods.Variable(name="var3", type="input"),
-        mods.Variable(name="var4", type="output", objective="Maximise", minimum="0.5", weight="0.5"),
-        mods.Variable(name="var5", type="output", objective="Minimise", maximum="1.5", weight="0.1"),
-        mods.Variable(name="var6", type="output", objective="Maximise", minimum="2.5", weight="0.7"),
+        mods.Variable(name="var4", type="output",
+                      objective="Maximise", minimum="0.5", weight="0.5"),
+        mods.Variable(name="var5", type="output",
+                      objective="Minimise", maximum="1.5", weight="0.1"),
+        mods.Variable(name="var6", type="output",
+                      objective="Maximise", minimum="2.5", weight="0.7"),
     )
 
     moo_simulation.add(moo_algorithm)
@@ -72,16 +86,16 @@ def MOO_example():
         job_id = search.find_cuds_objects_by_oclass(
             mods.JobID, wrapper, rel=None
         )
-        
+
         logger.info("Printing the simulation results.")
-        
+
         if pareto_front:
             pretty_print(pareto_front[0])
         if job_id:
             pretty_print(job_id[0])
-                
+
     logger.info("################  End: MoDS MOO Example ################")
-    
+
     return pareto_front
 
 

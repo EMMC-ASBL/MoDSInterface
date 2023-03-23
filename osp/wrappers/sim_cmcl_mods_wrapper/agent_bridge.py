@@ -45,7 +45,7 @@ class Agent_Bridge:
             Resulting JSON data objects (or None if error occurs)
         """
         os.environ['NO_PROXY'] = self.base_url
-        logger.info(os.environ['MODS_AGENT_BASE_URL'])
+        logger.info(f"MoDS enpoint: {os.environ['MODS_AGENT_BASE_URL']}")
         
         logger.info("Submitting job")
         submit_message = self.submitJob(jsonString)
