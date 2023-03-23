@@ -164,7 +164,7 @@ ontology:
       - cuba.attribute
     datatype: STRING
 
-  SaveSurrogate:
+  saveSurrogate:
     subclass_of:
       - cuba.attribute
     datatype: BOOL
