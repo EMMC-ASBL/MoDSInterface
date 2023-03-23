@@ -12,10 +12,6 @@ logger.handlers[0].setFormatter(
     logging.Formatter("%(levelname)s %(asctime)s [%(name)s]: %(message)s")
 )
 
-# This examples aims to run the amiii forward use case by hard-coding
-# the input CUDS objects and passing them to the MoDS_Session class
-# for execution.
-
 
 def MOO_example():
     logger.info("################  Start: MoDS MOO Example ################")
