@@ -103,11 +103,19 @@ class CUDS_Adaptor:
             json_item = defaultdict(list)
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
+
+
+<< << << < HEAD
             json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults != "None" else None
+== == == =
+            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults != "None" else None
+            json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate != "None" else None
+            json_item['surrogateToLoad'] = algorithm.surrogateToLoad if algorithm.surrogateToLoad != "None" else None
+>>>>>> > saving-and -loading-surroagates
             json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
-            if not variables:
+            if not variables and json_item['surrogateToLoad'] is None:
                 raise ValueError(
                     (
                         "Missing algorithm Variable specification. "
@@ -132,12 +140,12 @@ class CUDS_Adaptor:
         dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
             mods.DataPoint, root_cuds_object, rel=None
         )  # type: ignore
-        SurrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
-            mods.Simulation, root_cuds_object, rel=None
-        )[0].SurrogateToLoad  # type: ignore
+        surrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
+         mods.Algorithm, root_cuds_object, rel=None
+        )[0].surrogateToLoad  # type: ignore
 
         logger.info("Registering simulation data points.")
-        if not dataPoints and not SurrogateToLoad:
+        if not dataPoints and not surrogateToLoad:
             raise ValueError(
                 (
                     "Missing DataPoint specification. "

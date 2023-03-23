@@ -12,9 +12,7 @@ logger.handlers[0].setFormatter(
     logging.Formatter("%(levelname)s %(asctime)s [%(name)s]: %(message)s")
 )
 
-# This examples aims to run the amiii forward use case by hard-coding
-# the input CUDS objects and passing them to the MoDS_Session class
-# for execution.
+
 def HDMR_example():
     logger.info("################  Start: MoDS HDMR Example ################")
     logger.info("Setting up the simulation inputs")
@@ -64,18 +62,18 @@ def HDMR_example():
         wrapper = cuba.wrapper(session=session)
         wrapper.add(hdmr_simulation, rel=cuba.relationship)
         wrapper.session.run()
-            
+
         job_id = search.find_cuds_objects_by_oclass(
             mods.JobID, wrapper, rel=None
         )
-        
+
     logger.info("Printing the simulation results.")
-    
+
     if job_id:
-            pretty_print(job_id[0])
+        pretty_print(job_id[0])
 
     logger.info("################  End: MoDS HDMR Example ################")
-    
+
     return job_id
 
 
