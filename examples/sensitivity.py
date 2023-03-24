@@ -19,7 +19,7 @@ logger.handlers[0].setFormatter(
 
 def sensitivity_example(surrogateToLoad="mods-sim-8606989784878733752"):
     logger.info(
-        "################  Start: MoDS MOO only Example ################")
+        "################  Start: MoDS Sensitivity Analysis Example ################")
     logger.info("Loading enviroment variables")
     load_dotenv()
     logger.info("Setting up the simulation inputs")
@@ -62,7 +62,8 @@ def sensitivity_example(surrogateToLoad="mods-sim-8606989784878733752"):
         if job_id:
             pretty_print(job_id[0])
 
-    logger.info("################  End: MoDS MOO only Example ################")
+    logger.info(
+        "################  End: MoDS Sensitivity Analysis Example ################")
 
     return sensitivities
 
