@@ -19,7 +19,7 @@ logger.handlers[0].setFormatter(
 
 def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
     logger.info(
-        "################  Start: MoDS MOO only Example ################")
+        "################  Start: MoDS Evaluate Surrogate Example ################")
     logger.info("Loading enviroment variables")
     load_dotenv()
     logger.info("Setting up the simulation inputs")
@@ -88,7 +88,8 @@ def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
         if job_id:
             pretty_print(job_id[0])
 
-    logger.info("################  End: MoDS MOO only Example ################")
+    logger.info(
+        "################  End: MoDS Evaluate Surrogate Example ################")
 
     return ouput_data
 
