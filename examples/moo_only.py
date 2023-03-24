@@ -13,25 +13,17 @@ logger.handlers[0].setFormatter(
 )
 
 
-def MOO_example():
-    logger.info("################  Start: MoDS MOO Example ################")
+def MOOonly_example(surrogateToLoad="mods-sim-8606989784878733752"):
+    logger.info(
+        "################  Start: MoDS MOO only Example ################")
     logger.info("Loading enviroment variables")
     load_dotenv()
     logger.info("Setting up the simulation inputs")
 
-    moo_simulation = mods.MultiObjectiveSimulation()
+    moo_simulation = mods.MultiObjectiveSimulationOnly()
     hdmr_algorithm = mods.Algorithm(
-        name="algorithm1", type="GenSurrogateAlg")
-    hdmr_algorithm.add(
-        mods.Variable(name="var1", type="input"),
-        mods.Variable(name="var2", type="input"),
-        mods.Variable(name="var3", type="input"),
-        mods.Variable(name="var4", type="output"),
-        mods.Variable(name="var5", type="output"),
-        mods.Variable(name="var6", type="output"),
-    )
+        name="algorithm1", type="GenSurrogateAlg", surrogateToLoad=surrogateToLoad)
     moo_simulation.add(hdmr_algorithm)
-
     moo_algorithm = mods.Algorithm(
         name="algorithm2", type="MOO", maxNumberOfResults=10)
     moo_algorithm.add(
@@ -48,30 +40,7 @@ def MOO_example():
 
     moo_simulation.add(moo_algorithm)
 
-    example_data = [
-        ["var1", "var2", "var3", "var4", "var5", "var6"],
-        [0.1, 0.4, 0.5, 0.1, 1.2, 2.5],
-        [0.3, 0.9, 0.1, 0.9, 2.0, 3.0],
-        [0.6, 0.0, 0.2, 0.1, 1.0, 1.2],
-        [0.1, 0.1, 0.3, 0.7, 1.6, 2.1],
-        [0.2, 0.8, 0.5, 0.1, 1.7, 4.0],
-    ]
-
-    example_data_header = example_data[0]
-    example_data_values = example_data[1:]
-
-    input_data = mods.InputData()
-
-    for row in example_data_values:
-        data_point = mods.DataPoint()
-        for header, value in zip(example_data_header, row):
-            data_point.add(
-                mods.DataPointItem(name=header, value=value),
-                rel=mods.hasPart,
-            )
-        input_data.add(data_point, rel=mods.hasPart)
-
-    moo_simulation.add(input_data)
+    pareto_front = None
 
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
@@ -94,10 +63,10 @@ def MOO_example():
         if job_id:
             pretty_print(job_id[0])
 
-    logger.info("################  End: MoDS MOO Example ################")
+    logger.info("################  End: MoDS MOO only Example ################")
 
     return pareto_front
 
 
 if __name__ == "__main__":
-    MOO_example()
+    MOOonly_example()

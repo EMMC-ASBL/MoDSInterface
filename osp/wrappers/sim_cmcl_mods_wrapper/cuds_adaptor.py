@@ -39,9 +39,9 @@ class CUDS_Adaptor:
         # features will be supported, the template variable might be useful
         # for picking predefined CUDStoJSON and JSONtoCUDS translation
         # functions.
-        if simulation_template == engtempl.Engine_Template.MOO:
+        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR:
             logger.info("Registering inputs")
-
+            
             jsonData[SIM_TYPE_KEY] = simulation_template.name
 
             CUDS_Adaptor.algorithmsCUDStoJSON(
@@ -63,7 +63,7 @@ class CUDS_Adaptor:
                 root_cuds_object=root_cuds_object,
                 jsonData = jsonData,
             )
-
+        
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
 
@@ -86,11 +86,13 @@ class CUDS_Adaptor:
             json_item = defaultdict(list)
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
-            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults
+            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults!="None" else None
+            json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate!="None" else None
+            json_item['surrogateToLoad'] = algorithm.surrogateToLoad if algorithm.surrogateToLoad!="None" else None
             json_item['variables'] = []
 
             variables = algorithm.get(oclass=mods.Variable)
-            if not variables:
+            if not variables and json_item['surrogateToLoad'] is None:
                 raise ValueError(
                     (
                         "Missing algorithm Variable specification. "
@@ -116,13 +118,16 @@ class CUDS_Adaptor:
         dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
          mods.DataPoint, root_cuds_object, rel=None
         )  # type: ignore
+        surrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
+         mods.Algorithm, root_cuds_object, rel=None
+        )[0].surrogateToLoad  # type: ignore
 
         logger.info("Registering simulation data points.")
-        if not dataPoints:
+        if not dataPoints and not surrogateToLoad:
             raise ValueError(
                 (
                     "Missing DataPoint specification. "
-                    "At least one DataPoint CUDS must be defined."
+                    "At least one DataPoint CUDS must be defined or a surrogate must be loaded."
                 )
             )
 
@@ -158,6 +163,7 @@ class CUDS_Adaptor:
             for func_item in model_funcs: # type: ignore
                 jsonData[INPUTS_KEY].append({'name': func_item.name, 'formula': func_item.formula})
 
+    simulation = None
     @staticmethod
     def toCUDS(
         root_cuds_object, jsonResults: Dict, simulation_template: Enum
@@ -169,11 +175,14 @@ class CUDS_Adaptor:
             logger.warning("Empty JSON output. Nothing to convert.")
             return
 
-        if simulation_template == engtempl.Engine_Template.MOO:
-            logger.info("Registering outputs")
+        ParetoFront = mods.ParetoFront()
 
-            moo_simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
-            ParetoFront = mods.ParetoFront()
+        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly:
+            logger.info("Registering outputs")
+            if simulation_template == engtempl.Engine_Template.MOOonly:
+                simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
+            else:
+                simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
 
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
@@ -188,6 +197,13 @@ class CUDS_Adaptor:
                     )
 
                 ParetoFront.add(data_point)
+                
+            simulation.add(ParetoFront)
+        elif simulation_template == engtempl.Engine_Template.HDMR:
+            simulation = root_cuds_object.get(oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
 
-            moo_simulation.add(ParetoFront)
-            logger.info("All outputs successfully registered.")
+        job_id = mods.JobID()
+        job_id.add(mods.JobIDItem(name=jsonResults["jobID"]), rel=mods.hasPart)
+        simulation.add(job_id)
+        
+        logger.info("All outputs successfully registered.")

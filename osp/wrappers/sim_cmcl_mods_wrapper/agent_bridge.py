@@ -44,9 +44,12 @@ class Agent_Bridge:
         Returns:
             Resulting JSON data objects (or None if error occurs)
         """
+        os.environ['NO_PROXY'] = self.base_url
+        logger.info(f"MoDS enpoint: {os.environ['MODS_AGENT_BASE_URL']}")
+        
         logger.info("Submitting job")
         submitted = self.submitJob(jsonString)
-
+        
         submitted = True
 
         if submitted == False:
@@ -90,8 +93,8 @@ class Agent_Bridge:
 
         # Check the HTTP return code
         if(response.status_code != 200):
-            logger.error("HTTP request returns unexpected status code {response.status_code}")
-            logger.error("Reason: {response.reason}")
+            logger.error(f"HTTP request returns unexpected status code {response.status_code}")
+            logger.error(f"Reason: {response.reason}")
             return False
 
         # Get the returned RAW text
@@ -202,27 +205,19 @@ class Agent_Bridge:
         response = requests.get(url)
 
         # Check the HTTP return code
-        if(response.status_code != 200):
+        if(response.status_code == 204):
+            logger.info(f"Job still running (attempt {attempt} of {self.MAX_ATTEMPTS})")
+            time.sleep(self.POLL_INTERVAL)
+            return self.__getJobResults(url, attempt + 1)
+        elif(response.status_code != 200):
             logger.error(f"HTTP request returns unexpected status code {response.status_code}")
             logger.error(f"Reason: {response.reason}")
             return None
-
-        # Get the returned RAW text
-        returnedRaw = response.text
-
-        # Parse into JSON
-        returnedJSON = json.loads(returnedRaw)
-
-        # Detect if the job has actually finished successfully
-        if("message" in returnedJSON):
-            message = returnedJSON["message"]
-
-            if((message.find("executing") >= 0) or (message.find("executed") >= 0)):
-                logger.info(f"Job still running (attempt {attempt} of {self.MAX_ATTEMPTS})")
-
-                # Wait
-                time.sleep(self.POLL_INTERVAL)
-                return self.__getJobResults(url, attempt + 1)
-
         else:
+            # Get the returned RAW text
+            returnedRaw = response.text
+
+            # Parse into JSON
+            returnedJSON = json.loads(returnedRaw)
+
             return returnedJSON
