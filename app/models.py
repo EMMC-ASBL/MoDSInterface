@@ -25,7 +25,8 @@ class TaskStatus(str, Enum):
 
 class Status(BaseModel):
 
-    message: str = Field(..., description="Message when successfully launched wrapper.")
+    message: str = Field(...,
+                         description="Message when successfully launched wrapper.")
     status: TaskStatus = Field(..., description="Status of the remote task.")
     state: TaskStatus = Field(..., description="State of the remote task.")
     task_id: UUID = Field(..., description="UUID of the submitted task.")
@@ -57,19 +58,15 @@ class AppConfig(RedisSettings):
          """,
     )
     ontology_file: str = Field(
-        "amiii.ttl", description="File path of the t-box ontology to be shared."
+        "mods.ttl", description="File path of the t-box ontology to be shared."
     )
     cuds_file: str = Field(
-        "app4-cmcl_inputs.ttl",
+        "mods-cmcl-moo-input.ttl",
         description="File path of the a-box ontology to be shared as example input.",
-    )
-    collection_file: str = Field(
-        "collection_inputs.json",
-        description="File path of the Dlite-collection to be shared as example input.",
     )
 
     wrapper_name: str = Field(
-        "osp.wrappers.sim_cmcl_app4_wrapper.mods_session:MoDS_Session",
+        "osp.wrappers.sim_cmcl_wrapper.mods_session:MoDS_Session",
         description="""SimWrapperSession class to be loaded from a python module. 
         The regex is: mypackage.mymodule:MyClass""",
     )
@@ -87,4 +84,4 @@ class AppConfig(RedisSettings):
 
     class Config:
 
-        env_prefix = "MODS_APP4_"
+        env_prefix = "MODS_"

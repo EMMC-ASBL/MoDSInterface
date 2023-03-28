@@ -145,7 +145,8 @@ def status(
 def get_ontology(settings: "BaseSettings" = Depends(depends_config)) -> Response:
     ontology_path = os.path.join(*opath.__path__, settings.ontology_file)
     if not os.path.exists(ontology_path):
-        raise HTTPException(status_code=404, detail="Ontology file is not available")
+        raise HTTPException(
+            status_code=404, detail="Ontology file is not available")
     with open(ontology_path, "r") as file:
         content = file.read()
     return Response(content=content, media_type="text/turtle")
@@ -161,18 +162,6 @@ def get_example(settings: "BaseSettings" = Depends(depends_config)) -> Response:
     with open(ontology_path, "r") as file:
         content = file.read()
     return Response(content=content, media_type="text/turtle")
-
-
-@app.get("/example_collection")
-def get_example(settings: "BaseSettings" = Depends(depends_config)) -> Response:
-    coll_path = os.path.join(*opath.__path__, settings.collection_file)
-    if not os.path.exists(coll_path):
-        raise HTTPException(
-            status_code=404, detail="Example collection file is not available"
-        )
-    with open(coll_path, "r") as file:
-        content = file.read()
-    return Response(content=content, media_type="application/json")
 
 
 @app.on_event("startup")
