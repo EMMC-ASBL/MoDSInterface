@@ -1,0 +1,178 @@
+version: "0.0.3"
+
+oclass: amiii.beamManufacturingDatum
+
+model:
+
+  amiii.beamManufacturingDatum:
+    amiii.hasInput:
+      amiii.c:
+        cardinality: 1
+      amiii.v:
+        cardinality: 1
+      amiii.mn:
+        cardinality: 1
+      amiii.pyro_bp2_temp_max:
+        cardinality: 1
+      amiii.blooming_duration:
+        cardinality: 1
+      amiii.flitzer_duration:
+        cardinality: 1
+      amiii.tandem_duration:
+        cardinality: 1
+      amiii.blooming_total_passes:
+        cardinality: 1
+      amiii.qst_entry_temp_estimate:
+        cardinality: 1
+      amiii.qst_water_temp_entry:
+        cardinality: 1
+      amiii.qst_duration:
+        cardinality: 1
+      amiii.qst_flow_rate_total:
+        cardinality: 1
+    amiii.hasOutput:
+      amiii.toughness_mean:
+        cardinality: 1
+      amiii.elongation_european:
+        cardinality: 1
+
+  amiii.c:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 0.1
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: mass_fraction
+
+  amiii.v:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 0.1
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: mass_fraction
+
+  amiii.mn:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 0.1
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: mass_fraction
+
+  amiii.pyro_bp2_temp_max:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 300.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: C
+
+  amiii.blooming_duration:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: s
+
+  amiii.flitzer_duration:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: s
+
+  amiii.tandem_duration:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: s
+
+  amiii.blooming_total_passes:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: "-"
+
+  amiii.qst_entry_temp_estimate:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: C
+
+  amiii.qst_water_temp_entry:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: C
+
+  amiii.qst_duration:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: s
+
+  amiii.qst_flow_rate_total:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 2.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: m^3/h
+
+  amiii.toughness_mean:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 100.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: J
+
+  amiii.elongation_european:
+    amiii.value:
+      FLOAT:
+        cardinality: 1
+        value: 28.0
+    amiii.unit:
+      STRING:
+        cardinality: 1
+        value: "%"
+
