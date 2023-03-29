@@ -1,5 +1,5 @@
 ---
-version: "0.0.8"
+version: "0.0.9"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -61,6 +61,13 @@ ontology:
           cardinality: 1
           range: mods.OutputData
 
+  SensitivityAnalysis:
+    subclass_of:
+    - mods.Simulation
+    - mods.hasPart:
+        cardinality: 1
+        range: mods.SensitivityDataSet
+
   Algorithm:
     subclass_of:
       - cuba.Entity
@@ -93,6 +100,22 @@ ontology:
     subclass_of:
       - mods.OutputData
 
+  SensitivityDataSet:
+    subclass_of:
+    - mods.OutputData
+    - mods.hasPart:
+        cardinality: some
+        range: mods.Sensitivity
+
+  Sensitivity:
+    subclass_of:
+      - cuba.Entity
+      - mods.hasPart:
+          cardinality: some
+          range: mods.SensitivityItem
+    attributes:
+      mods.name:
+
   AnalyticModel:
     subclass_of:
       - cuba.Entity
@@ -113,6 +136,12 @@ ontology:
     attributes:
       mods.name:
       mods.value:
+
+  SensitivityItem:
+    subclass_of:
+    - mods.DataPointItem
+    attributes:
+      mods.order:
 
   JobID:
     subclass_of:
@@ -153,6 +182,11 @@ ontology:
   value:
     subclass_of:
       - cuba.attribute
+
+  order:
+    subclass_of:
+    - mods.value
+    datatype: INT
 
   name:
     subclass_of:

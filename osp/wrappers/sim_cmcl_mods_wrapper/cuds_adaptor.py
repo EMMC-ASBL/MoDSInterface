@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 INPUTS_KEY = "Inputs"
 OUTPUTS_KEY = "Outputs"
+SENSITIVITIES_KEY = "Sensitivities"
 ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
 SAVE_SURROGATE_KEY = "saveSurrogate"
@@ -42,7 +43,11 @@ class CUDS_Adaptor:
         # features will be supported, the template variable might be useful
         # for picking predefined CUDStoJSON and JSONtoCUDS translation
         # functions.
-        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR or simulation_template == engtempl.Engine_Template.Evaluate:
+        if simulation_template in {engtempl.Engine_Template.MOO,
+                                   engtempl.Engine_Template.MOOonly,
+                                   engtempl.Engine_Template.HDMR,
+                                   engtempl.Engine_Template.Evaluate,
+                                   engtempl.Engine_Template.Sensitivity}:
             logger.info("Registering inputs")
 
             jsonData[SIM_TYPE_KEY] = simulation_template.name
@@ -235,6 +240,26 @@ class CUDS_Adaptor:
         elif simulation_template == engtempl.Engine_Template.HDMR:
             simulation = root_cuds_object.get(
                 oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
+
+        elif simulation_template == engtempl.Engine_Template.Sensitivity:
+            sensitivity_data_set = mods.SensitivityDataSet()
+            simulation = root_cuds_object.get(
+                oclass=mods.SensitivityAnalysis, rel=cuba.relationship)[0]
+
+            for sensitivity_dict in jsonResults[SENSITIVITIES_KEY]:
+                sensitivity = mods.Sensitivity(name=sensitivity_dict["name"])
+
+                for label_dict in sensitivity_dict["labels"]:
+                    order = label_dict["order"]
+                    for values_dict in sensitivity_dict["values"]:
+                        if order == values_dict["order"]:
+                            for name, value in zip(label_dict["values"], values_dict["values"]):
+                                sensitivity.add(mods.SensitivityItem(
+                                    name=name, value=value, order=order))
+
+                sensitivity_data_set.add(sensitivity)
+
+            simulation.add(sensitivity_data_set)
 
         job_id = mods.JobID()
         job_id.add(mods.JobIDItem(name=jsonResults["jobID"]), rel=mods.hasPart)

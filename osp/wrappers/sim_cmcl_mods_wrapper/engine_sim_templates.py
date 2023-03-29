@@ -5,3 +5,4 @@ class Engine_Template(Enum):
     MOOonly = 2
     HDMR = 3
     Evaluate = 4
+    Sensitivity = 5
