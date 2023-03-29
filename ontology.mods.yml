@@ -1,5 +1,5 @@
 ---
-version: "0.0.4"
+version: "0.0.8"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -54,6 +54,13 @@ ontology:
           cardinality: 1
           range: mods.ParetoFront
 
+  EvaluateSurrogate:
+    subclass_of:
+      - mods.Simulation
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.OutputData
+
   Algorithm:
     subclass_of:
       - cuba.Entity
@@ -78,9 +85,13 @@ ontology:
           cardinality: some
           range: mods.DataPoint
 
-  ParetoFront:
+  OutputData:
     subclass_of:
       - mods.DataSet
+
+  ParetoFront:
+    subclass_of:
+      - mods.OutputData
 
   AnalyticModel:
     subclass_of:

@@ -44,6 +44,10 @@ class MoDS_Engine:
         hdmr_class = search.find_cuds_objects_by_oclass(
          mods.HighDimensionalModelRepresentationSimulation, root_cuds_object, rel=None
         )  # type: ignore
+        
+        evaluate_class = search.find_cuds_objects_by_oclass(
+         mods.EvaluateSurrogate, root_cuds_object, rel=None
+        )  # type: ignore
 
         if moo_class:
             self.simulation_template = engtempl.Engine_Template.MOO
@@ -51,6 +55,8 @@ class MoDS_Engine:
             self.simulation_template = engtempl.Engine_Template.MOOonly
         elif hdmr_class:
             self.simulation_template = engtempl.Engine_Template.HDMR
+        elif evaluate_class:
+            self.simulation_template = engtempl.Engine_Template.Evaluate
         else:
             raise enexc.UnsupportedSimulationType
 

@@ -4,3 +4,4 @@ class Engine_Template(Enum):
     MOO = 1
     MOOonly = 2
     HDMR = 3
+    Evaluate = 4

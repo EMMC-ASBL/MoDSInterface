@@ -12,17 +12,27 @@ logger.handlers[0].setFormatter(
     logging.Formatter("%(levelname)s %(asctime)s [%(name)s]: %(message)s")
 )
 
+# This examples aims to run the amiii forward use case by hard-coding
+# the input CUDS objects and passing them to the MoDS_Session class
+# for execution.
 
-def MOO_example():
-    logger.info("################  Start: MoDS MOO Example ################")
+
+def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
+    logger.info(
+        "################  Start: MoDS Evaluate Surrogate Example ################")
     logger.info("Loading enviroment variables")
     load_dotenv()
     logger.info("Setting up the simulation inputs")
 
-    moo_simulation = mods.MultiObjectiveSimulation()
+    evaluate_simulation = mods.EvaluateSurrogate()
+
     hdmr_algorithm = mods.Algorithm(
-        name="algorithm1", type="GenSurrogateAlg", saveSurrogate=False)
-    hdmr_algorithm.add(
+        name="algorithm1", type="GenSurrogateAlg", surrogateToLoad=surrogateToLoad, saveSurrogate=False)
+    evaluate_simulation.add(hdmr_algorithm)
+
+    evaluate_algorithm = mods.Algorithm(
+        name="algorithm2", type="SamplingAlg", saveSurrogate=False)
+    evaluate_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
         mods.Variable(name="var3", type="input"),
@@ -30,31 +40,13 @@ def MOO_example():
         mods.Variable(name="var5", type="output"),
         mods.Variable(name="var6", type="output"),
     )
-    moo_simulation.add(hdmr_algorithm)
 
-    moo_algorithm = mods.Algorithm(
-        name="algorithm2", type="MOO", maxNumberOfResults=10, saveSurrogate=False)
-    moo_algorithm.add(
-        mods.Variable(name="var1", type="input"),
-        mods.Variable(name="var2", type="input"),
-        mods.Variable(name="var3", type="input"),
-        mods.Variable(name="var4", type="output",
-                      objective="Maximise", minimum="0.5", weight="0.5"),
-        mods.Variable(name="var5", type="output",
-                      objective="Minimise", maximum="1.5", weight="0.1"),
-        mods.Variable(name="var6", type="output",
-                      objective="Maximise", minimum="2.5", weight="0.7"),
-    )
-
-    moo_simulation.add(moo_algorithm)
+    evaluate_simulation.add(evaluate_algorithm)
 
     example_data = [
-        ["var1", "var2", "var3", "var4", "var5", "var6"],
-        [0.1, 0.4, 0.5, 0.1, 1.2, 2.5],
-        [0.3, 0.9, 0.1, 0.9, 2.0, 3.0],
-        [0.6, 0.0, 0.2, 0.1, 1.0, 1.2],
-        [0.1, 0.1, 0.3, 0.7, 1.6, 2.1],
-        [0.2, 0.8, 0.5, 0.1, 1.7, 4.0],
+        ["var1", "var2", "var3"],
+        [0.15, 0.45, 0.55],
+        [0.35, 0.85, 0.15],
     ]
 
     example_data_header = example_data[0]
@@ -71,17 +63,19 @@ def MOO_example():
             )
         input_data.add(data_point, rel=mods.hasPart)
 
-    moo_simulation.add(input_data)
+    evaluate_simulation.add(input_data)
+
+    ouput_data = None
 
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
     with ms.MoDS_Session() as session:
         wrapper = cuba.wrapper(session=session)
-        wrapper.add(moo_simulation, rel=cuba.relationship)
+        wrapper.add(evaluate_simulation, rel=cuba.relationship)
         wrapper.session.run()
 
-        pareto_front = search.find_cuds_objects_by_oclass(
-            mods.ParetoFront, wrapper, rel=None
+        ouput_data = search.find_cuds_objects_by_oclass(
+            mods.OutputData, wrapper, rel=None
         )
         job_id = search.find_cuds_objects_by_oclass(
             mods.JobID, wrapper, rel=None
@@ -89,15 +83,16 @@ def MOO_example():
 
         logger.info("Printing the simulation results.")
 
-        if pareto_front:
-            pretty_print(pareto_front[0])
+        if ouput_data:
+            pretty_print(ouput_data[0])
         if job_id:
             pretty_print(job_id[0])
 
-    logger.info("################  End: MoDS MOO Example ################")
+    logger.info(
+        "################  End: MoDS Evaluate Surrogate Example ################")
 
-    return pareto_front
+    return ouput_data
 
 
 if __name__ == "__main__":
-    MOO_example()
+    evaluate_example()

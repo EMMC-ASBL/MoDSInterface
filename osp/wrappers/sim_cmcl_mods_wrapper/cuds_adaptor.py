@@ -16,7 +16,10 @@ INPUTS_KEY = "Inputs"
 OUTPUTS_KEY = "Outputs"
 ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
+SAVE_SURROGATE_KEY = "saveSurrogate"
+SURROGATE_TO_LOAD_KEY = "surrogateToLoad"
 OPTIONAL_ATTRS = ["objective", "maximum", "minimum", "weight"]
+
 
 class CUDS_Adaptor:
     """Class to handle translation between CUDS and JSON objects."""
@@ -39,38 +42,38 @@ class CUDS_Adaptor:
         # features will be supported, the template variable might be useful
         # for picking predefined CUDStoJSON and JSONtoCUDS translation
         # functions.
-        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR:
+        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly or simulation_template == engtempl.Engine_Template.HDMR or simulation_template == engtempl.Engine_Template.Evaluate:
             logger.info("Registering inputs")
-            
+
             jsonData[SIM_TYPE_KEY] = simulation_template.name
 
             CUDS_Adaptor.algorithmsCUDStoJSON(
                 root_cuds_object=root_cuds_object,
-                jsonData = jsonData,
+                jsonData=jsonData,
             )
 
             CUDS_Adaptor.inputDataCUDStoJSON(
                 root_cuds_object=root_cuds_object,
-                jsonData = jsonData,
+                jsonData=jsonData,
             )
 
             CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
                 root_cuds_object=root_cuds_object,
-                jsonData = jsonData,
+                jsonData=jsonData,
             )
 
             CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
                 root_cuds_object=root_cuds_object,
-                jsonData = jsonData,
+                jsonData=jsonData,
             )
-        
+
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
 
     @staticmethod
     def algorithmsCUDStoJSON(root_cuds_object, jsonData):
         algorithms: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.Algorithm, root_cuds_object, rel=None
+            mods.Algorithm, root_cuds_object, rel=None
         )  # type: ignore
 
         logger.info("Registering simulation algorithms.")
@@ -86,13 +89,24 @@ class CUDS_Adaptor:
             json_item = defaultdict(list)
             json_item['name'] = algorithm.name
             json_item['type'] = algorithm.type
-            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults!="None" else None
-            json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate!="None" else None
-            json_item['surrogateToLoad'] = algorithm.surrogateToLoad if algorithm.surrogateToLoad!="None" else None
-            json_item['variables'] = []
+            json_item['maxNumberOfResults'] = algorithm.maxNumberOfResults if algorithm.maxNumberOfResults != "None" else None
+            json_item['saveSurrogate'] = algorithm.saveSurrogate if algorithm.saveSurrogate != "None" else None
+            json_item['surrogateToLoad'] = algorithm.surrogateToLoad if algorithm.surrogateToLoad != "None" else None
 
             variables = algorithm.get(oclass=mods.Variable)
-            if not variables and json_item['surrogateToLoad'] is None:
+
+            if variables:
+                json_item['variables'] = []
+                for var_item in variables:  # type:ignore
+                    variables = {}
+                    variables["name"] = var_item.name
+                    variables["type"] = var_item.type
+                    for opt_attr in OPTIONAL_ATTRS:
+                        opt_attr_value = getattr(var_item, opt_attr, "None")
+                        if opt_attr_value != "None":
+                            variables[opt_attr] = opt_attr_value
+                    json_item['variables'].append(variables)
+            elif json_item['surrogateToLoad'] is None:
                 raise ValueError(
                     (
                         "Missing algorithm Variable specification. "
@@ -100,26 +114,15 @@ class CUDS_Adaptor:
                     )
                 )
 
-            for var_item in variables: # type:ignore
-                variables = {}
-                variables["name"] = var_item.name
-                variables["type"] = var_item.type
-                for opt_attr in OPTIONAL_ATTRS:
-                    opt_attr_value = getattr(var_item, opt_attr, "None")
-                    if opt_attr_value != "None":
-                        variables[opt_attr] = opt_attr_value
-                json_item['variables'].append(variables)
-
             jsonData[ALGORITHMS_KEY].append(json_item)
-
 
     @staticmethod
     def inputDataCUDStoJSON(root_cuds_object, jsonData):
         dataPoints: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.DataPoint, root_cuds_object, rel=None
+            mods.DataPoint, root_cuds_object, rel=None
         )  # type: ignore
         surrogateToLoad: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.Algorithm, root_cuds_object, rel=None
+            mods.Algorithm, root_cuds_object, rel=None
         )[0].surrogateToLoad  # type: ignore
 
         logger.info("Registering simulation data points.")
@@ -143,27 +146,30 @@ class CUDS_Adaptor:
                     )
                 )
 
-            for dat_item in datum_items: # type: ignore
+            for dat_item in datum_items:  # type: ignore
                 json_items[dat_item.name].append(dat_item.value)
 
         for name, values in json_items.items():
-            jsonData[INPUTS_KEY].append({'name':name, 'values': values})
+            jsonData[INPUTS_KEY].append({'name': name, 'values': values})
 
     @staticmethod
     def inputAnalyticModelCUDStoJSON(root_cuds_object, jsonData):
         analyticModels: List[Cuds] = search.find_cuds_objects_by_oclass(
-         mods.AnalyticModel, root_cuds_object, rel=None
+            mods.AnalyticModel, root_cuds_object, rel=None
         )  # type: ignore
 
         logger.info("Registering simulation analytic models.")
         for model in analyticModels:
             model_funcs = model.get(oclass=mods.Function)
-            if not model_funcs: return
+            if not model_funcs:
+                return
 
-            for func_item in model_funcs: # type: ignore
-                jsonData[INPUTS_KEY].append({'name': func_item.name, 'formula': func_item.formula})
+            for func_item in model_funcs:  # type: ignore
+                jsonData[INPUTS_KEY].append(
+                    {'name': func_item.name, 'formula': func_item.formula})
 
     simulation = None
+
     @staticmethod
     def toCUDS(
         root_cuds_object, jsonResults: Dict, simulation_template: Enum
@@ -175,14 +181,17 @@ class CUDS_Adaptor:
             logger.warning("Empty JSON output. Nothing to convert.")
             return
 
-        ParetoFront = mods.ParetoFront()
-
+        logger.info("Registering outputs")
         if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly:
-            logger.info("Registering outputs")
+
+            ParetoFront = mods.ParetoFront()
+
             if simulation_template == engtempl.Engine_Template.MOOonly:
-                simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
+                simulation = root_cuds_object.get(
+                    oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
             else:
-                simulation = root_cuds_object.get(oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
+                simulation = root_cuds_object.get(
+                    oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
 
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
@@ -197,13 +206,38 @@ class CUDS_Adaptor:
                     )
 
                 ParetoFront.add(data_point)
-                
+
             simulation.add(ParetoFront)
+
+        elif simulation_template == engtempl.Engine_Template.Evaluate:
+            output_data = mods.OutputData()
+            simulation = root_cuds_object.get(
+                oclass=mods.EvaluateSurrogate, rel=cuba.relationship)[0]
+
+            num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
+            for i in range(num_values):
+                data_point = mods.DataPoint()
+                for output in jsonResults[OUTPUTS_KEY]:
+                    out_value = output["values"][i]
+                    out_name = output["name"]
+
+                    data_point.add(
+                        mods.DataPointItem(name=out_name, value=out_value),
+                        rel=mods.hasPart,
+                    )
+                output_data.add(
+                    data_point,
+                    rel=mods.hasPart,
+                )
+
+            simulation.add(output_data)
+
         elif simulation_template == engtempl.Engine_Template.HDMR:
-            simulation = root_cuds_object.get(oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
+            simulation = root_cuds_object.get(
+                oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
 
         job_id = mods.JobID()
         job_id.add(mods.JobIDItem(name=jsonResults["jobID"]), rel=mods.hasPart)
         simulation.add(job_id)
-        
+
         logger.info("All outputs successfully registered.")
