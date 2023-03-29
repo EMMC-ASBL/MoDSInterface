@@ -29,3 +29,7 @@ ENV MODS_AGENT_BASE_URL $MODS_AGENT_BASE_URL
 RUN python -m pip install .
 RUN python -m pip install -r tests/test_requirements.txt
 RUN pico install ontology.mods.yml
+
+WORKDIR /app
+COPY . .
+ENTRYPOINT hypercorn app.main:app --bind 0.0.0.0:8080 --log-level debug --reload

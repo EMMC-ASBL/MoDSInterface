@@ -5,10 +5,27 @@ services:
     build:
       context: .
       args:
+        MODS_REDIS_HOST: $MODS_REDIS_HOST
+        MODS_REDIS_PORT: $MODS_REDIS_PORT
         MODS_AGENT_BASE_URL: $MODS_AGENT_BASE_URL
     image: cmcl/sim_cmcl_mods_wrapper:$SIM_CMCL_MODS_WRAPPER_VERSION
+    depends_on:
+      - redis
     cap_drop:
       - ALL
     container_name: sim_cmcl_mods_wrapper
+    expose:
+      - 8080
     ports:
       - 5001:5000
+    networks:
+      - otenet
+
+  redis:
+    image: redis:latest
+    networks:
+      - otenet
+
+networks:
+  otenet:
+    driver: bridge
