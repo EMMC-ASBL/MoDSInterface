@@ -19,6 +19,12 @@ The mock version of the MoDS web agent is additionally provided for testing and 
 
 # Installation - docker
 
+Before running the containers, please create your own `.env`-file from the `.env.template` and modify if needed:
+
+```
+cp .env.template .env
+```
+
 A convenience `docker_install.sh` script has been provided that creates the `cmcl/sim_cmcl_mods_wrapper` image.
 
 ```bash
@@ -48,11 +54,10 @@ The mods wrapper can be used by either running it in a docker container or local
    run_container.sh
 ```
 
-Regardless of the docker or local machine option for building and running the wrapper, trigger the following commands to run an example MOO simulations:
+Regardless of the docker or local machine option for building and running the wrapper, trigger the following command to run an example MOO simulation:
 
 ```bash
    python examples/moo.py
-   python examples/moo_analytic.py
 ```
 
 Please note that the above examples depend on the mods agent instance being up and running on CMCL servers.
