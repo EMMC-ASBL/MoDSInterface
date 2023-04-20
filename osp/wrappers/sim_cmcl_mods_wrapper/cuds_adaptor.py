@@ -173,8 +173,6 @@ class CUDS_Adaptor:
                 jsonData[INPUTS_KEY].append(
                     {'name': func_item.name, 'formula': func_item.formula})
 
-    simulation = None
-
     @staticmethod
     def toCUDS(
         root_cuds_object, jsonResults: Dict, simulation_template: Enum
@@ -186,17 +184,22 @@ class CUDS_Adaptor:
             logger.warning("Empty JSON output. Nothing to convert.")
             return
 
+        simulation = None
+
         logger.info("Registering outputs")
-        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly:
+        if simulation_template in {engtempl.Engine_Template.MOO, engtempl.Engine_Template.MOOonly, engtempl.Engine_Template.MCDM}:
 
             ParetoFront = mods.ParetoFront()
 
-            if simulation_template == engtempl.Engine_Template.MOOonly:
-                simulation = root_cuds_object.get(
-                    oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
-            else:
+            if simulation_template == engtempl.Engine_Template.MOO:
                 simulation = root_cuds_object.get(
                     oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
+            elif simulation_template == engtempl.Engine_Template.MOOonly:
+                simulation = root_cuds_object.get(
+                    oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
+            elif simulation_template == engtempl.Engine_Template.MCDM:
+                simulation = root_cuds_object.get(
+                    oclass=mods.MultCriteriaDecisionMaking, rel=cuba.relationship)[0]
 
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):

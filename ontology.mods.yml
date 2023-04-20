@@ -1,5 +1,5 @@
 ---
-version: "0.0.9"
+version: "0.0.10"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -48,6 +48,13 @@ ontology:
       - mods.Simulation
 
   MultiObjectiveSimulationOnly:
+    subclass_of:
+      - mods.Simulation
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.ParetoFront
+
+  MultCriteriaDecisionMaking:
     subclass_of:
       - mods.Simulation
       - mods.hasPart:
