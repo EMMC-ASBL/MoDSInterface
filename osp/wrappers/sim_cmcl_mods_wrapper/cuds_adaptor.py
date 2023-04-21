@@ -67,11 +67,6 @@ class CUDS_Adaptor:
                 jsonData=jsonData,
             )
 
-            CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
-                root_cuds_object=root_cuds_object,
-                jsonData=jsonData,
-            )
-
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
 
