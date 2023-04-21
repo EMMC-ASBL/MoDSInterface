@@ -194,7 +194,7 @@ class CUDS_Adaptor:
                     oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
             elif simulation_template == engtempl.Engine_Template.MCDM:
                 simulation = root_cuds_object.get(
-                    oclass=mods.MultCriteriaDecisionMaking, rel=cuba.relationship)[0]
+                    oclass=mods.MultiCriteriaDecisionMaking, rel=cuba.relationship)[0]
 
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):

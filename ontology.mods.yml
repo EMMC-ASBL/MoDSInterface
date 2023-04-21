@@ -54,7 +54,7 @@ ontology:
           cardinality: 1
           range: mods.ParetoFront
 
-  MultCriteriaDecisionMaking:
+  MultiCriteriaDecisionMaking:
     subclass_of:
       - mods.Simulation
       - mods.hasPart:

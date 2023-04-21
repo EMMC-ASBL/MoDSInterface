@@ -54,7 +54,7 @@ class MoDS_Engine:
         )  # type: ignore
 
         mcdm_class = search.find_cuds_objects_by_oclass(
-            mods.MultCriteriaDecisionMaking, root_cuds_object, rel=None
+            mods.MultiCriteriaDecisionMaking, root_cuds_object, rel=None
         )  # type: ignore
 
         if moo_class:
