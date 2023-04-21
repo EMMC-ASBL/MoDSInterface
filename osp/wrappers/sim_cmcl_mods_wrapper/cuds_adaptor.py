@@ -41,7 +41,8 @@ class CUDS_Adaptor:
                                    engtempl.Engine_Template.MOOonly,
                                    engtempl.Engine_Template.HDMR,
                                    engtempl.Engine_Template.Evaluate,
-                                   engtempl.Engine_Template.Sensitivity}:
+                                   engtempl.Engine_Template.Sensitivity,
+                                   engtempl.Engine_Template.MCDM}:
             logger.info("Registering inputs")
 
             jsonData[SIM_TYPE_KEY] = simulation_template.name
