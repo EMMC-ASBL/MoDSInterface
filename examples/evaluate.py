@@ -61,7 +61,7 @@ def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
 
     evaluate_simulation.add(input_data)
 
-    ouput_data = None
+    output_data = None
 
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
@@ -70,7 +70,7 @@ def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
         wrapper.add(evaluate_simulation, rel=cuba.relationship)
         wrapper.session.run()
 
-        ouput_data = search.find_cuds_objects_by_oclass(
+        output_data = search.find_cuds_objects_by_oclass(
             mods.OutputData, wrapper, rel=None
         )
         job_id = search.find_cuds_objects_by_oclass(
@@ -79,15 +79,15 @@ def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
 
         logger.info("Printing the simulation results.")
 
-        if ouput_data:
-            pretty_print(ouput_data[0])
+        if output_data:
+            pretty_print(output_data[0])
         if job_id:
             pretty_print(job_id[0])
 
     logger.info(
         "################  End: MoDS Evaluate Surrogate Example ################")
 
-    return ouput_data
+    return output_data
 
 
 if __name__ == "__main__":
