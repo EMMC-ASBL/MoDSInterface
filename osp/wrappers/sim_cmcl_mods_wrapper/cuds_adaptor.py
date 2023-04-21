@@ -191,19 +191,20 @@ class CUDS_Adaptor:
                 simulation = root_cuds_object.get(
                     oclass=mods.MultiCriteriaDecisionMaking, rel=cuba.relationship)[0]
 
-            num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
-            for i in range(num_values):
-                data_point = mods.DataPoint()
-                for output in jsonResults[OUTPUTS_KEY]:
-                    out_value = output["values"][i]
-                    out_name = output["name"]
+            if len(jsonResults[OUTPUTS_KEY]) != 0:
+                num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
+                for i in range(num_values):
+                    data_point = mods.DataPoint()
+                    for output in jsonResults[OUTPUTS_KEY]:
+                        out_value = output["values"][i]
+                        out_name = output["name"]
 
-                    data_point.add(
-                        mods.DataPointItem(name=out_name, value=out_value),
-                        rel=mods.hasPart,
-                    )
+                        data_point.add(
+                            mods.DataPointItem(name=out_name, value=out_value),
+                            rel=mods.hasPart,
+                        )
 
-                ParetoFront.add(data_point)
+                    ParetoFront.add(data_point)
 
             simulation.add(ParetoFront)
 
