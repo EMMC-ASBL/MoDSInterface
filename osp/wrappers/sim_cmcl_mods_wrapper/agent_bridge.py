@@ -109,9 +109,8 @@ class Agent_Bridge:
         logger.info(f"Job submitted successfully, resulting job ID is {self.jobID}")
         return returnedJSON
 
-    def is_final_result(self, submit_message)-> bool:
-        if "jobID" in submit_message and "SimulationType" in submit_message and len(submit_message)>2:
-            logger.info("here!")
+    def is_final_result(self, submit_message) -> bool:
+        if "jobID" in submit_message and "SimulationType" in submit_message and len(submit_message) > 2:
             return True
         else:
             return False
