@@ -37,12 +37,6 @@ class CUDS_Adaptor:
 
         jsonData = defaultdict(list)
 
-        # atm only MOO simulation template is supported, so the check
-        # below, together with the template concept is not really needed.
-        # However, once things get complicated, e.g. more MoDS backend
-        # features will be supported, the template variable might be useful
-        # for picking predefined CUDStoJSON and JSONtoCUDS translation
-        # functions.
         if simulation_template in {engtempl.Engine_Template.MOO,
                                    engtempl.Engine_Template.MOOonly,
                                    engtempl.Engine_Template.HDMR,
