@@ -33,48 +33,33 @@ class MoDS_Engine:
     def determineTemplate(self, root_cuds_object: Cuds) -> None:
         """Determines which simulation template to use based on the modelFlag."""
 
-        moo_class = search.find_cuds_objects_by_oclass(
-         mods.MultiObjectiveSimulation, root_cuds_object, rel=None
-        )  # type: ignore
+        simulation_list = search.find_cuds_objects_by_oclass(
+            mods.Simulation, root_cuds_object, rel=None)  # type: ignore
 
-        moo_only_class = search.find_cuds_objects_by_oclass(
-         mods.MultiObjectiveSimulationOnly, root_cuds_object, rel=None
-        )  # type: ignore
+        if len(simulation_list) != 1:
+            logger.error("Invalid number of simulations defined: %s",
+                         str(len(simulation_list)))
+            return
 
-        hdmr_class = search.find_cuds_objects_by_oclass(
-         mods.HighDimensionalModelRepresentationSimulation, root_cuds_object, rel=None
-        )  # type: ignore
-        
-        evaluate_class = search.find_cuds_objects_by_oclass(
-         mods.EvaluateSurrogate, root_cuds_object, rel=None
-        )  # type: ignore
-        
-        sensitivity_class = search.find_cuds_objects_by_oclass(
-         mods.SensitivityAnalysis, root_cuds_object, rel=None
-        )  # type: ignore
+        simulation_class = simulation_list[0].oclass
 
-        mcdm_class = search.find_cuds_objects_by_oclass(
-            mods.MultiCriteriaDecisionMaking, root_cuds_object, rel=None
-        )  # type: ignore
-
-        if moo_class:
+        if simulation_class == mods.MultiObjectiveSimulation:
             self.simulation_template = engtempl.Engine_Template.MOO
-        elif moo_only_class:
+        elif simulation_class == mods.MultiObjectiveSimulationOnly:
             self.simulation_template = engtempl.Engine_Template.MOOonly
-        elif hdmr_class:
+        elif simulation_class == mods.HighDimensionalModelRepresentationSimulation:
             self.simulation_template = engtempl.Engine_Template.HDMR
-        elif evaluate_class:
+        elif simulation_class == mods.EvaluateSurrogate:
             self.simulation_template = engtempl.Engine_Template.Evaluate
-        elif sensitivity_class:
+        elif simulation_class == mods.SensitivityAnalysis:
             self.simulation_template = engtempl.Engine_Template.Sensitivity
-        elif mcdm_class:
+        elif simulation_class == mods.MultiCriteriaDecisionMaking:
             self.simulation_template = engtempl.Engine_Template.MCDM
         else:
             raise enexc.UnsupportedSimulationType
 
-        logger.info(
-            f"Detected simulation template as {self.simulation_template.name}"
-        )
+        logger.info("Detected simulation template as %s",
+                    self.simulation_template.name)
 
     def generateJSON(self, root_cuds_object: Cuds) -> str:
         """Generates JSON input string from CUDS."""
