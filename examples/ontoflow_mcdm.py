@@ -20,7 +20,7 @@ def OntoFlow_MCDM_example():
 
     mcdm_simulation = mods.MultiCriteriaDecisionMaking()
     mcdm_algorithm = mods.Algorithm(
-        name="algorithm1", type="MCDM", maxNumberOfResults=10)
+        name="algorithm1", type="MCDM")
 
     mcdm_algorithm.add(
         # A value uniquely identifying the model (curretnly must be numerical)
