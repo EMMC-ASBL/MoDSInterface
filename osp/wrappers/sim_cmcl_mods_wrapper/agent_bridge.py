@@ -78,7 +78,7 @@ class Agent_Bridge:
             "Job completed, returning JSON representation of output data")
         return outputs
 
-    def submitJob(self, jsonString: str) -> dict | None:
+    def submitJob(self, jsonString: str) -> dict:
         """Submits a job using a HTTP request with the input JSON string, stores
         resulting job ID returned by MoDS Agent.
 
