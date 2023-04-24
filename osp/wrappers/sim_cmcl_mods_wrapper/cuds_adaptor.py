@@ -183,7 +183,7 @@ class CUDS_Adaptor:
             ParetoFront = mods.ParetoFront()
 
             for i in range(0 if len(jsonResults[OUTPUTS_KEY]) == 0 else len(jsonResults[OUTPUTS_KEY][0]["values"])):
-                data_point = mods.DataPoint()
+                data_point = mods.RankedDataPoint(ranking=i+1)
                 for output in jsonResults[OUTPUTS_KEY]:
                     out_value = output["values"][i]
                     out_name = output["name"]

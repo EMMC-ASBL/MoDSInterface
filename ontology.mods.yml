@@ -144,6 +144,12 @@ ontology:
       mods.name:
       mods.value:
 
+  RankedDataPoint:
+    subclass_of:
+      - mods.DataPoint
+    attributes:
+      mods.ranking: None
+
   SensitivityItem:
     subclass_of:
       - mods.DataPointItem
@@ -191,6 +197,11 @@ ontology:
       - cuba.attribute
 
   order:
+    subclass_of:
+      - mods.value
+    datatype: INT
+
+  ranking:
     subclass_of:
       - mods.value
     datatype: INT
