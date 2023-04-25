@@ -58,16 +58,17 @@ class Agent_Bridge:
             logger.error("Job was not submitted successfully")
             return None
 
+        logger.info("Job successfully submitted.")
+
         if self.is_final_result(submit_message):
             return submit_message
-
-        logger.info("Job successfully submitted.")
 
         # Wait a little time for the request to process
         time.sleep(self.POLL_INTERVAL)
 
         # Request outputs
         outputs = self.requestOutputs()
+        logger.debug("Outputs returned: \n%s", outputs)
 
         if (outputs is None):
             logger.error(
