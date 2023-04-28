@@ -97,7 +97,7 @@ config = get_config()
 @app.post("/run/")
 async def run_task(
     content: bytes = Depends(get_body),
-    method: Celery = Depends(get_method),
+    method: Callable = Depends(get_method),
     settings: BaseSettings = Depends(depends_config),
 ) -> Status:
     key = str(uuid4())

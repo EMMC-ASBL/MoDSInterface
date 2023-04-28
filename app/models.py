@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from typing import Any, Dict, List
 
 
-DEFAULT_CACHE = os.path.join(tempfile.gettempdir(), "ote_diskcache")
+DEFAULT_CACHE = os.path.join(tempfile.gettempdir(), "ospcache")
 
 
 class TaskStatus(str, Enum):
@@ -70,7 +70,7 @@ class AppConfig(RedisSettings):
     )
 
     wrapper_name: str = Field(
-        "osp.wrappers.sim_cmcl_wrapper.mods_session:MoDS_Session",
+        "osp.wrappers.sim_cmcl_mods_wrapper.mods_session:MoDS_Session",
         description="""SimWrapperSession class to be loaded from a python module. 
         The regex is: mypackage.mymodule:MyClass""",
     )
