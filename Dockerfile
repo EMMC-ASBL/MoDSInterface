@@ -1,35 +1,33 @@
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster AS develop
 
-RUN apt-get install -y bash
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git bash
 
-RUN python3.8 -m pip install --upgrade pip
+RUN pip install --upgrade pip
 
-RUN ln -s /usr/bin/python3.8 /usr/bin/python & \
-    ln -s /usr/bin/pip3 /usr/bin/pip
+ARG YML_FILE
+ENV YML_FILE ${YML_FILE}
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /simphony/osp-core
-
-WORKDIR /simphony/mods-wrapper
-COPY ./LICENSE.md .
-COPY ./cmcl_logo.png .
-COPY ./ontology.mods.yml .
-COPY ./osp ./osp
-COPY ./setup.py .
-COPY ./examples ./examples
-COPY ./tests ./tests
-COPY ./README.md .
-COPY ./.env .
-
-ARG MODS_AGENT_BASE_URL
-ENV MODS_AGENT_BASE_URL $MODS_AGENT_BASE_URL
-
-RUN python -m pip install .
-RUN python -m pip install -r tests/test_requirements.txt
-RUN pico install ontology.mods.yml
-
 WORKDIR /app
 COPY . .
-ENTRYPOINT hypercorn app.main:app --bind 0.0.0.0:8080 --log-level debug --reload
+
+RUN pip install -r requirements.txt
+RUN pip install -r tests/test_requirements.txt
+RUN pip install .
+WORKDIR /app/osp/ontology
+RUN pico install ${YML_FILE}
+
+WORKDIR /app
+RUN chmod 0700 ./docker_entrypoint.sh
+EXPOSE 8080
+
+ENTRYPOINT ["/app/docker_entrypoint.sh"]
+
+########################## PRODUCTION #########################
+FROM develop AS production
+
+RUN pip install -r requirements_prod.txt

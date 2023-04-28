@@ -1,0 +1,8 @@
+osp-core == v3.9.0
+FastAPI == 0.92.0
+fastapi-plugins ~= 0.11.0
+diskcache ~= 5.4.0
+hypercorn == 0.14.3
+celery == 5.2.7
+python-multipart == 0.0.6
+httpx == 0.23.3
