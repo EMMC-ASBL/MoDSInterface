@@ -12,3 +12,5 @@ coverage.xml
 *.mp4
 .env
 *venv*
+ospcache/
+otecache/

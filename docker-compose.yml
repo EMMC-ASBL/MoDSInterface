@@ -1,23 +1,96 @@
 version: "3.7"
 
 services:
-  wrapper_agent:
-    build:
-      context: .
-      args:
-        MODS_REDIS_HOST: $MODS_REDIS_HOST
-        MODS_REDIS_PORT: $MODS_REDIS_PORT
-        MODS_AGENT_BASE_URL: $MODS_AGENT_BASE_URL
-    image: cmcl/sim_cmcl_mods_wrapper:$SIM_CMCL_MODS_WRAPPER_VERSION
+
+  ote_lib:
+    image: jupyter/minimal-notebook
+    volumes:
+      - ./examples:/home/jovyan/examples
+    ports:
+      - "8888:8888"
+    depends_on:
+      - ote_api
+    networks:
+      - otenet
+
+  ote_api:
+    image: ghcr.io/emmc-asbl/oteapi:${DOCKER_OTEAPI_VERSION:-latest}
+    environment:
+      OTEAPI_WORKER_NAME: ${OTEAPI_WORKER_NAME}
+      OTEAPI_STATUS_SLEEPTIME: ${OTEAPI_STATUS_SLEEPTIME}
+      OTEAPI_REDIS_DB: 2
+      OTEAPI_REDIS_TYPE: redis
+      OTEAPI_REDIS_HOST: redis
+      OTEAPI_REDIS_PORT: 6379
+      OTEAPI_prefix: "${OTEAPI_prefix:-/api/v1}"
+      GITLAB_ACCESS_TOKEN: $GITLAB_ACCESS_TOKEN
+      OTEAPI_PLUGIN_PACKAGES: "oteapi-amiii==1.1.0-dev --extra-index-url https://__token__:$GITLAB_ACCESS_TOKEN@gitlab.cc-asp.fraunhofer.de/api/v4/projects/29557/packages/pypi/simple | oteapi-osp-interfaces==0.0.12 --extra-index-url https://__token__:$GITLAB_ACCESS_TOKEN@gitlab.cc-asp.fraunhofer.de/api/v4/projects/28760/packages/pypi/simple"
     depends_on:
       - redis
+      - ote_worker
+    volumes:
+      - ./otecache:/tmp/oteapi/
+    entrypoint: "./entrypoint.sh --reload --log-level debug"
+    networks:
+      - otenet
+
+  ote_worker:
+    image: registry.gitlab.cc-asp.fraunhofer.de/ontotrans/interfaces/osp-celery-services:${WORKER_BUILD_VERSION}
+    environment:
+      OTEAPI_WORKER_NAME: ${OTEAPI_WORKER_NAME}
+      OTEAPI_STATUS_SLEEPTIME: ${OTEAPI_STATUS_SLEEPTIME}
+      OTEAPI_REDIS_HOST: redis
+      OTEAPI_REDIS_DB: 2
+    volumes:
+      - ./otecache:/tmp/oteapi/
+    depends_on:
+      - simphony_server
+      - redis
+    networks:
+      - otenet
+
+  simphony_server:
+    image: registry.gitlab.cc-asp.fraunhofer.de/ontotrans/interfaces/cmcl-interfaces/mods-interface:wrapper-agent-${SIM_CMCL_MODS_WRAPPER_VERSION}
+    volumes:
+      - ./ospcache:/tmp/ospcache/
     cap_drop:
       - ALL
-    container_name: sim_cmcl_mods_wrapper
-    expose:
-      - 8080
-    ports:
-      - 5001:5000
+    environment:
+      MODS_AGENT_BASE_URL: $MODS_AGENT_BASE_URL
+      MODS_WORKER_NAME: $MODS_WORKER_NAME
+      MODS_REDIS_HOST: redis
+      MODS_REDIS_PORT: 6379
+      MODS_REDIS_DB: 3
+      APP_MODE: server
+    depends_on:
+      - simphony_worker
+      - redis
+    networks:
+      - otenet
+
+  simphony_worker:
+    image: registry.gitlab.cc-asp.fraunhofer.de/ontotrans/interfaces/cmcl-interfaces/mods-interface:wrapper-agent-${SIM_CMCL_MODS_WRAPPER_VERSION}
+    cap_drop:
+      - ALL
+    volumes:
+      - ./ospcache:/tmp/ospcache/
+    environment:
+      MODS_AGENT_BASE_URL: $MODS_AGENT_BASE_URL
+      MODS_WORKER_NAME: $MODS_WORKER_NAME
+      MODS_REDIS_HOST: redis
+      MODS_REDIS_PORT: 6379
+      MODS_REDIS_DB: 3
+      APP_MODE: worker
+    depends_on:
+      - redis
+      - mock_agent
+    networks:
+      - otenet
+
+  mock_agent:
+    image: registry.gitlab.cc-asp.fraunhofer.de/ontotrans/interfaces/cmcl-interfaces/app4-mods-interface:mods-agent-${MODS_MOCK_AGENT_VERSION}
+    cap_drop:
+      - ALL
     networks:
       - otenet
 
