@@ -26,6 +26,17 @@ if TYPE_CHECKING:  # pragma: no cover
 logger = logging.getLogger(__name__)
 
 
+def get_file(
+    filename: str, failure_message: str, media_type: str = "application/json"
+) -> Response:
+    path = os.path.join(*opath.__path__, filename)
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail=failure_message)
+    with open(path, "r") as file:
+        content = file.read()
+    return Response(content=content, media_type=media_type)
+
+
 def get_deps() -> "List[Depends]":
     settings = AppConfig()
     if settings.authentication_dependencies:
