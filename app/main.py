@@ -163,16 +163,24 @@ def get_ontology(settings: "BaseSettings" = Depends(depends_config)) -> Response
     return Response(content=content, media_type="text/turtle")
 
 
-@app.get("/example")
-def get_example(settings: "BaseSettings" = Depends(depends_config)) -> Response:
-    ontology_path = os.path.join(*opath.__path__, settings.cuds_file)
-    if not os.path.exists(ontology_path):
-        raise HTTPException(
-            status_code=404, detail="Example a-box ontology file is not available"
-        )
-    with open(ontology_path, "r") as file:
-        content = file.read()
-    return Response(content=content, media_type="text/turtle")
+@app.get("/examples/simphony/turtle")
+def get_turtle_example(settings: "BaseSettings" = Depends(depends_config)) -> Response:
+    logger.info("Getting example turtle file...")
+    return get_file(
+        settings.cuds_turtle_file,
+        "Example a-box turtle file is not available",
+        media_type="text/turtle",
+    )
+
+
+@app.get("/examples/simphony/json")
+def get_json_example(settings: "BaseSettings" = Depends(depends_config)) -> Response:
+    logger.info("Getting example json file...")
+    return get_file(
+        settings.cuds_json_file,
+        "Example a-box json file is not available",
+        media_type="text/json",
+    )
 
 
 @app.on_event("startup")

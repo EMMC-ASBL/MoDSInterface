@@ -60,9 +60,13 @@ class AppConfig(RedisSettings):
     ontology_file: str = Field(
         "mods.ttl", description="File path of the t-box ontology to be shared."
     )
-    cuds_file: str = Field(
+    cuds_turtle_file: str = Field(
         "mods-cmcl-moo-input.ttl",
-        description="File path of the a-box ontology to be shared as example input.",
+        description="File path of an a-box turtle file to be shared as example input.",
+    )
+    cuds_json_file: str = Field(
+        "mods-cmcl-moo-input.json",
+        description="File path of an a-box json file to be shared as example input.",
     )
 
     wrapper_name: str = Field(
