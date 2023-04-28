@@ -1,7 +1,7 @@
 import logging
 import os
 from importlib import import_module
-from typing import TYPE_CHECKING, Callable, List, Optional
+from typing import TYPE_CHECKING, Callable, List
 from uuid import uuid4
 
 from celery import Celery

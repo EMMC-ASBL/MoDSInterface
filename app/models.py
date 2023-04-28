@@ -4,10 +4,10 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional, Union
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from fastapi_plugins import RedisSettings
-from pydantic import BaseModel, BaseSettings, Field
+from pydantic import BaseModel, Field
 
 if TYPE_CHECKING:
     from typing import Any, Dict, List
@@ -17,14 +17,12 @@ DEFAULT_CACHE = os.path.join(tempfile.gettempdir(), "ospcache")
 
 
 class TaskStatus(str, Enum):
-
     PENDING = "PENDING"
     SUCCESS = "SUCCESS"
     FAILURE = "FAILURE"
 
 
 class Status(BaseModel):
-
     message: str = Field(...,
                          description="Message when successfully launched wrapper.")
     status: TaskStatus = Field(..., description="Status of the remote task.")
@@ -87,5 +85,4 @@ class AppConfig(RedisSettings):
     )
 
     class Config:
-
         env_prefix = "MODS_"

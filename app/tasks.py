@@ -4,7 +4,7 @@ from io import StringIO, BufferedReader
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
-from celery import Celery, Task, signals
+from celery import Celery, signals
 from diskcache import Cache
 from osp.core.cuds import Cuds
 from osp.core.namespaces import cuba
