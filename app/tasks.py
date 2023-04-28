@@ -1,3 +1,4 @@
+import logging
 from importlib import import_module
 from io import StringIO
 from typing import TYPE_CHECKING
@@ -22,6 +23,25 @@ def get_wrapper_class(module: str) -> "Callable":
 settings = AppConfig()
 address = settings.get_redis_address()
 celery = Celery(broker=address, backend=address)
+celery.conf.CELERYD_HIJACK_ROOT_LOGGER = False
+
+
+@signals.setup_logging.connect
+def on_setup_logging(**kwargs):
+    # Get the root logger
+    logger = logging.getLogger()
+
+    # Set the logging level to INFO
+    logger.setLevel(logging.INFO)
+
+    # Add a console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
 
 
 @celery.task
@@ -53,8 +73,3 @@ def run_simulation(cache_key: str) -> str:
         )
 
     return result_key
-
-
-@signals.setup_logging.connect
-def setup_celery_logging(**kwargs):
-    pass
