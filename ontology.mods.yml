@@ -24,20 +24,16 @@ ontology:
     subclass_of:
       - cuba.Entity
       - mods.hasPart:
-          cardinality: 1
           range: mods.Algorithm
       - mods.hasPart:
-          cardinality: 1
           range: mods.InputData
       - mods.hasPart:
-          cardinality: 1
           range: mods.JobID
 
   MultiObjectiveSimulation:
     subclass_of:
       - mods.Simulation
       - mods.hasPart:
-          cardinality: 1
           range: mods.ParetoFront
 
   HighDimensionalModelRepresentationSimulation:
@@ -48,28 +44,24 @@ ontology:
     subclass_of:
       - mods.Simulation
       - mods.hasPart:
-          cardinality: 1
           range: mods.ParetoFront
 
   EvaluateSurrogate:
     subclass_of:
       - mods.Simulation
       - mods.hasPart:
-          cardinality: 1
           range: mods.OutputData
 
   SensitivityAnalysis:
     subclass_of:
       - mods.Simulation
       - mods.hasPart:
-          cardinality: 1
           range: mods.SensitivityDataSet
 
   Algorithm:
     subclass_of:
       - cuba.Entity
       - mods.hasPart:
-          cardinality: some
           range: mods.Variable
     attributes:
       mods.name:
@@ -86,7 +78,6 @@ ontology:
     subclass_of:
       - cuba.Entity
       - mods.hasPart:
-          cardinality: some
           range: mods.DataPoint
 
   OutputData:
@@ -101,14 +92,12 @@ ontology:
     subclass_of:
       - mods.OutputData
       - mods.hasPart:
-          cardinality: some
           range: mods.Sensitivity
 
   Sensitivity:
     subclass_of:
       - cuba.Entity
       - mods.hasPart:
-          cardinality: some
           range: mods.SensitivityItem
     attributes:
       mods.name:
@@ -117,7 +106,6 @@ ontology:
     subclass_of:
       - cuba.Entity
       - mods.hasPart:
-          cardinality: some
           range: mods.DataPointItem
 
   DataPointItem:
@@ -137,7 +125,6 @@ ontology:
     subclass_of:
       - cuba.Entity
       - mods.hasPart:
-          cardinality: some
           range: mods.JobIDItem
 
   JobIDItem:
