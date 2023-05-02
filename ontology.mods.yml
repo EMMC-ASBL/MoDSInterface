@@ -1,5 +1,5 @@
 ---
-version: "0.0.9"
+version: "0.0.10"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -29,9 +29,6 @@ ontology:
       - mods.hasPart:
           cardinality: 1
           range: mods.InputData
-      - mods.hasPart:
-          cardinality: 1
-          range: mods.AnalyticModel
       - mods.hasPart:
           cardinality: 1
           range: mods.JobID
@@ -115,13 +112,6 @@ ontology:
           range: mods.SensitivityItem
     attributes:
       mods.name:
-
-  AnalyticModel:
-    subclass_of:
-      - cuba.Entity
-      - mods.hasPart:
-          cardinality: some
-          range: mods.Function
 
   DataPoint:
     subclass_of:
