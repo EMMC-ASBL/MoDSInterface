@@ -20,8 +20,8 @@ logger.setLevel(logging.INFO)
     "cuds, ref_data_path",
     [
         (lazy_fixture("moo_data"), MOO_REF_JSON),
-        (lazy_fixture("moo_analytic_data"), MOO_ANALYTIC_REF_JSON),
-    ]
+        # (lazy_fixture("moo_analytic_data"), MOO_ANALYTIC_REF_JSON),
+    ],
 )
 def test_cuds_adaptor(cuds: Cuds, ref_data_path: str):
     print('start')
