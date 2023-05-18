@@ -4,7 +4,9 @@
         {
             "name": "algorithm1",
             "type": "MOO",
-            "maxNumberOfResults": 10,
+            "maxNumberOfResults": "10",
+            "saveSurrogate": false,
+            "surrogateToLoad": null,
             "variables": [
                 {
                     "name": "var1",

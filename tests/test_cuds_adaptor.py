@@ -16,6 +16,7 @@ MOO_ANALYTIC_REF_JSON = os.path.join(THIS_DIR, "moo_analytic.json_ref")
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+
 @pytest.mark.parametrize(
     "cuds, ref_data_path",
     [
@@ -24,15 +25,10 @@ logger.setLevel(logging.INFO)
     ],
 )
 def test_cuds_adaptor(cuds: Cuds, ref_data_path: str):
-    print('start')
     json_data_str = cuds_adaptor.CUDS_Adaptor.toJSON(
-        root_cuds_object = cuds,
-        simulation_template=engtempl.Engine_Template.MOO)
+        root_cuds_object=cuds, simulation_template=engtempl.Engine_Template.MOO
+    )
 
     json_data_dict = json.loads(json_data_str)
-    json_ref_data_dict = json.load(open(ref_data_path, 'r'))
-
-    # uncomment to regenerate the ref results
-    #json.dump(json_data_dict, open(ref_data_path, 'w'), indent=4)
-
+    json_ref_data_dict = json.load(open(ref_data_path, "r"))
     assert json_data_dict == json_ref_data_dict

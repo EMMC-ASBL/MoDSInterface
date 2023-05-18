@@ -20,8 +20,8 @@ RUN apk update \
 
 WORKDIR /app
 CMD flake8 . --count --show-source --statistics --max-line-length 88 ; \
-    bandit -r . ; \
-    pylint --disable=E0401 .
+  bandit -r . ; \
+  pylint --disable=E0401 .
 
 ############### DEBUGGER ###############
 FROM base as debug
