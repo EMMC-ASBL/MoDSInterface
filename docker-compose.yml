@@ -51,6 +51,10 @@ services:
 
   simphony_server:
     image: registry.gitlab.cc-asp.fraunhofer.de/ontotrans/interfaces/cmcl-interfaces/mods-interface:wrapper-agent-${SIM_CMCL_MODS_WRAPPER_VERSION}
+    build:
+      context: .
+      args:
+        YML_FILE: ${YML_FILE}
     volumes:
       - ./ospcache:/tmp/ospcache/
     cap_drop:
