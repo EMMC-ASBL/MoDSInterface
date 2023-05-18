@@ -15,7 +15,7 @@ def pytest_configure(config):
   # required for the tests
   os.environ['MODS_AGENT_HOST'] = AGENT_TEST_HOST
   os.environ['MODS_AGENT_PORT'] = AGENT_TEST_PORT
-  os.environ['MODS_AGENT_BASE_URL'] = f"http://{AGENT_TEST_HOST}:{AGENT_TEST_PORT}"
+  os.environ['MODS_AGENT_BASE_URL'] = f"http://{AGENT_TEST_HOST}:{AGENT_TEST_PORT}/"
   os.environ['FLASK_APP'] = FLASK_APP
   return config
 
