@@ -123,7 +123,9 @@ def moo_data():
 @pytest.fixture()
 def moo_analytic_data():
     moo_simulation = mods.MultiObjectiveSimulation()
-    moo_algorithm = mods.Algorithm(name="algorithm1", type="MOO", maxNumberOfResults= 10)
+    moo_algorithm = mods.Algorithm(
+        name="algorithm1", type="MOO", maxNumberOfResults=10, saveSurrogate=False
+    )
     moo_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
