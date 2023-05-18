@@ -9,6 +9,7 @@ from diskcache import Cache
 from osp.core.cuds import Cuds
 from osp.core.namespaces import cuba
 from osp.core.utils import export_cuds, import_cuds
+from app.cache_utils import read_cache_as_string
 
 from .models import AppConfig
 
@@ -49,28 +50,11 @@ def on_setup_logging(**kwargs):
 def run_simulation(cache_key: str) -> str:
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
-    logging.info("received cache_key: %s", cache_key)
-    with Cache(settings.cache_directory, size_limit=settings.cache_size_limit) as cache:
-        logging.info("getting cache...")
-        cache_inst = cache.read(cache_key)
+    cache_string = read_cache_as_string(
+        cache_key, settings.cache_directory, settings.cache_size_limit
+    )
+    content = StringIO(cache_string)
 
-        if isinstance(cache_inst, BufferedReader):
-            cache_inst = cache_inst.read()
-
-        if isinstance(cache_inst, bytes):
-            cache_inst = cache_inst.decode()
-
-        if isinstance(cache_inst, str):
-            cache_string = cache_inst
-        else:
-            logger.error(
-                "%s is of type %s is not one of string, bytes, or buffered reader.", cache_inst, type(cache_inst))
-            raise TypeError(
-                f"{cache_inst} is of type {type(cache_inst)} is not one of string, bytes, or buffered reader.")
-        logging.info("cache_string: %s", cache_string)
-        content = StringIO(cache_string)
-
-    logging.info("content: %s", content)
     session_class = get_wrapper_class(settings.wrapper_name)
     logging.info("getting session class: %s", settings.wrapper_name)
     with session_class() as session:

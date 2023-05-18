@@ -7,10 +7,16 @@ from uuid import uuid4
 from celery import Celery
 from diskcache import Cache
 from fastapi import Body, Depends, FastAPI, HTTPException, Request, Response
-from fastapi_plugins import (config_plugin, depends_config, get_config,
-                             redis_plugin, register_config,
-                             register_middleware)
+from fastapi_plugins import (
+    config_plugin,
+    depends_config,
+    get_config,
+    redis_plugin,
+    register_config,
+    register_middleware,
+)
 from pydantic import BaseSettings
+from app.cache_utils import read_cache_as_string
 
 import osp.ontology as opath
 
@@ -139,7 +145,7 @@ def status(task_id: str, celery: Celery = Depends(get_app)) -> Status:
 
 
 @app.get("/get/{task_id}")
-def status(
+def get_task(
     task_id: str,
     celery: Celery = Depends(get_app),
     settings: "BaseSettings" = Depends(depends_config),
@@ -147,17 +153,18 @@ def status(
     result = celery.AsyncResult(task_id)
     if not result.ready():
         raise HTTPException(status_code=400, detail="Task is not ready yet.")
-    with Cache(settings.cache_directory, size_limit=settings.cache_size_limit) as cache:
-        content = cache.read(result.result)
-    return Response(content=content, media_type="text/turtle")
+    cache_string = read_cache_as_string(
+        result.result, settings.cache_directory, settings.cache_size_limit
+    )
+
+    return Response(content=cache_string, media_type="text/turtle")
 
 
 @app.get("/ontology")
 def get_ontology(settings: "BaseSettings" = Depends(depends_config)) -> Response:
     ontology_path = os.path.join(*opath.__path__, settings.ontology_file)
     if not os.path.exists(ontology_path):
-        raise HTTPException(
-            status_code=404, detail="Ontology file is not available")
+        raise HTTPException(status_code=404, detail="Ontology file is not available")
     with open(ontology_path, "r") as file:
         content = file.read()
     return Response(content=content, media_type="text/turtle")
