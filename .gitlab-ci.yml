@@ -20,7 +20,7 @@ docker-build-wrapper:
     - source .env && docker build --build-arg GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} --build-arg YML_FILE=$YML_FILE --build-arg EXTRA_INDEX_URL=$EXTRA_INDEX_URL --target production -t $IMAGE_TAG  .
     - docker push $IMAGE_TAG
 
-tests:integration:
+tests-integration:
   stage: test
   image: docker:20.10.23-dind
   script:
