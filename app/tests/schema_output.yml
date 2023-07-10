@@ -1,0 +1,9 @@
+version: "0.0.3"
+
+oclass: mods.MultiObjectiveSimulation
+
+model:
+  mods.Algorithm:
+    mods.hasPart:
+      mods.Variable:
+        cardinality: 6

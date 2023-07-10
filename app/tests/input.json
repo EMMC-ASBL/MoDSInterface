@@ -1,0 +1,684 @@
+{
+    "@graph": [
+        {
+            "@id": "cuds:a4922a52-dcb2-450b-b1bf-ab74db195aac",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.2",
+            "mods:name": "var1",
+            "mods:isPartOf": {
+                "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65"
+            }
+        },
+        {
+            "@id": "cuds:a2c482a5-7ecb-4487-9713-7ea6cda86bcc",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.1",
+            "mods:name": "var2",
+            "mods:isPartOf": {
+                "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5"
+            }
+        },
+        {
+            "@id": "cuds:05c5305a-8cf9-4d9a-8ef9-1f9e4b7a7cf8",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.9",
+            "mods:name": "var4",
+            "mods:isPartOf": {
+                "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4"
+            }
+        },
+        {
+            "@id": "cuds:644d1568-1c7f-4366-a715-8ddf8c728556",
+            "@type": "mods:Variable",
+            "mods:weight": "None",
+            "mods:objective": "None",
+            "mods:maximum": "None",
+            "mods:name": "var4",
+            "mods:minimum": "None",
+            "mods:type": "output",
+            "mods:isPartOf": {
+                "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c"
+            }
+        },
+        {
+            "@id": "cuds:54aef54e-7128-4a56-8ebb-c780cc59b50a",
+            "@type": "mods:Variable",
+            "mods:weight": "None",
+            "mods:name": "var6",
+            "mods:objective": "None",
+            "mods:type": "output",
+            "mods:minimum": "None",
+            "mods:maximum": "None",
+            "mods:isPartOf": {
+                "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c"
+            }
+        },
+        {
+            "@id": "cuds:fc47d2f5-8189-4b22-89f8-2efb02328906",
+            "@type": "mods:Variable",
+            "mods:minimum": "None",
+            "mods:type": "input",
+            "mods:maximum": "None",
+            "mods:weight": "None",
+            "mods:objective": "None",
+            "mods:name": "var3",
+            "mods:isPartOf": {
+                "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c"
+            }
+        },
+        {
+            "@id": "cuds:60a00ce4-48b3-4c51-bd4c-d25024e6955c",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var6",
+            "mods:value": "4.0",
+            "mods:isPartOf": {
+                "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65"
+            }
+        },
+        {
+            "@id": "cuds:78178f8c-e7a9-4fd4-a59e-6962c166ace3",
+            "@type": "mods:Variable",
+            "mods:maximum": "None",
+            "mods:type": "input",
+            "mods:weight": "None",
+            "mods:objective": "None",
+            "mods:minimum": "None",
+            "mods:name": "var2",
+            "mods:isPartOf": {
+                "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42"
+            }
+        },
+        {
+            "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d",
+            "@type": "mods:DataPoint",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:3668af4b-3c78-43ee-8f65-3ed875c10200"
+                },
+                {
+                    "@id": "cuds:26318330-6f25-4be6-bbad-cd72d8de9a9b"
+                },
+                {
+                    "@id": "cuds:64263ab4-3e4f-4e9a-af52-aa83d7ef3865"
+                },
+                {
+                    "@id": "cuds:a47b3ab2-f394-4ca0-809b-64b5dfacef30"
+                },
+                {
+                    "@id": "cuds:f1e6c2f4-69c3-44fd-abfb-9fa099bb86aa"
+                },
+                {
+                    "@id": "cuds:0b4f8b92-d103-4c65-9aed-f8741926cc0b"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:c7fa426a-5127-4a1b-830b-327938b4cd66"
+            }
+        },
+        {
+            "@id": "cuds:974c6e01-377c-467c-b090-20b985c232d4",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.9",
+            "mods:name": "var2",
+            "mods:isPartOf": {
+                "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4"
+            }
+        },
+        {
+            "@id": "cuds:f237f529-8d5b-48c4-bacc-44a5384f19d2",
+            "@type": "mods:Variable",
+            "mods:weight": "None",
+            "mods:type": "input",
+            "mods:objective": "None",
+            "mods:minimum": "None",
+            "mods:maximum": "None",
+            "mods:name": "var2",
+            "mods:isPartOf": {
+                "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c"
+            }
+        },
+        {
+            "@id": "cuds:df376155-ea65-4f50-963f-688105af00c3",
+            "@type": "mods:Variable",
+            "mods:weight": "0.7",
+            "mods:type": "output",
+            "mods:maximum": "None",
+            "mods:minimum": "2.5",
+            "mods:name": "var6",
+            "mods:objective": "Maximise",
+            "mods:isPartOf": {
+                "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42"
+            }
+        },
+        {
+            "@id": "cuds:e016e94d-0c69-4d80-a458-65a60b3ef700",
+            "@type": "mods:Variable",
+            "mods:type": "output",
+            "mods:name": "var5",
+            "mods:minimum": "None",
+            "mods:weight": "None",
+            "mods:maximum": "None",
+            "mods:objective": "None",
+            "mods:isPartOf": {
+                "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c"
+            }
+        },
+        {
+            "@id": "cuds:c673ccb2-055d-4777-9bb8-0cee678ee6b4",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var2",
+            "mods:value": "0.0",
+            "mods:isPartOf": {
+                "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac"
+            }
+        },
+        {
+            "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65",
+            "@type": "mods:DataPoint",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:a4922a52-dcb2-450b-b1bf-ab74db195aac"
+                },
+                {
+                    "@id": "cuds:9a9041a8-0ec0-441f-b604-87c4677db1ae"
+                },
+                {
+                    "@id": "cuds:b064680f-82ad-47ed-bdf9-2e6138d911f7"
+                },
+                {
+                    "@id": "cuds:f443f0df-c263-4706-a9b0-379bca901081"
+                },
+                {
+                    "@id": "cuds:56ec9fad-0a71-4899-ac29-4ca2944d81da"
+                },
+                {
+                    "@id": "cuds:60a00ce4-48b3-4c51-bd4c-d25024e6955c"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:c7fa426a-5127-4a1b-830b-327938b4cd66"
+            }
+        },
+        {
+            "@id": "cuds:e613780a-56be-4f2a-b732-107bc7d0fd7c",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var6",
+            "mods:value": "1.2",
+            "mods:isPartOf": {
+                "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac"
+            }
+        },
+        {
+            "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac",
+            "@type": "mods:DataPoint",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:3ec005b3-2055-476e-8e8f-6402222a4322"
+                },
+                {
+                    "@id": "cuds:c673ccb2-055d-4777-9bb8-0cee678ee6b4"
+                },
+                {
+                    "@id": "cuds:40910a96-c882-40b9-b83c-3479dabac372"
+                },
+                {
+                    "@id": "cuds:6b0e2bd7-3886-44ea-987e-3cb3fd3f0ffb"
+                },
+                {
+                    "@id": "cuds:4f3c0c73-52f9-4bbd-bb6f-8646e8685962"
+                },
+                {
+                    "@id": "cuds:e613780a-56be-4f2a-b732-107bc7d0fd7c"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:c7fa426a-5127-4a1b-830b-327938b4cd66"
+            }
+        },
+        {
+            "@id": "cuds:6b0e2bd7-3886-44ea-987e-3cb3fd3f0ffb",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var4",
+            "mods:value": "0.1",
+            "mods:isPartOf": {
+                "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac"
+            }
+        },
+        {
+            "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5",
+            "@type": "mods:DataPoint",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:603b0c07-588f-49a4-a268-3a034bd5d7cf"
+                },
+                {
+                    "@id": "cuds:a2c482a5-7ecb-4487-9713-7ea6cda86bcc"
+                },
+                {
+                    "@id": "cuds:ee29411c-f1c1-4e1a-9c02-7857eef3c5ba"
+                },
+                {
+                    "@id": "cuds:9aac1aac-7d88-4ddc-90c5-782e349af35a"
+                },
+                {
+                    "@id": "cuds:19dbbd0b-3f82-4024-9c16-b3365c3bc4a4"
+                },
+                {
+                    "@id": "cuds:65066b90-20cd-4381-8e5a-555f35627d08"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:c7fa426a-5127-4a1b-830b-327938b4cd66"
+            }
+        },
+        {
+            "@id": "cuds:a47b3ab2-f394-4ca0-809b-64b5dfacef30",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var4",
+            "mods:value": "0.1",
+            "mods:isPartOf": {
+                "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d"
+            }
+        },
+        {
+            "@id": "cuds:b064680f-82ad-47ed-bdf9-2e6138d911f7",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.5",
+            "mods:name": "var3",
+            "mods:isPartOf": {
+                "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65"
+            }
+        },
+        {
+            "@id": "cuds:3668af4b-3c78-43ee-8f65-3ed875c10200",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var1",
+            "mods:value": "0.1",
+            "mods:isPartOf": {
+                "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d"
+            }
+        },
+        {
+            "@id": "cuds:9a9041a8-0ec0-441f-b604-87c4677db1ae",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var2",
+            "mods:value": "0.8",
+            "mods:isPartOf": {
+                "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65"
+            }
+        },
+        {
+            "@id": "cuds:9aac1aac-7d88-4ddc-90c5-782e349af35a",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.7",
+            "mods:name": "var4",
+            "mods:isPartOf": {
+                "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5"
+            }
+        },
+        {
+            "@id": "cuds:26318330-6f25-4be6-bbad-cd72d8de9a9b",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.4",
+            "mods:name": "var2",
+            "mods:isPartOf": {
+                "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d"
+            }
+        },
+        {
+            "@id": "cuds:b007a3cd-0e26-4d35-af04-9580d41dbe30",
+            "@type": "mods:Variable",
+            "mods:weight": "None",
+            "mods:objective": "None",
+            "mods:name": "var3",
+            "mods:minimum": "None",
+            "mods:maximum": "None",
+            "mods:type": "input",
+            "mods:isPartOf": {
+                "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42"
+            }
+        },
+        {
+            "@id": "cuds:19dbbd0b-3f82-4024-9c16-b3365c3bc4a4",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var5",
+            "mods:value": "1.6",
+            "mods:isPartOf": {
+                "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5"
+            }
+        },
+        {
+            "@id": "cuds:64263ab4-3e4f-4e9a-af52-aa83d7ef3865",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var3",
+            "mods:value": "0.5",
+            "mods:isPartOf": {
+                "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d"
+            }
+        },
+        {
+            "@id": "cuds:ee29411c-f1c1-4e1a-9c02-7857eef3c5ba",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.3",
+            "mods:name": "var3",
+            "mods:isPartOf": {
+                "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5"
+            }
+        },
+        {
+            "@id": "cuds:603b0c07-588f-49a4-a268-3a034bd5d7cf",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var1",
+            "mods:value": "0.1",
+            "mods:isPartOf": {
+                "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5"
+            }
+        },
+        {
+            "@id": "cuds:3a11dd7c-a4fb-46e8-a2f0-2c7a4985b42b",
+            "@type": "mods:Variable",
+            "mods:weight": "0.5",
+            "mods:maximum": "None",
+            "mods:minimum": "0.5",
+            "mods:type": "output",
+            "mods:objective": "Maximise",
+            "mods:name": "var4",
+            "mods:isPartOf": {
+                "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42"
+            }
+        },
+        {
+            "@id": "cuds:dd74ea78-80cb-458d-a629-01f20fc81250",
+            "@type": "mods:DataPointItem",
+            "mods:value": "3.0",
+            "mods:name": "var6",
+            "mods:isPartOf": {
+                "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4"
+            }
+        },
+        {
+            "@id": "cuds:80eb6a18-eba7-457d-9591-b92207fe5a4c",
+            "@type": "mods:Variable",
+            "mods:maximum": "None",
+            "mods:type": "input",
+            "mods:minimum": "None",
+            "mods:weight": "None",
+            "mods:objective": "None",
+            "mods:name": "var1",
+            "mods:isPartOf": {
+                "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c"
+            }
+        },
+        {
+            "@id": "cuds:e8a38cc7-d5df-436c-ae5b-375108d8b785",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var3",
+            "mods:value": "0.1",
+            "mods:isPartOf": {
+                "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4"
+            }
+        },
+        {
+            "@id": "cuds:40910a96-c882-40b9-b83c-3479dabac372",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.2",
+            "mods:name": "var3",
+            "mods:isPartOf": {
+                "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac"
+            }
+        },
+        {
+            "@id": "cuds:5a2fc9fd-5f0a-4045-a09a-7e6df451e845",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var1",
+            "mods:value": "0.3",
+            "mods:isPartOf": {
+                "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4"
+            }
+        },
+        {
+            "@id": "cuds:f443f0df-c263-4706-a9b0-379bca901081",
+            "@type": "mods:DataPointItem",
+            "mods:value": "0.1",
+            "mods:name": "var4",
+            "mods:isPartOf": {
+                "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65"
+            }
+        },
+        {
+            "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c",
+            "@type": "mods:Algorithm",
+            "mods:name": "algorithm1",
+            "mods:saveSurrogate": false,
+            "mods:type": "GenSurrogateAlg",
+            "mods:maxNumberOfResults": "None",
+            "mods:surrogateToLoad": "None",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:80eb6a18-eba7-457d-9591-b92207fe5a4c"
+                },
+                {
+                    "@id": "cuds:f237f529-8d5b-48c4-bacc-44a5384f19d2"
+                },
+                {
+                    "@id": "cuds:fc47d2f5-8189-4b22-89f8-2efb02328906"
+                },
+                {
+                    "@id": "cuds:644d1568-1c7f-4366-a715-8ddf8c728556"
+                },
+                {
+                    "@id": "cuds:e016e94d-0c69-4d80-a458-65a60b3ef700"
+                },
+                {
+                    "@id": "cuds:54aef54e-7128-4a56-8ebb-c780cc59b50a"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:619bb469-696a-44c6-b355-760ddd4bc4a0"
+            }
+        },
+        {
+            "@id": "cuds:362825eb-d668-495f-aa73-31301ea207e2",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var5",
+            "mods:value": "2.0",
+            "mods:isPartOf": {
+                "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4"
+            }
+        },
+        {
+            "@id": "cuds:870fff63-7f97-482b-81b3-21cf64747fba",
+            "@type": "mods:Variable",
+            "mods:minimum": "None",
+            "mods:type": "input",
+            "mods:maximum": "None",
+            "mods:name": "var1",
+            "mods:weight": "None",
+            "mods:objective": "None",
+            "mods:isPartOf": {
+                "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42"
+            }
+        },
+        {
+            "@id": "cuds:3ec005b3-2055-476e-8e8f-6402222a4322",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var1",
+            "mods:value": "0.6",
+            "mods:isPartOf": {
+                "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac"
+            }
+        },
+        {
+            "@id": "cuds:f1e6c2f4-69c3-44fd-abfb-9fa099bb86aa",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var5",
+            "mods:value": "1.2",
+            "mods:isPartOf": {
+                "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d"
+            }
+        },
+        {
+            "@id": "cuds:65066b90-20cd-4381-8e5a-555f35627d08",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var6",
+            "mods:value": "2.1",
+            "mods:isPartOf": {
+                "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5"
+            }
+        },
+        {
+            "@id": "cuba:_serialization",
+            "rdf:first": "619bb469-696a-44c6-b355-760ddd4bc4a0"
+        },
+        {
+            "@id": "cuds:c7fa426a-5127-4a1b-830b-327938b4cd66",
+            "@type": "mods:InputData",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d"
+                },
+                {
+                    "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4"
+                },
+                {
+                    "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac"
+                },
+                {
+                    "@id": "cuds:82508471-5c3b-478b-b6dd-6b1b632aebb5"
+                },
+                {
+                    "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:619bb469-696a-44c6-b355-760ddd4bc4a0"
+            }
+        },
+        {
+            "@id": "cuds:73544887-5615-4b3f-bb5f-d474fb8a8afc",
+            "@type": "mods:Variable",
+            "mods:minimum": "None",
+            "mods:type": "output",
+            "mods:weight": "0.1",
+            "mods:maximum": "1.5",
+            "mods:objective": "Minimise",
+            "mods:name": "var5",
+            "mods:isPartOf": {
+                "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42"
+            }
+        },
+        {
+            "@id": "cuds:619bb469-696a-44c6-b355-760ddd4bc4a0",
+            "@type": "mods:MultiObjectiveSimulation",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:e0553141-d0ed-4229-8d6f-9008efcf227c"
+                },
+                {
+                    "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42"
+                },
+                {
+                    "@id": "cuds:c7fa426a-5127-4a1b-830b-327938b4cd66"
+                }
+            ]
+        },
+        {
+            "@id": "cuds:56ec9fad-0a71-4899-ac29-4ca2944d81da",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var5",
+            "mods:value": "1.7",
+            "mods:isPartOf": {
+                "@id": "cuds:a3365a7c-325c-474b-9ada-a859dbfcaf65"
+            }
+        },
+        {
+            "@id": "cuds:ccfec7ee-0351-4ea3-b110-81f8f11b88f4",
+            "@type": "mods:DataPoint",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:5a2fc9fd-5f0a-4045-a09a-7e6df451e845"
+                },
+                {
+                    "@id": "cuds:974c6e01-377c-467c-b090-20b985c232d4"
+                },
+                {
+                    "@id": "cuds:e8a38cc7-d5df-436c-ae5b-375108d8b785"
+                },
+                {
+                    "@id": "cuds:05c5305a-8cf9-4d9a-8ef9-1f9e4b7a7cf8"
+                },
+                {
+                    "@id": "cuds:362825eb-d668-495f-aa73-31301ea207e2"
+                },
+                {
+                    "@id": "cuds:dd74ea78-80cb-458d-a629-01f20fc81250"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:c7fa426a-5127-4a1b-830b-327938b4cd66"
+            }
+        },
+        {
+            "@id": "cuds:2b11d20c-5296-4956-954c-9d9f57320f42",
+            "@type": "mods:Algorithm",
+            "mods:type": "MOO",
+            "mods:name": "algorithm2",
+            "mods:saveSurrogate": false,
+            "mods:maxNumberOfResults": "10",
+            "mods:surrogateToLoad": "None",
+            "mods:hasPart": [
+                {
+                    "@id": "cuds:870fff63-7f97-482b-81b3-21cf64747fba"
+                },
+                {
+                    "@id": "cuds:78178f8c-e7a9-4fd4-a59e-6962c166ace3"
+                },
+                {
+                    "@id": "cuds:b007a3cd-0e26-4d35-af04-9580d41dbe30"
+                },
+                {
+                    "@id": "cuds:3a11dd7c-a4fb-46e8-a2f0-2c7a4985b42b"
+                },
+                {
+                    "@id": "cuds:73544887-5615-4b3f-bb5f-d474fb8a8afc"
+                },
+                {
+                    "@id": "cuds:df376155-ea65-4f50-963f-688105af00c3"
+                }
+            ],
+            "mods:isPartOf": {
+                "@id": "cuds:619bb469-696a-44c6-b355-760ddd4bc4a0"
+            }
+        },
+        {
+            "@id": "cuds:4f3c0c73-52f9-4bbd-bb6f-8646e8685962",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var5",
+            "mods:value": "1.0",
+            "mods:isPartOf": {
+                "@id": "cuds:a7f8427a-e385-41f1-afd8-62233a45fcac"
+            }
+        },
+        {
+            "@id": "cuds:0b4f8b92-d103-4c65-9aed-f8741926cc0b",
+            "@type": "mods:DataPointItem",
+            "mods:name": "var6",
+            "mods:value": "2.5",
+            "mods:isPartOf": {
+                "@id": "cuds:ebcbdc66-4ce2-4832-b02b-9375827cc19d"
+            }
+        }
+    ],
+    "@context": {
+        "owl": "http://www.w3.org/2002/07/owl#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "cuba": "http://www.osp-core.com/cuba#",
+        "ns1": "http://www.w3.org/2004/02/skos/core#",
+        "amiiiparam": "http://www.osp-core.com/amiiiparam#",
+        "amiii": "http://www.osp-core.com/amiii#",
+        "mods": "http://www.osp-core.com/mods#",
+        "cuds": "http://www.osp-core.com/cuds#"
+    }
+}
