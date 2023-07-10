@@ -18,8 +18,6 @@ from fastapi_plugins import (
 from pydantic import BaseSettings
 from app.cache_utils import read_cache_as_string
 
-import osp.ontology as opath
-
 from .models import AppConfig, Status
 
 MIME_TYPES = ["text/turtle", "application/ld+json"]
@@ -35,9 +33,11 @@ logger = logging.getLogger(__name__)
 def get_file(
     filename: str, failure_message: str, media_type: str = "application/json"
 ) -> Response:
-    path = os.path.join(*opath.__path__, filename)
+    path = filename
+    logger.info("Getting file %s", path)
     if not os.path.exists(path):
-        raise HTTPException(status_code=404, detail=failure_message)
+        raise HTTPException(
+            status_code=404, detail=f"{failure_message} for file {path}")
     with open(path, "r") as file:
         content = file.read()
     return Response(content=content, media_type=media_type)
