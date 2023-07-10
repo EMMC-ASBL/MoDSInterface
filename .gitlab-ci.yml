@@ -19,3 +19,12 @@ docker-build-wrapper:
     - docker info
     - source .env && docker build --build-arg GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} --build-arg YML_FILE=$YML_FILE --build-arg EXTRA_INDEX_URL=$EXTRA_INDEX_URL --target production -t $IMAGE_TAG  .
     - docker push $IMAGE_TAG
+
+tests:integration:
+  stage: test
+  image: docker:20.10.23-dind
+  script:
+    - docker-compose up -d
+    - docker exec /mods-interface-simphony_server-1 sh -c "pytest"
+  after_script:
+    - docker compose rm -vsf
