@@ -16,10 +16,8 @@ docker-build-wrapper:
   tags:
     - docker
   script:
-    - IMAGE_TAG=$CI_REGISTRY_IMAGE/$CI_BUILD_REF_SLUG:wrapper-agent-$SIM_CMCL_MODS_WRAPPER_VERSION
-    - docker info
-    - source .env && docker build --build-arg GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} --build-arg YML_FILE=$YML_FILE --build-arg EXTRA_INDEX_URL=$EXTRA_INDEX_URL --target production -t $IMAGE_TAG  .
-    - docker push $IMAGE_TAG
+    - GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} docker compose build
+    - docker compose push
 
 tests-integration:
   stage: test
