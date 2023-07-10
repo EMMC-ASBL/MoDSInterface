@@ -27,7 +27,7 @@ tests-integration:
   tags:
     - docker
   script:
-    - docker-compose up -d
+    - GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} docker-compose up -d
     - docker exec /mods-interface-simphony_server-1 sh -c "pytest"
   after_script:
     - docker compose rm -vsf
