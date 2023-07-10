@@ -17,9 +17,9 @@ COPY . .
 
 RUN pip install -r requirements.txt
 RUN pip install -r tests/test_requirements.txt
+RUN pip install -r app/tests/requirements.txt
 RUN pip install .
-WORKDIR /app/osp/ontology
-RUN pico install ${YML_FILE}
+RUN pico install ontology.mods.yml
 
 WORKDIR /app
 RUN chmod 0700 ./docker_entrypoint.sh
