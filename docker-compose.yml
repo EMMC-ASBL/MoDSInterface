@@ -92,7 +92,10 @@ services:
       - otenet
 
   mock_agent:
-    image: registry.gitlab.cc-asp.fraunhofer.de/ontotrans/interfaces/cmcl-interfaces/app4-mods-interface:mods-agent-${MODS_MOCK_AGENT_VERSION}
+    image: registry.gitlab.cc-asp.fraunhofer.de/ontotrans/interfaces/cmcl-interfaces/mods-interface:mods-agent-${MODS_MOCK_AGENT_VERSION}
+    build:
+      context: ./tests/mods_mock_agent
+      target: production
     cap_drop:
       - ALL
     networks:
