@@ -5,7 +5,7 @@ with open("README.md", "r") as readme:
     README_TEXT = readme.read()
 
 ENV_VARS = {}
-with open(".env", "r") as fenv:
+with open(".env.template", "r") as fenv:
     for line in fenv:
         key, val = line.strip().split("=")
         ENV_VARS[key] = val
