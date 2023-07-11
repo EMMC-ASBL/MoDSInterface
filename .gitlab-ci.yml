@@ -10,13 +10,14 @@ services:
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - cp .env.template .env
+  - source .env
 
 docker-build-wrapper:
   stage: build
   tags:
     - docker
   script:
-    - GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} docker compose build
+    - GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} SIM_CMCL_MODS_WRAPPER_VERSION=${SIM_CMCL_MODS_WRAPPER_VERSION}-${CI_BUILD_REF_SLUG} MODS_MOCK_AGENT_VERSION=${MODS_MOCK_AGENT_VERSION}-${CI_BUILD_REF_SLUG} docker compose build
     - docker compose push
 
 tests-integration:
@@ -25,7 +26,7 @@ tests-integration:
   tags:
     - docker
   script:
-    - GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} docker-compose up -d
+    - GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} SIM_CMCL_MODS_WRAPPER_VERSION=${SIM_CMCL_MODS_WRAPPER_VERSION}-${CI_BUILD_REF_SLUG} MODS_MOCK_AGENT_VERSION=${MODS_MOCK_AGENT_VERSION}-${CI_BUILD_REF_SLUG} docker-compose up -d
     - docker exec /mods-interface-simphony_server-1 sh -c "pytest"
   after_script:
     - docker compose rm -vsf
