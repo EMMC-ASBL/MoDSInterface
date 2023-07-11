@@ -11,13 +11,16 @@ before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - cp .env.template .env
   - source .env
+  - export GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN}
+  - export SIM_CMCL_MODS_WRAPPER_VERSION=${SIM_CMCL_MODS_WRAPPER_VERSION}-${CI_BUILD_REF_SLUG}
+  - export MODS_MOCK_AGENT_VERSION=${MODS_MOCK_AGENT_VERSION}-${CI_BUILD_REF_SLUG}
 
 docker-build-wrapper:
   stage: build
   tags:
     - docker
   script:
-    - GITLAB_ACCESS_TOKEN=${CI_JOB_TOKEN} SIM_CMCL_MODS_WRAPPER_VERSION=${SIM_CMCL_MODS_WRAPPER_VERSION}-${CI_BUILD_REF_SLUG} MODS_MOCK_AGENT_VERSION=${MODS_MOCK_AGENT_VERSION}-${CI_BUILD_REF_SLUG} docker compose build
+    - docker compose build
     - docker compose push
 
 tests-integration:
