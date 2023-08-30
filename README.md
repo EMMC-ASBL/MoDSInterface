@@ -1,8 +1,8 @@
 <img align="right" src="cmcl_logo.png" alt="CMCL Logo">
 
-# OntoTrans MoDS Wrapper
+# MoDS Wrapper
 
-[SimPhoNy](https://github.com/simphony)-based implementation of the OntoTrans MoDS wrapper.
+[SimPhoNy](https://github.com/simphony)-based implementation of the MoDS wrapper.
 
 The wrapper currently supports the Multi Objective Optimization feature (MOO). The wrapper workflow is as follows:
 - semantic (CUDS) to syntactic (JSON) translation of the input data
