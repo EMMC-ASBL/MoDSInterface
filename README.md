@@ -66,4 +66,4 @@ Testing is done using python's `pytest` module. The following command would, spi
 ```
 
 # Contact
-For questions, issues, or suggestions, please contact danieln@cmclinnovations.com and gbrownbridge@cmclinnovations.com
+For questions, issues, or suggestions, please contact scourtney@cmcl.io and gbrownbridge@cmcl.io.
