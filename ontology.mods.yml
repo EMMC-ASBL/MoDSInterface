@@ -1,5 +1,5 @@
 ---
-version: "0.0.9"
+version: "0.0.10"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -44,6 +44,10 @@ ontology:
           range: mods.ParetoFront
 
   HighDimensionalModelRepresentationSimulation:
+    subclass_of:
+      - mods.Simulation
+
+  DeepKernelLearningSimulation:
     subclass_of:
       - mods.Simulation
 
