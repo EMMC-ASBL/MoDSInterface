@@ -44,11 +44,15 @@ class MoDS_Engine:
         hdmr_class = search.find_cuds_objects_by_oclass(
          mods.HighDimensionalModelRepresentationSimulation, root_cuds_object, rel=None
         )  # type: ignore
-        
+
+        dkl_class = search.find_cuds_objects_by_oclass(
+         mods.DeepKernelLearningSimulation, root_cuds_object, rel=None
+        )  # type: ignore
+
         evaluate_class = search.find_cuds_objects_by_oclass(
          mods.EvaluateSurrogate, root_cuds_object, rel=None
         )  # type: ignore
-        
+
         sensitivity_class = search.find_cuds_objects_by_oclass(
          mods.SensitivityAnalysis, root_cuds_object, rel=None
         )  # type: ignore
@@ -59,6 +63,8 @@ class MoDS_Engine:
             self.simulation_template = engtempl.Engine_Template.MOOonly
         elif hdmr_class:
             self.simulation_template = engtempl.Engine_Template.HDMR
+        elif dkl_class:
+            self.simulation_template = engtempl.Engine_Template.DKL
         elif evaluate_class:
             self.simulation_template = engtempl.Engine_Template.Evaluate
         elif sensitivity_class:

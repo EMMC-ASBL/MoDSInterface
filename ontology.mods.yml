@@ -1,5 +1,5 @@
 ---
-version: "0.0.9"
+version: "0.0.10"
 namespace: "mods"
 author: "CMCL Innovations"
 
@@ -47,6 +47,10 @@ ontology:
     subclass_of:
       - mods.Simulation
 
+  DeepKernelLearningSimulation:
+    subclass_of:
+      - mods.Simulation
+
   MultiObjectiveSimulationOnly:
     subclass_of:
       - mods.Simulation
@@ -63,10 +67,10 @@ ontology:
 
   SensitivityAnalysis:
     subclass_of:
-    - mods.Simulation
-    - mods.hasPart:
-        cardinality: 1
-        range: mods.SensitivityDataSet
+      - mods.Simulation
+      - mods.hasPart:
+          cardinality: 1
+          range: mods.SensitivityDataSet
 
   Algorithm:
     subclass_of:
@@ -102,10 +106,10 @@ ontology:
 
   SensitivityDataSet:
     subclass_of:
-    - mods.OutputData
-    - mods.hasPart:
-        cardinality: some
-        range: mods.Sensitivity
+      - mods.OutputData
+      - mods.hasPart:
+          cardinality: some
+          range: mods.Sensitivity
 
   Sensitivity:
     subclass_of:
@@ -139,7 +143,7 @@ ontology:
 
   SensitivityItem:
     subclass_of:
-    - mods.DataPointItem
+      - mods.DataPointItem
     attributes:
       mods.order:
 
@@ -185,7 +189,7 @@ ontology:
 
   order:
     subclass_of:
-    - mods.value
+      - mods.value
     datatype: INT
 
   name:

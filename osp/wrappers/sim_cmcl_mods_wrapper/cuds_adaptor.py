@@ -46,6 +46,7 @@ class CUDS_Adaptor:
         if simulation_template in {engtempl.Engine_Template.MOO,
                                    engtempl.Engine_Template.MOOonly,
                                    engtempl.Engine_Template.HDMR,
+                                   engtempl.Engine_Template.DKL,
                                    engtempl.Engine_Template.Evaluate,
                                    engtempl.Engine_Template.Sensitivity}:
             logger.info("Registering inputs")
@@ -198,7 +199,7 @@ class CUDS_Adaptor:
                 simulation = root_cuds_object.get(
                     oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
 
-            num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
+            num_values = 0 if len(jsonResults[OUTPUTS_KEY])==0 else len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
                 data_point = mods.DataPoint()
                 for output in jsonResults[OUTPUTS_KEY]:
@@ -218,8 +219,7 @@ class CUDS_Adaptor:
             output_data = mods.OutputData()
             simulation = root_cuds_object.get(
                 oclass=mods.EvaluateSurrogate, rel=cuba.relationship)[0]
-
-            num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
+            num_values = 0 if len(jsonResults[OUTPUTS_KEY])==0 else len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
                 data_point = mods.DataPoint()
                 for output in jsonResults[OUTPUTS_KEY]:
@@ -240,6 +240,10 @@ class CUDS_Adaptor:
         elif simulation_template == engtempl.Engine_Template.HDMR:
             simulation = root_cuds_object.get(
                 oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
+
+        elif simulation_template == engtempl.Engine_Template.DKL:
+            simulation = root_cuds_object.get(
+                oclass=mods.DeepKernelLearningSimulation, rel=cuba.relationship)[0]
 
         elif simulation_template == engtempl.Engine_Template.Sensitivity:
             sensitivity_data_set = mods.SensitivityDataSet()

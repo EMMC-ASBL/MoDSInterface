@@ -4,5 +4,6 @@ class Engine_Template(Enum):
     MOO = 1
     MOOonly = 2
     HDMR = 3
-    Evaluate = 4
-    Sensitivity = 5
+    DKL = 4
+    Evaluate = 5
+    Sensitivity = 6
