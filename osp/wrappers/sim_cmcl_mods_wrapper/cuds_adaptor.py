@@ -46,6 +46,7 @@ class CUDS_Adaptor:
         if simulation_template in {engtempl.Engine_Template.MOO,
                                    engtempl.Engine_Template.MOOonly,
                                    engtempl.Engine_Template.HDMR,
+                                   engtempl.Engine_Template.DKL,
                                    engtempl.Engine_Template.Evaluate,
                                    engtempl.Engine_Template.Sensitivity}:
             logger.info("Registering inputs")
@@ -240,6 +241,10 @@ class CUDS_Adaptor:
         elif simulation_template == engtempl.Engine_Template.HDMR:
             simulation = root_cuds_object.get(
                 oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
+
+        elif simulation_template == engtempl.Engine_Template.DKL:
+            simulation = root_cuds_object.get(
+                oclass=mods.DeepKernelLearningSimulation, rel=cuba.relationship)[0]
 
         elif simulation_template == engtempl.Engine_Template.Sensitivity:
             sensitivity_data_set = mods.SensitivityDataSet()
