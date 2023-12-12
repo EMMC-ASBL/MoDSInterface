@@ -1,6 +1,6 @@
 import logging
 from osp.core.namespaces import mods, cuba
-from osp.core.utils import pretty_print
+from osp.core.utils import pretty_print, export_cuds
 import osp.core.utils.simple_search as search
 import osp.wrappers.sim_cmcl_mods_wrapper.mods_session as ms
 from dotenv import load_dotenv
@@ -73,6 +73,8 @@ def MOO_example():
 
     moo_simulation.add(input_data)
 
+    # export_cuds(moo_simulation, "examples/inputs/moo_input.ttl")
+
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
     with ms.MoDS_Session() as session:
@@ -93,6 +95,8 @@ def MOO_example():
             pretty_print(pareto_front[0])
         if job_id:
             pretty_print(job_id[0])
+
+        # export_cuds(moo_simulation, "examples/outputs/moo_output.ttl")
 
     logger.info("################  End: MoDS MOO Example ################")
 

@@ -1,6 +1,6 @@
 import logging
 from osp.core.namespaces import mods, cuba
-from osp.core.utils import pretty_print
+from osp.core.utils import pretty_print, export_cuds
 import osp.core.utils.simple_search as search
 import osp.wrappers.sim_cmcl_mods_wrapper.mods_session as ms
 from dotenv import load_dotenv
@@ -56,6 +56,8 @@ def HDMR_example():
 
     hdmr_simulation.add(input_data)
 
+    # export_cuds(hdmr_simulation, "examples/inputs/hdmr_input.ttl")
+
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
     with ms.MoDS_Session() as session:
@@ -67,6 +69,8 @@ def HDMR_example():
         job_id = search.find_cuds_objects_by_oclass(
             mods.JobID, wrapper, rel=None
         )
+
+        # export_cuds(hdmr_simulation, "examples/outputs/hdmr_output.ttl")
 
     logger.info("Printing the simulation results.")
 

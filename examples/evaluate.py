@@ -1,6 +1,6 @@
 import logging
 from osp.core.namespaces import mods, cuba
-from osp.core.utils import pretty_print
+from osp.core.utils import pretty_print, export_cuds
 import osp.core.utils.simple_search as search
 import osp.wrappers.sim_cmcl_mods_wrapper.mods_session as ms
 from dotenv import load_dotenv
@@ -67,6 +67,8 @@ def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
 
     ouput_data = None
 
+    # export_cuds(evaluate_simulation, "examples/inputs/evaluate_input.ttl")
+
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
     with ms.MoDS_Session() as session:
@@ -87,6 +89,8 @@ def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
             pretty_print(ouput_data[0])
         if job_id:
             pretty_print(job_id[0])
+
+        # export_cuds(evaluate_simulation, "examples/outputs/evaluate_output.ttl")
 
     logger.info(
         "################  End: MoDS Evaluate Surrogate Example ################")

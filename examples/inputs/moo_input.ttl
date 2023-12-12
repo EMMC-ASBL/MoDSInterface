@@ -1,0 +1,351 @@
+@prefix cuba: <http://www.osp-core.com/cuba#> .
+@prefix mods: <http://www.osp-core.com/mods#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cuba:_serialization rdf:first "fd17fa58-b620-4a51-9d82-3abed01b9c00" .
+
+<http://www.osp-core.com/cuds#0201f129-33d4-4d76-80d3-09591a8b05b9> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> ;
+    mods:name "var6"^^xsd:string ;
+    mods:value "2.1" .
+
+<http://www.osp-core.com/cuds#0361b65e-94d2-45e5-b2fe-539596120c27> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "2.5"^^xsd:string ;
+    mods:name "var6"^^xsd:string ;
+    mods:objective "Maximise"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "0.7"^^xsd:string .
+
+<http://www.osp-core.com/cuds#07e1b2bf-8848-4bc3-bc7e-e427c34615a1> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> ;
+    mods:name "var5"^^xsd:string ;
+    mods:value "1.6" .
+
+<http://www.osp-core.com/cuds#0b01e1d1-4dce-4571-8010-03adad14f665> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c> ;
+    mods:name "var1"^^xsd:string ;
+    mods:value "0.2" .
+
+<http://www.osp-core.com/cuds#1af8cf13-34b8-4545-97ca-c85fc0c69a05> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> ;
+    mods:name "var4"^^xsd:string ;
+    mods:value "0.7" .
+
+<http://www.osp-core.com/cuds#28794519-4f04-4f9e-8edc-2eea3b071223> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c> ;
+    mods:name "var2"^^xsd:string ;
+    mods:value "0.8" .
+
+<http://www.osp-core.com/cuds#2ead79e6-c739-4835-801e-c923b5d6f824> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b> ;
+    mods:name "var1"^^xsd:string ;
+    mods:value "0.6" .
+
+<http://www.osp-core.com/cuds#2fc967ec-991d-4a05-81f0-4ca18063bdeb> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c> ;
+    mods:name "var5"^^xsd:string ;
+    mods:value "1.7" .
+
+<http://www.osp-core.com/cuds#34026c75-cc30-4c18-8958-131418645580> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d> ;
+    mods:name "var3"^^xsd:string ;
+    mods:value "0.1" .
+
+<http://www.osp-core.com/cuds#4670bdf6-3bfc-4c0d-8ad6-3672a0a1dd80> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var3"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#4758a174-ce0f-48d6-ae77-a0a75e88639b> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var6"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#48cd814a-c801-4823-9b52-fb7b03fe359b> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var1"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#49dd1663-3fe2-42ac-9e6b-12addaa54a02> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> ;
+    mods:name "var3"^^xsd:string ;
+    mods:value "0.3" .
+
+<http://www.osp-core.com/cuds#4f17b3d6-4075-4643-b00b-fc41a85f393b> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072> ;
+    mods:maximum "1.5"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var5"^^xsd:string ;
+    mods:objective "Minimise"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "0.1"^^xsd:string .
+
+<http://www.osp-core.com/cuds#503a516d-0f73-4c85-879b-3588d0fde0a0> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d> ;
+    mods:name "var4"^^xsd:string ;
+    mods:value "0.9" .
+
+<http://www.osp-core.com/cuds#50917fe3-89af-48ad-954c-cd37bd7451e2> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "0.5"^^xsd:string ;
+    mods:name "var4"^^xsd:string ;
+    mods:objective "Maximise"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "0.5"^^xsd:string .
+
+<http://www.osp-core.com/cuds#568fb413-215b-462a-8e9c-23b3615401cb> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var1"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#5bdc1543-f352-4260-ab5c-c23cabb94739> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b> ;
+    mods:name "var4"^^xsd:string ;
+    mods:value "0.1" .
+
+<http://www.osp-core.com/cuds#5dddbf76-f74c-48c9-b702-813afd5d6d15> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var2"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#6c3f4441-00cf-4aff-8a8b-751c041b664e> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d> ;
+    mods:name "var1"^^xsd:string ;
+    mods:value "0.3" .
+
+<http://www.osp-core.com/cuds#6fe8ba90-0039-46ab-9497-baab91e4e2ec> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b> ;
+    mods:name "var3"^^xsd:string ;
+    mods:value "0.2" .
+
+<http://www.osp-core.com/cuds#71a999e2-2ebe-4e26-b382-4237a96a4ff8> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c> ;
+    mods:name "var6"^^xsd:string ;
+    mods:value "4.0" .
+
+<http://www.osp-core.com/cuds#7edbfef8-fa68-4764-9117-f2336e8e9c86> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> ;
+    mods:name "var1"^^xsd:string ;
+    mods:value "0.1" .
+
+<http://www.osp-core.com/cuds#83671843-4a6c-41f7-86e7-65dfd4deb945> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d> ;
+    mods:name "var6"^^xsd:string ;
+    mods:value "3.0" .
+
+<http://www.osp-core.com/cuds#86dcab0f-0ec9-448e-9aac-cf5fa3a1db33> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a> ;
+    mods:name "var1"^^xsd:string ;
+    mods:value "0.1" .
+
+<http://www.osp-core.com/cuds#8a8ef519-071a-468b-8340-26944fbae0f2> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var3"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#948345eb-8b15-4b6d-a0ff-55fa384a1680> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b> ;
+    mods:name "var5"^^xsd:string ;
+    mods:value "1.0" .
+
+<http://www.osp-core.com/cuds#99a5cb8c-c487-4d0e-ac1d-ae89eef0dc38> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a> ;
+    mods:name "var6"^^xsd:string ;
+    mods:value "2.5" .
+
+<http://www.osp-core.com/cuds#9a223c07-4b93-4881-a40d-255efba79dec> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c> ;
+    mods:name "var3"^^xsd:string ;
+    mods:value "0.5" .
+
+<http://www.osp-core.com/cuds#9f89ed0a-f2d3-4fe7-bf7b-50e0d5d1adc6> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var5"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#a019c808-a854-4202-b92f-c64c8b204271> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var2"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#a343d705-3326-4d68-85d8-06da5e660bbd> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var4"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#ae93642d-e340-4aa1-8a09-3344e0865ace> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a> ;
+    mods:name "var2"^^xsd:string ;
+    mods:value "0.4" .
+
+<http://www.osp-core.com/cuds#b06132d7-33f7-4707-98ef-d7824ef010cf> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c> ;
+    mods:name "var4"^^xsd:string ;
+    mods:value "0.1" .
+
+<http://www.osp-core.com/cuds#b82d9f6e-eec3-478b-a015-2f30fe5ef8a7> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b> ;
+    mods:name "var2"^^xsd:string ;
+    mods:value "0.0" .
+
+<http://www.osp-core.com/cuds#bb660c88-06b5-44ed-90e6-b7ef9c05914b> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a> ;
+    mods:name "var3"^^xsd:string ;
+    mods:value "0.5" .
+
+<http://www.osp-core.com/cuds#cc62292f-9b12-47b4-8c57-5192cc5643d6> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d> ;
+    mods:name "var5"^^xsd:string ;
+    mods:value "2.0" .
+
+<http://www.osp-core.com/cuds#d047e17e-26aa-42fa-b3a7-0970ccdd81e8> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a> ;
+    mods:name "var4"^^xsd:string ;
+    mods:value "0.1" .
+
+<http://www.osp-core.com/cuds#d2fbb360-f921-4590-8df1-fc0dabca38bc> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> ;
+    mods:name "var2"^^xsd:string ;
+    mods:value "0.1" .
+
+<http://www.osp-core.com/cuds#eaf55e5e-c3d0-4656-b528-07894d83f045> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d> ;
+    mods:name "var2"^^xsd:string ;
+    mods:value "0.9" .
+
+<http://www.osp-core.com/cuds#ed680121-2111-41fe-8df7-7121ba759b6f> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b> ;
+    mods:name "var6"^^xsd:string ;
+    mods:value "1.2" .
+
+<http://www.osp-core.com/cuds#f12251ee-9739-4e93-9dd7-444312aac9ef> a mods:DataPointItem ;
+    mods:isPartOf <http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a> ;
+    mods:name "var5"^^xsd:string ;
+    mods:value "1.2" .
+
+<http://www.osp-core.com/cuds#fd17fa58-b620-4a51-9d82-3abed01b9c00> a mods:MultiObjectiveSimulation ;
+    mods:hasPart <http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072>,
+        <http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f>,
+        <http://www.osp-core.com/cuds#62c2bd48-c44e-4e75-ac61-40f8309d688f> .
+
+<http://www.osp-core.com/cuds#62c2bd48-c44e-4e75-ac61-40f8309d688f> a mods:InputData ;
+    mods:hasPart <http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a>,
+        <http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d>,
+        <http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c>,
+        <http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b>,
+        <http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#fd17fa58-b620-4a51-9d82-3abed01b9c00> .
+
+<http://www.osp-core.com/cuds#2b48a98c-0c0d-49a1-af96-98c740f4f072> a mods:Algorithm ;
+    mods:hasPart <http://www.osp-core.com/cuds#0361b65e-94d2-45e5-b2fe-539596120c27>,
+        <http://www.osp-core.com/cuds#4f17b3d6-4075-4643-b00b-fc41a85f393b>,
+        <http://www.osp-core.com/cuds#50917fe3-89af-48ad-954c-cd37bd7451e2>,
+        <http://www.osp-core.com/cuds#568fb413-215b-462a-8e9c-23b3615401cb>,
+        <http://www.osp-core.com/cuds#8a8ef519-071a-468b-8340-26944fbae0f2>,
+        <http://www.osp-core.com/cuds#a019c808-a854-4202-b92f-c64c8b204271> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#fd17fa58-b620-4a51-9d82-3abed01b9c00> ;
+    mods:maxNumberOfResults "10"^^xsd:string ;
+    mods:name "algorithm2"^^xsd:string ;
+    mods:saveSurrogate false ;
+    mods:surrogateToLoad "None"^^xsd:string ;
+    mods:type "MOO"^^xsd:string .
+
+<http://www.osp-core.com/cuds#4a880bda-21dd-4ba1-be16-da309cc6123a> a mods:DataPoint ;
+    mods:hasPart <http://www.osp-core.com/cuds#86dcab0f-0ec9-448e-9aac-cf5fa3a1db33>,
+        <http://www.osp-core.com/cuds#99a5cb8c-c487-4d0e-ac1d-ae89eef0dc38>,
+        <http://www.osp-core.com/cuds#ae93642d-e340-4aa1-8a09-3344e0865ace>,
+        <http://www.osp-core.com/cuds#bb660c88-06b5-44ed-90e6-b7ef9c05914b>,
+        <http://www.osp-core.com/cuds#d047e17e-26aa-42fa-b3a7-0970ccdd81e8>,
+        <http://www.osp-core.com/cuds#f12251ee-9739-4e93-9dd7-444312aac9ef> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#62c2bd48-c44e-4e75-ac61-40f8309d688f> .
+
+<http://www.osp-core.com/cuds#5838ce23-4696-48e7-b841-8578e9e5ec6f> a mods:Algorithm ;
+    mods:hasPart <http://www.osp-core.com/cuds#4670bdf6-3bfc-4c0d-8ad6-3672a0a1dd80>,
+        <http://www.osp-core.com/cuds#4758a174-ce0f-48d6-ae77-a0a75e88639b>,
+        <http://www.osp-core.com/cuds#48cd814a-c801-4823-9b52-fb7b03fe359b>,
+        <http://www.osp-core.com/cuds#5dddbf76-f74c-48c9-b702-813afd5d6d15>,
+        <http://www.osp-core.com/cuds#9f89ed0a-f2d3-4fe7-bf7b-50e0d5d1adc6>,
+        <http://www.osp-core.com/cuds#a343d705-3326-4d68-85d8-06da5e660bbd> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#fd17fa58-b620-4a51-9d82-3abed01b9c00> ;
+    mods:maxNumberOfResults "None"^^xsd:string ;
+    mods:name "algorithm1"^^xsd:string ;
+    mods:saveSurrogate false ;
+    mods:surrogateToLoad "None"^^xsd:string ;
+    mods:type "GenSurrogateAlg"^^xsd:string .
+
+<http://www.osp-core.com/cuds#6b05ce59-b74a-4656-8479-cae14b14005d> a mods:DataPoint ;
+    mods:hasPart <http://www.osp-core.com/cuds#34026c75-cc30-4c18-8958-131418645580>,
+        <http://www.osp-core.com/cuds#503a516d-0f73-4c85-879b-3588d0fde0a0>,
+        <http://www.osp-core.com/cuds#6c3f4441-00cf-4aff-8a8b-751c041b664e>,
+        <http://www.osp-core.com/cuds#83671843-4a6c-41f7-86e7-65dfd4deb945>,
+        <http://www.osp-core.com/cuds#cc62292f-9b12-47b4-8c57-5192cc5643d6>,
+        <http://www.osp-core.com/cuds#eaf55e5e-c3d0-4656-b528-07894d83f045> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#62c2bd48-c44e-4e75-ac61-40f8309d688f> .
+
+<http://www.osp-core.com/cuds#84b31cad-4f1b-4fa6-a1f9-e1d4da28607c> a mods:DataPoint ;
+    mods:hasPart <http://www.osp-core.com/cuds#0b01e1d1-4dce-4571-8010-03adad14f665>,
+        <http://www.osp-core.com/cuds#28794519-4f04-4f9e-8edc-2eea3b071223>,
+        <http://www.osp-core.com/cuds#2fc967ec-991d-4a05-81f0-4ca18063bdeb>,
+        <http://www.osp-core.com/cuds#71a999e2-2ebe-4e26-b382-4237a96a4ff8>,
+        <http://www.osp-core.com/cuds#9a223c07-4b93-4881-a40d-255efba79dec>,
+        <http://www.osp-core.com/cuds#b06132d7-33f7-4707-98ef-d7824ef010cf> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#62c2bd48-c44e-4e75-ac61-40f8309d688f> .
+
+<http://www.osp-core.com/cuds#b6b3c6a4-9e7f-439b-b75a-f8cdd39ca96b> a mods:DataPoint ;
+    mods:hasPart <http://www.osp-core.com/cuds#2ead79e6-c739-4835-801e-c923b5d6f824>,
+        <http://www.osp-core.com/cuds#5bdc1543-f352-4260-ab5c-c23cabb94739>,
+        <http://www.osp-core.com/cuds#6fe8ba90-0039-46ab-9497-baab91e4e2ec>,
+        <http://www.osp-core.com/cuds#948345eb-8b15-4b6d-a0ff-55fa384a1680>,
+        <http://www.osp-core.com/cuds#b82d9f6e-eec3-478b-a015-2f30fe5ef8a7>,
+        <http://www.osp-core.com/cuds#ed680121-2111-41fe-8df7-7121ba759b6f> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#62c2bd48-c44e-4e75-ac61-40f8309d688f> .
+
+<http://www.osp-core.com/cuds#e63f6c18-c11a-4485-9890-609d787552ca> a mods:DataPoint ;
+    mods:hasPart <http://www.osp-core.com/cuds#0201f129-33d4-4d76-80d3-09591a8b05b9>,
+        <http://www.osp-core.com/cuds#07e1b2bf-8848-4bc3-bc7e-e427c34615a1>,
+        <http://www.osp-core.com/cuds#1af8cf13-34b8-4545-97ca-c85fc0c69a05>,
+        <http://www.osp-core.com/cuds#49dd1663-3fe2-42ac-9e6b-12addaa54a02>,
+        <http://www.osp-core.com/cuds#7edbfef8-fa68-4764-9117-f2336e8e9c86>,
+        <http://www.osp-core.com/cuds#d2fbb360-f921-4590-8df1-fc0dabca38bc> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#62c2bd48-c44e-4e75-ac61-40f8309d688f> .
+

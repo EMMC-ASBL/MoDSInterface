@@ -1,0 +1,87 @@
+@prefix cuba: <http://www.osp-core.com/cuba#> .
+@prefix mods: <http://www.osp-core.com/mods#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cuba:_serialization rdf:first "1882580d-6306-4a27-b46f-7aba57412ac1" .
+
+<http://www.osp-core.com/cuds#32f0893a-116d-4e91-acb4-53b92d1252b4> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var3"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#5637bef0-480a-4dce-a6d4-ccc8c8570002> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885> ;
+    mods:maximum "1.5"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var5"^^xsd:string ;
+    mods:objective "Minimise"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "0.1"^^xsd:string .
+
+<http://www.osp-core.com/cuds#8976da79-e407-48f8-bab4-0771b2ec4b26> a mods:Algorithm ;
+    mods:isPartOf <http://www.osp-core.com/cuds#1882580d-6306-4a27-b46f-7aba57412ac1> ;
+    mods:maxNumberOfResults "None"^^xsd:string ;
+    mods:name "algorithm1"^^xsd:string ;
+    mods:saveSurrogate false ;
+    mods:surrogateToLoad "mods-sim-8606989784878733752"^^xsd:string ;
+    mods:type "GenSurrogateAlg"^^xsd:string .
+
+<http://www.osp-core.com/cuds#aff37fb0-7dd3-4329-8b7b-5a0123a863da> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var1"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#ba54dc34-92ab-4065-8ecc-98366a5efa64> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var2"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#dfcec4b1-2780-4dac-b96c-7caef5622030> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "2.5"^^xsd:string ;
+    mods:name "var6"^^xsd:string ;
+    mods:objective "Maximise"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "0.7"^^xsd:string .
+
+<http://www.osp-core.com/cuds#f2fffa2a-dc65-41d3-8060-660f76ac9fee> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "0.5"^^xsd:string ;
+    mods:name "var4"^^xsd:string ;
+    mods:objective "Maximise"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "0.5"^^xsd:string .
+
+<http://www.osp-core.com/cuds#1882580d-6306-4a27-b46f-7aba57412ac1> a mods:MultiObjectiveSimulationOnly ;
+    mods:hasPart <http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885>,
+        <http://www.osp-core.com/cuds#8976da79-e407-48f8-bab4-0771b2ec4b26> .
+
+<http://www.osp-core.com/cuds#38a22cf8-2204-427d-8310-6abc510f6885> a mods:Algorithm ;
+    mods:hasPart <http://www.osp-core.com/cuds#32f0893a-116d-4e91-acb4-53b92d1252b4>,
+        <http://www.osp-core.com/cuds#5637bef0-480a-4dce-a6d4-ccc8c8570002>,
+        <http://www.osp-core.com/cuds#aff37fb0-7dd3-4329-8b7b-5a0123a863da>,
+        <http://www.osp-core.com/cuds#ba54dc34-92ab-4065-8ecc-98366a5efa64>,
+        <http://www.osp-core.com/cuds#dfcec4b1-2780-4dac-b96c-7caef5622030>,
+        <http://www.osp-core.com/cuds#f2fffa2a-dc65-41d3-8060-660f76ac9fee> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#1882580d-6306-4a27-b46f-7aba57412ac1> ;
+    mods:maxNumberOfResults "10"^^xsd:string ;
+    mods:name "algorithm2"^^xsd:string ;
+    mods:saveSurrogate false ;
+    mods:surrogateToLoad "None"^^xsd:string ;
+    mods:type "MOO"^^xsd:string .
+

@@ -1,0 +1,78 @@
+@prefix cuba: <http://www.osp-core.com/cuba#> .
+@prefix mods: <http://www.osp-core.com/mods#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cuba:_serialization rdf:first "d0ad6237-485c-4287-8cee-2df9c8d9a265" .
+
+<http://www.osp-core.com/cuds#287d8450-c664-4bc0-abc0-172e35e7225d> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var1"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#77ef652e-9d10-4d00-a176-7b1ec7a69611> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var6"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#8e72f44a-1515-434e-9e60-e6cb1f833664> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var4"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#d0ad6237-485c-4287-8cee-2df9c8d9a265> a mods:SensitivityAnalysis ;
+    mods:hasPart <http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> .
+
+<http://www.osp-core.com/cuds#d19e10ee-453c-46d1-8898-a8eba2f47740> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var3"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#dde76e68-4154-4e9d-9273-990f0ad69228> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var2"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "input"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#ef9f3c03-4434-4acf-a212-5ade7f3c101b> a mods:Variable ;
+    mods:isPartOf <http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> ;
+    mods:maximum "None"^^xsd:string ;
+    mods:minimum "None"^^xsd:string ;
+    mods:name "var5"^^xsd:string ;
+    mods:objective "None"^^xsd:string ;
+    mods:type "output"^^xsd:string ;
+    mods:weight "None"^^xsd:string .
+
+<http://www.osp-core.com/cuds#7e2b92bd-c44e-4ee3-913e-134b90974560> a mods:Algorithm ;
+    mods:hasPart <http://www.osp-core.com/cuds#287d8450-c664-4bc0-abc0-172e35e7225d>,
+        <http://www.osp-core.com/cuds#77ef652e-9d10-4d00-a176-7b1ec7a69611>,
+        <http://www.osp-core.com/cuds#8e72f44a-1515-434e-9e60-e6cb1f833664>,
+        <http://www.osp-core.com/cuds#d19e10ee-453c-46d1-8898-a8eba2f47740>,
+        <http://www.osp-core.com/cuds#dde76e68-4154-4e9d-9273-990f0ad69228>,
+        <http://www.osp-core.com/cuds#ef9f3c03-4434-4acf-a212-5ade7f3c101b> ;
+    mods:isPartOf <http://www.osp-core.com/cuds#d0ad6237-485c-4287-8cee-2df9c8d9a265> ;
+    mods:maxNumberOfResults "None"^^xsd:string ;
+    mods:name "algorithm1"^^xsd:string ;
+    mods:saveSurrogate false ;
+    mods:surrogateToLoad "mods-sim-8606989784878733752"^^xsd:string ;
+    mods:type "GenSurrogateAlg"^^xsd:string .
+

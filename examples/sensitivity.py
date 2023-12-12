@@ -1,6 +1,6 @@
 import logging
 from osp.core.namespaces import mods, cuba
-from osp.core.utils import pretty_print
+from osp.core.utils import pretty_print, export_cuds
 import osp.core.utils.simple_search as search
 import osp.wrappers.sim_cmcl_mods_wrapper.mods_session as ms
 from dotenv import load_dotenv
@@ -41,6 +41,8 @@ def sensitivity_example(surrogateToLoad="mods-sim-8606989784878733752"):
 
     sensitivities = None
 
+    # export_cuds(sensitivity_simulation, "examples/inputs/sensitivity_input.ttl")
+
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
     with ms.MoDS_Session() as session:
@@ -61,6 +63,8 @@ def sensitivity_example(surrogateToLoad="mods-sim-8606989784878733752"):
             pretty_print(sensitivities[0])
         if job_id:
             pretty_print(job_id[0])
+
+        # export_cuds(sensitivity_simulation, "examples/outputs/sensitivity_output.ttl")
 
     logger.info(
         "################  End: MoDS Sensitivity Analysis Example ################")
