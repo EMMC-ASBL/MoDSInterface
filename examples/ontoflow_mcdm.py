@@ -1,6 +1,6 @@
 import logging
 from osp.core.namespaces import mods, cuba
-from osp.core.utils import pretty_print
+from osp.core.utils import pretty_print, export_cuds
 import osp.core.utils.simple_search as search
 import osp.wrappers.sim_cmcl_mods_wrapper.mods_session as ms
 from dotenv import load_dotenv
@@ -64,6 +64,8 @@ def OntoFlow_MCDM_example():
         input_data.add(data_point, rel=mods.hasPart)
 
     mcdm_simulation.add(input_data)
+    
+    export_cuds(mcdm_simulation,file="ontoflow_mcdm_input.ttl",format="ttl")
 
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
@@ -72,6 +74,8 @@ def OntoFlow_MCDM_example():
         wrapper = cuba.wrapper(session=session)
         wrapper.add(mcdm_simulation, rel=cuba.relationship)
         wrapper.session.run()
+        
+        sim = search.find_cuds_objects_by_oclass(mods.Simulation, wrapper, rel=None)[0]
 
         pareto_front = search.find_cuds_objects_by_oclass(
             mods.ParetoFront, wrapper, rel=None
@@ -89,6 +93,8 @@ def OntoFlow_MCDM_example():
 
     logger.info(
         "################ End: MoDS OntoFlow MCDM Example ################")
+    
+    export_cuds(pareto_front[0],file="ontoflow_mcdm_output.ttl",format="ttl")
 
     return job_id
 
