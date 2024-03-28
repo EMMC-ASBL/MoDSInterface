@@ -5,6 +5,7 @@ import time
 from typing import Optional, Dict
 import logging
 import os
+import io
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +46,7 @@ class Agent_Bridge:
             Resulting JSON data objects (or None if error occurs)
         """
         os.environ['NO_PROXY'] = self.base_url
-        logger.info(f"MoDS enpoint: {os.environ['MODS_AGENT_BASE_URL']}")
+        logger.info(f"MoDS endpoint: {os.environ['MODS_AGENT_BASE_URL']}")
         
         logger.info("Submitting job")
         submit_message = self.submitJob(jsonString)
@@ -90,7 +91,12 @@ class Agent_Bridge:
         url = self.buildSubmissionURL(jsonString)
 
         # Submit the request and get the response
-        response = requests.get(url)
+        # If the URL is long, submit request with a JSON file
+        if len(url)<1000:
+            response = requests.get(url)
+        else:
+            my_file = io.BytesIO(json.dumps(json.loads(jsonString),indent=2).encode())
+            response = requests.post(self.base_url+"filerequest",files={"file":my_file})
 
         # Check the HTTP return code
         if(response.status_code != 200):
