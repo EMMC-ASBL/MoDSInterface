@@ -15,10 +15,10 @@ class Agent_Bridge:
     """
 
     # Polling interval when waiting or jobs to finish (seconds)
-    POLL_INTERVAL: int = 10
+    POLL_INTERVAL: int = 5
 
     # Maximum number of requests when waiting for jobs to finish
-    MAX_ATTEMPTS: int = 60
+    MAX_ATTEMPTS: int = 120
 
     # Additional URL part for job submission
     SUBMISSION_URL_PART: str = "request?query="

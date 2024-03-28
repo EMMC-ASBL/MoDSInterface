@@ -67,8 +67,15 @@ def HDMR_example():
         job_id = search.find_cuds_objects_by_oclass(
             mods.JobID, wrapper, rel=None
         )
+        
+        sim = search.find_cuds_objects_by_oclass(
+            mods.Simulation, wrapper, rel=None
+        )
 
     logger.info("Printing the simulation results.")
+    
+    if sim:
+        pretty_print(sim[0])
 
     if job_id:
         pretty_print(job_id[0])
