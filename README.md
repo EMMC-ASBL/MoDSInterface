@@ -15,11 +15,11 @@ The mock version of the MoDS web agent is additionally provided for testing and 
 
 # Requirements
 - Python 3.8 (or higher)
-- [SimPhoNy](https://github.com/simphony/osp-core)
+- [SimPhoNy 3.8](https://github.com/simphony/simphony-osp/tree/v3.8.0)
 
 # Installation - docker
 
-A convenience `docker_install.sh` script has been provided that creates the `cmcl/sim_cmcl_mods_wrapper` image.
+A convenient `docker_install.sh` script has been provided that creates the `cmcl/sim_cmcl_mods_wrapper` image.
 
 ```bash
     # build the cmcl/sim_cmcl_mods_wrapper image
@@ -41,7 +41,7 @@ Please follow these steps to install the wrapper on your machine (using the virt
 
 # Usage
 
-The mods wrapper can be used by either running it in a docker container or locally. In case of the docker container option, a convenience `run_container.sh` script has been provided to simplify this task:
+The mods wrapper can be used by either running it in a docker container or locally. In case of the docker container option, a convenient `run_container.sh` script has been provided to simplify this task:
 
 ```bash
    # run the sim_cmcl_mods_wrapper container and open its bash terminal
@@ -52,7 +52,6 @@ Regardless of the docker or local machine option for building and running the wr
 
 ```bash
    python examples/moo.py
-   python examples/moo_analytic.py
 ```
 
 Please note that the above examples depend on the mods agent instance being up and running on CMCL servers.

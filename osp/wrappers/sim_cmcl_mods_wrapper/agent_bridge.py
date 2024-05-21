@@ -5,6 +5,7 @@ import time
 from typing import Optional, Dict
 import logging
 import os
+import io
 
 logger = logging.getLogger(__name__)
 
@@ -15,10 +16,10 @@ class Agent_Bridge:
     """
 
     # Polling interval when waiting or jobs to finish (seconds)
-    POLL_INTERVAL: int = 10
+    POLL_INTERVAL: int = 5
 
     # Maximum number of requests when waiting for jobs to finish
-    MAX_ATTEMPTS: int = 60
+    MAX_ATTEMPTS: int = 120
 
     # Additional URL part for job submission
     SUBMISSION_URL_PART: str = "request?query="
@@ -45,8 +46,8 @@ class Agent_Bridge:
             Resulting JSON data objects (or None if error occurs)
         """
         os.environ['NO_PROXY'] = self.base_url
-        logger.info("MoDS enpoint: %s", os.environ['MODS_AGENT_BASE_URL'])
-
+        logger.info(f"MoDS endpoint: {os.environ['MODS_AGENT_BASE_URL']}")
+        
         logger.info("Submitting job")
         logger.debug("Submission JSON: \n%s", jsonString)
         submit_message = self.submitJob(jsonString)
@@ -95,7 +96,12 @@ class Agent_Bridge:
         logger.debug("Submission URL: %s", url)
 
         # Submit the request and get the response
-        response = requests.get(url)
+        # If the URL is long, submit request with a JSON file
+        if len(url)<1000:
+            response = requests.get(url)
+        else:
+            my_file = io.BytesIO(json.dumps(json.loads(jsonString),indent=2).encode())
+            response = requests.post(self.base_url+"filerequest",files={"file":my_file})
 
         # Check the HTTP return code
         if (response.status_code != 200):

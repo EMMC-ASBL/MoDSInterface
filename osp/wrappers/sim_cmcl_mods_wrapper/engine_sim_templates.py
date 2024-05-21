@@ -8,3 +8,4 @@ class Engine_Template(Enum):
     Evaluate = 4
     Sensitivity = 5
     MCDM = 6
+    SampleSRM = 7

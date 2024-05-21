@@ -10,6 +10,7 @@ from enum import Enum
 
 logger = logging.getLogger(__name__)
 
+
 class MoDS_Engine:
     """Engine handling data objects for the MoDS use cases."""
 
@@ -43,6 +44,10 @@ class MoDS_Engine:
 
         simulation_class = simulation_list[0].oclass
 
+        samplesrm_class = search.find_cuds_objects_by_oclass(
+            mods.SampleSRM, root_cuds_object, rel=None
+        )  # type: ignore
+
         if simulation_class == mods.MultiObjectiveSimulation:
             self.simulation_template = engtempl.Engine_Template.MOO
         elif simulation_class == mods.MultiObjectiveSimulationOnly:
@@ -55,6 +60,8 @@ class MoDS_Engine:
             self.simulation_template = engtempl.Engine_Template.Sensitivity
         elif simulation_class == mods.MultiCriteriaDecisionMaking:
             self.simulation_template = engtempl.Engine_Template.MCDM
+        elif samplesrm_class:
+            self.simulation_template = engtempl.Engine_Template.SampleSRM
         else:
             raise enexc.UnsupportedSimulationType
 
@@ -67,7 +74,8 @@ class MoDS_Engine:
         self.executed = False
 
         # Build the JSON data from the CUDS objects
-        jsonSimCase = CUDS_Adaptor.toJSON(root_cuds_object, self.simulation_template)
+        jsonSimCase = CUDS_Adaptor.toJSON(
+            root_cuds_object, self.simulation_template)
         logger.info("JSON data successfully generated from CUDS objects.")
         return jsonSimCase
 
@@ -76,8 +84,10 @@ class MoDS_Engine:
         function parses them in to CUDS objects."""
 
         # Use the CUDS_Adaptor to fill CUDS objects with results
-        CUDS_Adaptor.toCUDS(root_cuds_object, jsonResults, self.simulation_template)
-        logger.info("CUDS objects have now been populated with simulation results.")
+        CUDS_Adaptor.toCUDS(root_cuds_object, jsonResults,
+                            self.simulation_template)
+        logger.info(
+            "CUDS objects have now been populated with simulation results.")
         self.successful = True
 
     def hasExecuted(self) -> bool:

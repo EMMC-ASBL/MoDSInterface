@@ -13,7 +13,7 @@ logger.handlers[0].setFormatter(
 )
 
 
-def evaluate_example(surrogateToLoad="mods-sim-8606989784878733752"):
+def evaluate_example(surrogateToLoad="example-surrogate"):
     logger.info(
         "################  Start: MoDS Evaluate Surrogate Example ################")
     logger.info("Loading enviroment variables")
