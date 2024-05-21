@@ -13,36 +13,34 @@ logger.handlers[0].setFormatter(
 )
 
 
-def evaluate_example(surrogateToLoad="example-surrogate"):
-    logger.info(
-        "################  Start: MoDS Evaluate Surrogate Example ################")
-    logger.info("Loading enviroment variables")
-    load_dotenv()
+def MCDM_example():
+    logger.info("################  Start: MoDS MCDM Example ################")
     logger.info("Setting up the simulation inputs")
 
-    evaluate_simulation = mods.EvaluateSurrogate()
-
-    hdmr_algorithm = mods.Algorithm(
-        name="algorithm1", type="GenSurrogateAlg", surrogateToLoad=surrogateToLoad, saveSurrogate=False)
-    evaluate_simulation.add(hdmr_algorithm)
-
-    evaluate_algorithm = mods.Algorithm(
-        name="algorithm2", type="SamplingAlg", saveSurrogate=False)
-    evaluate_algorithm.add(
+    mcdm_simulation = mods.MultiCriteriaDecisionMaking()
+    mcdm_algorithm = mods.Algorithm(
+        name="algorithm1", type="MCDM", maxNumberOfResults=10)
+    mcdm_algorithm.add(
         mods.Variable(name="var1", type="input"),
         mods.Variable(name="var2", type="input"),
         mods.Variable(name="var3", type="input"),
-        mods.Variable(name="var4", type="output"),
-        mods.Variable(name="var5", type="output"),
-        mods.Variable(name="var6", type="output"),
+        mods.Variable(name="var4", type="output",
+                      objective="Maximise", minimum="0.2", weight="0.5"),
+        mods.Variable(name="var5", type="output",
+                      objective="Minimise", maximum="2.0", weight="0.1"),
+        mods.Variable(name="var6", type="output",
+                      objective="Maximise", minimum="2.0", weight="0.7"),
     )
 
-    evaluate_simulation.add(evaluate_algorithm)
+    mcdm_simulation.add(mcdm_algorithm)
 
     example_data = [
-        ["var1", "var2", "var3"],
-        [0.15, 0.45, 0.55],
-        [0.35, 0.85, 0.15],
+        ["var1", "var2", "var3", "var4", "var5", "var6"],
+        [0.1, 0.4, 0.5, 0.1, 1.2, 2.5],
+        [0.3, 0.9, 0.1, 0.9, 2.0, 3.0],
+        [0.6, 0.0, 0.2, 0.1, 1.0, 1.2],
+        [0.1, 0.1, 0.3, 0.7, 1.6, 2.1],
+        [0.2, 0.8, 0.5, 0.1, 1.7, 4.0],
     ]
 
     example_data_header = example_data[0]
@@ -59,19 +57,18 @@ def evaluate_example(surrogateToLoad="example-surrogate"):
             )
         input_data.add(data_point, rel=mods.hasPart)
 
-    evaluate_simulation.add(input_data)
-
-    output_data = None
+    mcdm_simulation.add(input_data)
 
     logger.info("Invoking the wrapper session")
     # Construct a wrapper and run a new session
     with ms.MoDS_Session() as session:
+        load_dotenv()
         wrapper = cuba.wrapper(session=session)
-        wrapper.add(evaluate_simulation, rel=cuba.relationship)
+        wrapper.add(mcdm_simulation, rel=cuba.relationship)
         wrapper.session.run()
 
-        output_data = search.find_cuds_objects_by_oclass(
-            mods.OutputData, wrapper, rel=None
+        pareto_front = search.find_cuds_objects_by_oclass(
+            mods.ParetoFront, wrapper, rel=None
         )
         job_id = search.find_cuds_objects_by_oclass(
             mods.JobID, wrapper, rel=None
@@ -79,16 +76,15 @@ def evaluate_example(surrogateToLoad="example-surrogate"):
 
         logger.info("Printing the simulation results.")
 
-        if output_data:
-            pretty_print(output_data[0])
+        if pareto_front:
+            pretty_print(pareto_front[0])
         if job_id:
             pretty_print(job_id[0])
 
-    logger.info(
-        "################  End: MoDS Evaluate Surrogate Example ################")
+    logger.info("################  End: MoDS MCDM Example ################")
 
-    return output_data
+    return job_id
 
 
 if __name__ == "__main__":
-    evaluate_example()
+    MCDM_example()

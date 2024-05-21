@@ -37,17 +37,12 @@ class CUDS_Adaptor:
 
         jsonData = defaultdict(list)
 
-        # atm only MOO simulation template is supported, so the check
-        # below, together with the template concept is not really needed.
-        # However, once things get complicated, e.g. more MoDS backend
-        # features will be supported, the template variable might be useful
-        # for picking predefined CUDStoJSON and JSONtoCUDS translation
-        # functions.
         if simulation_template in {engtempl.Engine_Template.MOO,
                                    engtempl.Engine_Template.MOOonly,
                                    engtempl.Engine_Template.HDMR,
                                    engtempl.Engine_Template.Evaluate,
                                    engtempl.Engine_Template.Sensitivity,
+                                   engtempl.Engine_Template.MCDM,
                                    engtempl.Engine_Template.SampleSRM}:
             logger.info("Registering inputs")
 
@@ -76,11 +71,6 @@ class CUDS_Adaptor:
                     root_cuds_object=root_cuds_object,
                     jsonData=jsonData,
                 )
-
-            CUDS_Adaptor.inputAnalyticModelCUDStoJSON(
-                root_cuds_object=root_cuds_object,
-                jsonData=jsonData,
-            )
 
         jsonDataStr = json.dumps(jsonData)
         return jsonDataStr
@@ -301,8 +291,6 @@ class CUDS_Adaptor:
                 jsonData[INPUTS_KEY].append(
                     {'name': func_item.name, 'formula': func_item.formula})
 
-    simulation = None
-
     @staticmethod
     def toCUDS(
         root_cuds_object, jsonResults: Dict, simulation_template: Enum
@@ -314,21 +302,16 @@ class CUDS_Adaptor:
             logger.warning("Empty JSON output. Nothing to convert.")
             return
 
+        simulation = root_cuds_object.get(
+            oclass=mods.Simulation, rel=cuba.relationship)[0]
+
         logger.info("Registering outputs")
-        if simulation_template == engtempl.Engine_Template.MOO or simulation_template == engtempl.Engine_Template.MOOonly:
+        if simulation_template in {engtempl.Engine_Template.MOO, engtempl.Engine_Template.MOOonly, engtempl.Engine_Template.MCDM}:
 
             ParetoFront = mods.ParetoFront()
 
-            if simulation_template == engtempl.Engine_Template.MOOonly:
-                simulation = root_cuds_object.get(
-                    oclass=mods.MultiObjectiveSimulationOnly, rel=cuba.relationship)[0]
-            else:
-                simulation = root_cuds_object.get(
-                    oclass=mods.MultiObjectiveSimulation, rel=cuba.relationship)[0]
-
-            num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
-            for i in range(num_values):
-                data_point = mods.DataPoint()
+            for i in range(0 if len(jsonResults[OUTPUTS_KEY]) == 0 else len(jsonResults[OUTPUTS_KEY][0]["values"])):
+                data_point = mods.RankedDataPoint(ranking=i+1)
                 for output in jsonResults[OUTPUTS_KEY]:
                     out_value = output["values"][i]
                     out_name = output["name"]
@@ -344,8 +327,6 @@ class CUDS_Adaptor:
 
         elif simulation_template == engtempl.Engine_Template.Evaluate:
             output_data = mods.OutputData()
-            simulation = root_cuds_object.get(
-                oclass=mods.EvaluateSurrogate, rel=cuba.relationship)[0]
             
             input_data = simulation.get(
                 oclass=mods.InputData, rel=None)[0]
@@ -401,13 +382,10 @@ class CUDS_Adaptor:
             simulation.add(output_data)
 
         elif simulation_template == engtempl.Engine_Template.HDMR:
-            simulation = root_cuds_object.get(
-                oclass=mods.HighDimensionalModelRepresentationSimulation, rel=cuba.relationship)[0]
+            pass
 
         elif simulation_template == engtempl.Engine_Template.Sensitivity:
             sensitivity_data_set = mods.SensitivityDataSet()
-            simulation = root_cuds_object.get(
-                oclass=mods.SensitivityAnalysis, rel=cuba.relationship)[0]
 
             for sensitivity_dict in jsonResults[SENSITIVITIES_KEY]:
                 sensitivity = mods.Sensitivity(name=sensitivity_dict["name"])
