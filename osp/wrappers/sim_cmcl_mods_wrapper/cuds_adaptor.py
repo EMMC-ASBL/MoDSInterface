@@ -19,7 +19,8 @@ ALGORITHMS_KEY = "Algorithms"
 SIM_TYPE_KEY = "SimulationType"
 SAVE_SURROGATE_KEY = "saveSurrogate"
 SURROGATE_TO_LOAD_KEY = "surrogateToLoad"
-OPTIONAL_ATTRS = ["objective", "maximum", "minimum", "weight", "path", "nParams"]
+OPTIONAL_ATTRS = ["objective", "maximum",
+                  "minimum", "weight", "path", "nParams"]
 
 
 class CUDS_Adaptor:
@@ -111,9 +112,10 @@ class CUDS_Adaptor:
                         opt_attr_value = getattr(var_item, opt_attr, "None")
                         if opt_attr_value != "None":
                             variables[opt_attr] = opt_attr_value
-                    initialreaddetail=var_item.get(oclass=mods.InitialReadDetail)
+                    initialreaddetail = var_item.get(
+                        oclass=mods.InitialReadDetail)
                     if initialreaddetail:
-                        variables["initialReadDetail"]={
+                        variables["initialReadDetail"] = {
                             "x_column": initialreaddetail[0].x_column,
                             "y_column": initialreaddetail[0].y_column,
                             "x_value": initialreaddetail[0].x_value,
@@ -124,9 +126,10 @@ class CUDS_Adaptor:
                             "lb_append": initialreaddetail[0].lb_append,
                             "ub_append": initialreaddetail[0].ub_append
                         }
-                    workingreaddetail=var_item.get(oclass=mods.WorkingReadDetail)
+                    workingreaddetail = var_item.get(
+                        oclass=mods.WorkingReadDetail)
                     if workingreaddetail:
-                        variables["workingReadDetail"]={
+                        variables["workingReadDetail"] = {
                             "x_column": workingreaddetail[0].x_column,
                             "y_column": workingreaddetail[0].y_column,
                             "x_value": workingreaddetail[0].x_value,
@@ -181,7 +184,7 @@ class CUDS_Adaptor:
 
         for name, values in json_items.items():
             jsonData[INPUTS_KEY].append({'name': name, 'values': values})
-    
+
     @staticmethod
     def outputDataCUDStoJSON(root_cuds_object, jsonData):
         outputData: List[Cuds] = search.find_cuds_objects_by_oclass(
@@ -232,8 +235,8 @@ class CUDS_Adaptor:
                     "Missing Files specification."
                 )
             )
-        jsonData["Files"]=[f.file for f in Files]
-    
+        jsonData["Files"] = [f.file for f in Files]
+
     @staticmethod
     def ModelInputsCUDStoJSON(root_cuds_object, jsonData):
         modelInputs: List[Cuds] = search.find_cuds_objects_by_oclass(
@@ -269,11 +272,12 @@ class CUDS_Adaptor:
 
                 for dat_item in datum_items:  # type: ignore
                     json_items[dat_item.name].append(dat_item.value)
-            data=[]
-        
+            data = []
+
             for name, values in json_items.items():
                 data.append({'name': name, 'values': values})
-            jsonData["ModelInputs"].append({'path':modelInput.path, 'data':data})
+            jsonData["ModelInputs"].append(
+                {'path': modelInput.path, 'data': data})
 
     @staticmethod
     def inputAnalyticModelCUDStoJSON(root_cuds_object, jsonData):
@@ -327,13 +331,13 @@ class CUDS_Adaptor:
 
         elif simulation_template == engtempl.Engine_Template.Evaluate:
             output_data = mods.OutputData()
-            
+
             input_data = simulation.get(
                 oclass=mods.InputData, rel=None)[0]
-            
+
             input_data_points = input_data.get(
                 oclass=mods.DataPoint, rel=mods.hasPart)
-            
+
             num_values = len(jsonResults[OUTPUTS_KEY][0]["values"])
             for i in range(num_values):
                 data_point = mods.DataPoint()
@@ -350,14 +354,14 @@ class CUDS_Adaptor:
                     input_data_points[i],
                     rel=mods.isDerivedFrom,
                 )
-                    
+
                 output_data.add(
                     data_point,
                     rel=mods.hasPart,
                 )
 
             simulation.add(output_data)
-        
+
         elif simulation_template == engtempl.Engine_Template.SampleSRM:
             output_data = mods.OutputData()
             simulation = root_cuds_object.get(
