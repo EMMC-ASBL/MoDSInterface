@@ -6,4 +6,4 @@ import logging
 
 logging.getLogger("osp.core").setLevel(logging.ERROR)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
